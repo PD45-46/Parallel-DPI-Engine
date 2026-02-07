@@ -3,95 +3,59 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 #include <ctype.h>
+#include "../include/protocol_headers.h"
+#include <pthread.h>
 
-// Ethernet header (always 14 bytes)
-struct sniff_ethernet { 
-    u_char ether_dhost[6]; // destination host address
-    u_char ether_shost[6]; // source host address
-    u_short ether_type;    // IP, ARP, RARP, etc.
-};
+#define RING_SIZE 1024
 
-// IP Header ()
-struct sniff_ip { 
-    u_char ip_vhl;                 // version << 4 | header length >> 2
-    u_char ip_tos;                 // type of service
-    u_short ip_len;                 // total length
-    u_short ip_id;                  // identification field
-    u_short ip_off;                 // fragment offset field
-    u_char ip_ttl;                 // time to live
-    u_char ip_p;                   // protocol (TCP, UDP, etc.)
-    u_short ip_sum;                 // checksum  
-    struct in_addr ip_src, ip_dst; // source and dest address
-}; 
-#define IP_HL(ip) (((ip)->ip_vhl) & 0x0f) // IP header length in 32-bit words
+packet_t ring_buffer[RING_SIZE]; 
+int ring_head = 0;
+int ring_tail = 0;
 
-// TCP header (variable length, minimum 20 bytes)
-struct sniff_tcp { 
-    u_short th_sport;     // source port
-    u_short th_dport;     // destination port
-    u_int32_t th_seq;     // sequence number 
-    u_int32_t th_ack;     // acknowledgment number 
-    u_char th_offx2;      // data offset, rsvd
-    u_char th_flags;      // TCP flags 
-    u_short th_win;       // window
-    u_short th_sum;       // checksum
-    u_short th_urp;       // urgent pointer
-};
-#define TH_OFF(th) (((th)->th_offx2 & 0xf0) >> 4) // TCP header length in 32-bit words
+pthread_mutex_t buffer_lock = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t data_ready = PTHREAD_COND_INITIALIZER;
 
-
-void print_payload(const u_char *payload, int len);
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
-
-
-// void print_payload(const u_char *payload, int len) { 
-//     const u_char *ch = payload; 
-//     for(int i = 0; i < len; i++) { 
-//         if(isprint(*ch)) { 
-//             printf("%c", *ch);
-//         } else { 
-//             printf(".");
-//         }
-//         ch++; 
-//     }
-//     printf("\n");
-// }
-
+void print_payload(const u_char *payload, int len);
+void worker_thread(void *arg);
 
 /** 
  * @brief This function is called every time a packet is captured. 
  */
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet) {
 
-    const struct sniff_ip *ip_header;
-    const struct sniff_tcp *tcp_header;
+    const sniff_ip *ip_header;
+    const sniff_tcp *tcp_header;
     const char *payload;
 
     // Use hardcoded offsets for speed (HFT Style)
-    ip_header = (struct sniff_ip*)(packet + 14);
+    ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
     int size_ip = IP_HL(ip_header) * 4;
 
     if (size_ip < 20) return;
 
     if (ip_header->ip_p == IPPROTO_TCP) {
-        tcp_header = (struct sniff_tcp*)(packet + 14 + size_ip);
-        int size_tcp = TH_OFF(tcp_header) * 4;
-        if (size_tcp < 20) return;
 
-        int payload_len = ntohs(ip_header->ip_len) - (size_ip + size_tcp);
+        int payload_len = ntohs(ip_header->ip_len) - (size_ip + (TH_OFF((sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip)) * 4));
+        pthread_mutex_lock(&buffer_lock);
 
-        if (payload_len > 0) {
-            printf("[%s:%d -> ", inet_ntoa(ip_header->ip_src), ntohs(tcp_header->th_sport));
-            printf("%s:%d] Payload: %d bytes\n", inet_ntoa(ip_header->ip_dst), ntohs(tcp_header->th_dport), payload_len);
-            
-            payload = (u_char *)(packet + 14 + size_ip + size_tcp);
-            print_payload(payload, payload_len > 64 ? 64 : payload_len); // Print first 64 chars
+        int next_head = (ring_head + 1) % RING_SIZE;
+        if(next_head != ring_tail) { 
+            packet_t *packet_info = &ring_buffer[ring_head];
+            packet_info->length = ip_header->ip_len;
+            packet_info->src_ip = ip_header->ip_src;
+
+            memcpy(packet_info->data, packet + sizeof(sniff_ethernet) + size_ip + (TH_OFF((sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip)) * 4), payload_len);
+        
+            ring_head = next_head;
+            pthread_cond_signal(&data_ready);
+        } else {
+            printf("Ring buffer full, dropping packet\n");
+            // TODO: Implement a better strategy for handling buffer overflow (e.g., overwrite oldest, log, etc.)
+        
         }
+        pthread_mutex_unlock(&buffer_lock);
     }
-
-
-    // TODO: Add more 
-
     /* 
     packet is ptr to raw bytes. 
     Byte 0 - 13: Ethernet header
@@ -113,6 +77,22 @@ void print_payload(const u_char *payload, int len) {
     printf("\n");
 }
 
+void worker_thread(void *arg) { 
+    while(1) { 
+        pthread_mutex_lock(&buffer_lock);
+        while (ring_head == ring_tail) {
+            pthread_cond_wait(&data_ready, &buffer_lock);
+        }
+
+        packet_t packet_info = ring_buffer[ring_tail];
+        ring_tail = (ring_tail + 1) % RING_SIZE;
+        pthread_mutex_unlock(&buffer_lock);
+
+        // Process packet_info (e.g., print, analyze, etc.)
+        printf("Worker thread processing packet from %s with length %d\n", inet_ntoa(packet_info.src_ip), packet_info.length);
+    }
+}
+
 int main() { 
     char *dev; 
     char errbuf[PCAP_ERRBUF_SIZE];
@@ -128,6 +108,14 @@ int main() {
     // open device for live capture (sniffing)
     // 65535 is the maximum packet size to capture (SNAPLEN)
     handle = pcap_open_live(dev, 65535, 1, 1000, errbuf);
+
+
+    pthread_t worker_id; 
+    if(pthread_create(&worker_id, NULL, (void*)worker_thread, NULL) != 0) { 
+        fprintf(stderr, "Error creating worker thread\n");
+        return 1;
+    }
+
 
     // start the capture loop
     printf("Sniffing on device: %s\n", dev); 
