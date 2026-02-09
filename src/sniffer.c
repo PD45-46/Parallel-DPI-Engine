@@ -5,6 +5,8 @@
 #include <ctype.h>
 #include "../include/protocol_headers.h"
 #include <pthread.h>
+#include "../include/aho_corasick.h"
+
 
 #define RING_SIZE 1024
 
@@ -19,6 +21,9 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
 void print_payload(const u_char *payload, int len);
 void worker_thread(void *arg);
 
+void search_packet(packet_t *packet_info); 
+
+void insert_pattern(const char* pattern, int pattern_id); 
 /** 
  * @brief This function is called every time a packet is captured. 
  */
@@ -77,6 +82,17 @@ void print_payload(const u_char *payload, int len) {
     printf("\n");
 }
 
+
+
+
+
+
+
+
+
+
+
+
 void worker_thread(void *arg) { 
     while(1) { 
         pthread_mutex_lock(&buffer_lock);
@@ -89,9 +105,71 @@ void worker_thread(void *arg) {
         pthread_mutex_unlock(&buffer_lock);
 
         // Process packet_info (e.g., print, analyze, etc.)
-        printf("Worker thread processing packet from %s with length %d\n", inet_ntoa(packet_info.src_ip), packet_info.length);
+        // printf("Worker thread processing packet from %s with length %d\n", inet_ntoa(packet_info.src_ip), packet_info.length);
+        search_packet(&packet_info);
     }
 }
+
+
+
+void search_packet(packet_t *packet_info) { 
+    int current_state = 0; 
+    for(int i = 0; i < packet_info->length; i++) { 
+        unsigned char byte = packet_info->data[i]; 
+
+        // while there is no transition for this byte and we're not at root, follow failure links 
+        while(trie[current_state].next_state[byte] == -1 && current_state != 0) { 
+            current_state = trie[current_state].failure_link;
+        }
+
+        // if there is a transition for this byte, take it
+        if(trie[current_state].next_state[byte] != -1) { 
+            current_state = trie[current_state].next_state[byte];
+        }
+
+        // check for matches at the current state 
+        if(trie[current_state].output != -1) { 
+            printf("[!] Found pattern ID %d in packet from %s\n", trie[current_state].output, inet_ntoa(packet_info->src_ip));
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/** 
+ * @brief Inserts a pattern into the Aho-Corasick trie. 
+ */
+void insert_pattern(const char* pattern, int pattern_id) {
+    int current_state = 0; // start at root 
+    for(int i = 0; i < pattern[i] != '\0'; i++) { 
+        unsigned char byte = pattern[i]; 
+        if(trie[current_state].next_state[byte] == -1) { 
+            // create a new state if dne 
+            for(int j = 0; j < ALPHABET_SIZE; j++) {
+                trie[state_count].next_state[j] = -1; // initialize new state
+            }
+            trie[state_count].output = 0; 
+            trie[current_state].next_state[byte] = state_count++; 
+        }
+        current_state = trie[current_state].next_state[byte];
+    }
+    trie[current_state].output = pattern_id; // marks as a match
+}
+
+
+
+
+
+
 
 int main() { 
     char *dev; 
@@ -109,12 +187,21 @@ int main() {
     // 65535 is the maximum packet size to capture (SNAPLEN)
     handle = pcap_open_live(dev, 65535, 1, 1000, errbuf);
 
+    // init trie root 
+    for(int i = 0; i < ALPHABET_SIZE; i++) {
+        trie[0].next_state[i] = -1; // initialize root state
+    }
+    trie[0].output = -1; // no pattern ends at root
+    state_count = 1;
+
+    insert_pattern("GET", 1);
+    insert_pattern("HTTP", 2);
 
     pthread_t worker_id; 
     if(pthread_create(&worker_id, NULL, (void*)worker_thread, NULL) != 0) { 
         fprintf(stderr, "Error creating worker thread\n");
         return 1;
-    }
+    } 
 
 
     // start the capture loop
