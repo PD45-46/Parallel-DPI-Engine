@@ -6,6 +6,7 @@
 #include "../include/protocol_headers.h"
 #include <pthread.h>
 #include "../include/aho_corasick.h"
+#include <string.h>
 
 
 #define RING_SIZE 1024
@@ -33,7 +34,7 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
     const sniff_tcp *tcp_header;
     const char *payload;
 
-    // Use hardcoded offsets for speed (HFT Style)
+    // Use hardcoded offsets for speed
     ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
     int size_ip = IP_HL(ip_header) * 4;
 
@@ -157,7 +158,7 @@ void insert_pattern(const char* pattern, int pattern_id) {
             for(int j = 0; j < ALPHABET_SIZE; j++) {
                 trie[state_count].next_state[j] = -1; // initialize new state
             }
-            trie[state_count].output = 0; 
+            trie[state_count].output = -1; // needs to be -1 until we set it to a pattern ID
             trie[current_state].next_state[byte] = state_count++; 
         }
         current_state = trie[current_state].next_state[byte];
@@ -166,6 +167,48 @@ void insert_pattern(const char* pattern, int pattern_id) {
 }
 
 
+/** 
+ * @brief Builds the failure links for the Aho-Corasick trie.
+ */
+
+ void build_failure_links() {
+    int queue[MAX_STATES]; 
+    int head = 0, tail = 0; 
+
+    // set failure links for states connected to root directly
+    for(int i = 0; i < ALPHABET_SIZE; i++) { 
+        if(trie[0].next_state[i] != -1) { 
+            trie[trie[0].next_state[i]].failure_link = 0; 
+            queue[tail++] = trie[0].next_state[i];
+        } else { 
+            trie[0].next_state[i] = 0; // set missing transitions to root
+        }
+    }
+
+    // bfs for remaining levels  
+    while(head < tail) { 
+        int r = queue[head++]; 
+
+        for(int i = 0; i < ALPHABET_SIZE; i++) { 
+            int u = trie[r].next_state[i];
+            // if there is a transition from r on byte i
+            if(u != -1 && u != 0) { 
+                int f = trie[r].failure_link; 
+                while(trie[f].next_state[i] == -1) { 
+                    f = trie[f].failure_link; 
+                }
+                trie[u].failure_link = trie[f].next_state[i];
+
+                // merge output patterns 
+                if(trie[trie[u].failure_link].output != -1) { 
+                    trie[u].output = trie[trie[u].failure_link].output; 
+                    // TODO: Real failure link merging uses linked lists for multiple matches. 
+                }
+                queue[tail++] = u;
+            }
+        }
+    }
+ } 
 
 
 
@@ -196,6 +239,8 @@ int main() {
 
     insert_pattern("GET", 1);
     insert_pattern("HTTP", 2);
+
+    build_failure_links();
 
     pthread_t worker_id; 
     if(pthread_create(&worker_id, NULL, (void*)worker_thread, NULL) != 0) { 
