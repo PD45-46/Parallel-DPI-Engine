@@ -1,5 +1,6 @@
 #include <pcap.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <arpa/inet.h>
 #include <ctype.h>
@@ -7,10 +8,10 @@
 #include <pthread.h>
 #include "../include/aho_corasick.h"
 #include <string.h>
+#include <stdatomic.h> 
 
 
-#define RING_SIZE 1024
-#define MAX_STATES 1000 // note that states are chars in trie, not patterns 
+#define RING_SIZE 20000
 
 packet_t ring_buffer[RING_SIZE]; 
 int ring_head = 0;
@@ -19,10 +20,13 @@ int ring_tail = 0;
 pthread_mutex_t buffer_lock = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t data_ready = PTHREAD_COND_INITIALIZER;
 
+atomic_long total_bytes_scanned = 0; 
+atomic_long total_packets_processed = 0;
+atomic_long total_matches_found = 0; 
+
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 void print_payload(const u_char *payload, int len);
 void worker_thread(void *arg);
-
 void search_packet(packet_t *packet_info); 
 
 void insert_pattern(const char* pattern, int pattern_id); 
@@ -57,7 +61,8 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
             ring_head = next_head;
             pthread_cond_signal(&data_ready);
         } else {
-            printf("Ring buffer full, dropping packet\n");
+            sleep(10); // sleep to let worker thread catch up 
+            // printf("Ring buffer full, dropping packet\n");
             // TODO: Implement a better strategy for handling buffer overflow (e.g., overwrite oldest, log, etc.)
         
         }
@@ -116,6 +121,8 @@ void worker_thread(void *arg) {
 
 void search_packet(packet_t *packet_info) { 
     int current_state = 0; 
+    atomic_fetch_add(&total_bytes_scanned, packet_info->length);
+    atomic_fetch_add(&total_packets_processed, 1);
     for(int i = 0; i < packet_info->length; i++) { 
         unsigned char byte = packet_info->data[i]; 
 
@@ -133,7 +140,8 @@ void search_packet(packet_t *packet_info) {
         int temp_state = current_state; 
         while(temp_state != 0) { 
             if(trie[temp_state].output != -1) { 
-                printf("[!] Found pattern ID %d in packet from %s\n", trie[temp_state].output, inet_ntoa(packet_info->src_ip));
+                // printf("[!] Found pattern ID %d in packet from %s\n", trie[temp_state].output, inet_ntoa(packet_info->src_ip));
+                atomic_fetch_add(&total_matches_found, 1);
             }
             temp_state = trie[temp_state].dict_link; // follow dict link to find next match
         }
@@ -255,6 +263,27 @@ void load_patterns(const char *filename) {
 
 
 
+/** 
+ * 
+ */
+
+void* stats_thread(void *arg) { 
+    printf("\n[DPI ENGINE] Monitoring stats... \n"); 
+    while(1) { 
+        sleep(1); 
+        long bytes = atomic_load(&total_bytes_scanned);
+        long packets = atomic_load(&total_packets_processed);
+        long matches = atomic_load(&total_matches_found);
+
+        double mbps = (bytes / 1024.0 / 1024.0) * 8; // convert bytes/s to Mbps
+
+        printf("\r[STATS] Throughput: %.2f MB/s | PPS: %ld | Matches: %ld",mbps, packets, matches);
+        fflush(stdout); 
+    }
+    return NULL; 
+}
+
+
 
 int main(int argc, char *argv[]) { 
     char *dev; 
@@ -301,6 +330,12 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Error creating worker thread\n");
         return 1;
     } 
+
+    pthread_t monitor_id; 
+    if(pthread_create(&monitor_id, NULL, (void*)stats_thread, NULL) != 0) { 
+        fprintf(stderr, "Error creating stats thread\n");
+        return 1;
+    }
 
 
     // start the capture loop
