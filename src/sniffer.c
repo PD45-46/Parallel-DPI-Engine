@@ -48,7 +48,7 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
         int next_head = (ring_head + 1) % RING_SIZE;
         if(next_head != ring_tail) { 
             packet_t *packet_info = &ring_buffer[ring_head];
-            packet_info->length = ip_header->ip_len;
+            packet_info->length = ntohs(ip_header->ip_len);
             packet_info->src_ip = ip_header->ip_src;
 
             memcpy(packet_info->data, packet + sizeof(sniff_ethernet) + size_ip + (TH_OFF((sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip)) * 4), payload_len);
@@ -128,9 +128,13 @@ void search_packet(packet_t *packet_info) {
             current_state = trie[current_state].next_state[byte];
         }
 
-        // check for matches at the current state 
-        if(trie[current_state].output != -1) { 
-            printf("[!] Found pattern ID %d in packet from %s\n", trie[current_state].output, inet_ntoa(packet_info->src_ip));
+        // follow dictionary links to find all matches 
+        int temp_state = current_state; 
+        while(temp_state != 0) { 
+            if(trie[temp_state].output != -1) { 
+                printf("[!] Found pattern ID %d in packet from %s\n", trie[temp_state].output, inet_ntoa(packet_info->src_ip));
+            }
+            temp_state = trie[temp_state].dict_link; // follow dict link to find next match
         }
     }
 }
@@ -179,6 +183,7 @@ void insert_pattern(const char* pattern, int pattern_id) {
     for(int i = 0; i < ALPHABET_SIZE; i++) { 
         if(trie[0].next_state[i] != -1) { 
             trie[trie[0].next_state[i]].failure_link = 0; 
+            trie[trie[0].next_state[i]].dict_link = 0; 
             queue[tail++] = trie[0].next_state[i];
         } else { 
             trie[0].next_state[i] = 0; // set missing transitions to root
@@ -199,10 +204,12 @@ void insert_pattern(const char* pattern, int pattern_id) {
                 }
                 trie[u].failure_link = trie[f].next_state[i];
 
-                // merge output patterns 
+                /* If failure link is a match, then the dict_link is the failure link 
+                If not, the dict_link of u is the same as the dict_link of its failure link */
                 if(trie[trie[u].failure_link].output != -1) { 
-                    trie[u].output = trie[trie[u].failure_link].output; 
-                    // TODO: Real failure link merging uses linked lists for multiple matches. 
+                    trie[u].dict_link = trie[u].failure_link; 
+                } else { 
+                    trie[u].dict_link = trie[trie[u].failure_link].dict_link; 
                 }
                 queue[tail++] = u;
             }
@@ -214,16 +221,21 @@ void insert_pattern(const char* pattern, int pattern_id) {
 
 
 
-int main() { 
+int main(int argc, char *argv[]) { 
     char *dev; 
     char errbuf[PCAP_ERRBUF_SIZE];
     pcap_t *handle; 
 
-    // find a default device to capture from 
-    dev = pcap_lookupdev(errbuf);
-    if(dev == NULL) { 
-        fprintf(stderr, "Couldn't find default device: %s\n", errbuf);
-        return 1;
+    if(argc > 1) { 
+        // use lo for local testing, otherwise find a default device -> internet 
+        dev = argv[1]; 
+    } else { 
+        // find a default device to capture from
+        dev = pcap_lookupdev(errbuf);
+        if(dev == NULL) { 
+            fprintf(stderr, "Couldn't find default device: %s\n", errbuf);
+            return 1;
+        }
     }
 
     // open device for live capture (sniffing)
@@ -239,6 +251,8 @@ int main() {
 
     insert_pattern("GET", 1);
     insert_pattern("HTTP", 2);
+    insert_pattern("HE", 3); 
+    insert_pattern("SHE", 4); 
 
     build_failure_links();
 
