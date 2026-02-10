@@ -256,6 +256,14 @@ int main(int argc, char *argv[]) {
 
     build_failure_links();
 
+    /* TODO: ONLY ONE WORKER THREAD ACTIVE AT A TIME. */
+    /* NOTE: 
+       We have two sections of the program, first being the packet sniffer (main thread) and 
+       second being the worker thread that processes packets from the ring buffer. Keep in mind 
+       that pthread_create only creates one thread that will run the worker_thread function to 
+       process packets. Adding more worker threads will add more 'computing speed' to only processing 
+       but not information gathering. This means that we will be limited by the speed of the packet sniffer. 
+    */
     pthread_t worker_id; 
     if(pthread_create(&worker_id, NULL, (void*)worker_thread, NULL) != 0) { 
         fprintf(stderr, "Error creating worker thread\n");
