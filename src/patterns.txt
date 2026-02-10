@@ -1,0 +1,8 @@
+admin
+password
+/etc/passwd
+eval(
+SELECT *
+admin
+b
+c

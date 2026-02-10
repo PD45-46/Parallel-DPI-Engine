@@ -10,6 +10,7 @@
 
 
 #define RING_SIZE 1024
+#define MAX_STATES 1000 // note that states are chars in trie, not patterns 
 
 packet_t ring_buffer[RING_SIZE]; 
 int ring_head = 0;
@@ -158,6 +159,12 @@ void insert_pattern(const char* pattern, int pattern_id) {
     for(int i = 0; i < pattern[i] != '\0'; i++) { 
         unsigned char byte = pattern[i]; 
         if(trie[current_state].next_state[byte] == -1) { 
+
+            if(state_count >= MAX_STATES) { 
+                fprintf(stderr, "Error: Maximum state limit reached. Cannot insert more states.\n");
+                exit(1);
+            }
+
             // create a new state if dne 
             for(int j = 0; j < ALPHABET_SIZE; j++) {
                 trie[state_count].next_state[j] = -1; // initialize new state
@@ -175,7 +182,7 @@ void insert_pattern(const char* pattern, int pattern_id) {
  * @brief Builds the failure links for the Aho-Corasick trie.
  */
 
- void build_failure_links() {
+void build_failure_links() {
     int queue[MAX_STATES]; 
     int head = 0, tail = 0; 
 
@@ -215,7 +222,35 @@ void insert_pattern(const char* pattern, int pattern_id) {
             }
         }
     }
- } 
+} 
+
+
+
+/** 
+ * 
+ */
+
+void load_patterns(const char *filename) { 
+    FILE *file = fopen(filename, "r");
+    if(!file) { 
+        perror("Error opening pattern file");
+        exit(1); 
+    }
+
+    char line[256]; 
+    int id = 1; 
+    while(fgets(line, sizeof(line), file)) { 
+        // remove newline character
+        line[strcspn(line, "\r\n")] = 0;
+
+        if(strlen(line) > 0) { 
+            printf("Loading pattern: %s with ID %d\n", line, id);
+            insert_pattern(line, id++); 
+        }
+    }
+    fclose(file); 
+    build_failure_links(); 
+}
 
 
 
@@ -225,10 +260,12 @@ int main(int argc, char *argv[]) {
     char *dev; 
     char errbuf[PCAP_ERRBUF_SIZE];
     pcap_t *handle; 
+    char *pattern_file; 
 
     if(argc > 1) { 
         // use lo for local testing, otherwise find a default device -> internet 
         dev = argv[1]; 
+        pattern_file = argv[2];
     } else { 
         // find a default device to capture from
         dev = pcap_lookupdev(errbuf);
@@ -249,12 +286,7 @@ int main(int argc, char *argv[]) {
     trie[0].output = -1; // no pattern ends at root
     state_count = 1;
 
-    insert_pattern("GET", 1);
-    insert_pattern("HTTP", 2);
-    insert_pattern("HE", 3); 
-    insert_pattern("SHE", 4); 
-
-    build_failure_links();
+    load_patterns(pattern_file);
 
     /* TODO: ONLY ONE WORKER THREAD ACTIVE AT A TIME. */
     /* NOTE: 
