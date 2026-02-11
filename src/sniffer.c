@@ -1,3 +1,6 @@
+#define _GNU_SOURCE 
+#include <sched.h> 
+
 #include <pcap.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -13,7 +16,6 @@
 
 #define RING_SIZE 131072 // 128 KB buffer for packets 
 #define NUM_WORKERS 4
-
 
 pthread_t worker_threads[NUM_WORKERS];
 
@@ -34,6 +36,26 @@ void worker_thread(void *arg);
 void search_packet(packet_t *packet_info); 
 
 void insert_pattern(const char* pattern, int pattern_id); 
+
+void build_failure_links();
+
+
+/** 
+ * 
+ */
+void pin_thread_to_core(int core_id) { 
+    cpu_set_t cpuset; 
+    CPU_ZERO(&cpuset);
+    CPU_SET(core_id, &cpuset);
+
+    pthread_t current_thread = pthread_self();
+    if(pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset) != 0) { 
+        fprintf(stderr, "Error setting thread affinity\n");
+    }
+} 
+
+
+
 /** 
  * @brief This function is called every time a packet is captured. 
  */
@@ -59,6 +81,7 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
 
 
     packet_t *packet_info = &ring_buffer[reserved_index]; 
+    packet_info->ready = false; // mark as not ready until fully populated
     packet_info->length = payload_len; 
     packet_info->src_ip = ip_header->ip_src;
     
@@ -66,8 +89,8 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
         memcpy(packet_info->data, packet + payload_offset, 
             (payload_len > MAX_PACKET_SIZE) ? MAX_PACKET_SIZE : payload_len); 
     }
-
-    pthread_cond_signal(&data_ready); // signal worker threads that a new packet is ready for processing
+    packet_info->ready = true; // mark as ready for processing
+    pthread_cond_broadcast(&data_ready); // signal worker threads that a new packet is ready for processing
 }
 
 void print_payload(const u_char *payload, int len) {
@@ -95,6 +118,11 @@ void print_payload(const u_char *payload, int len) {
 
 
 void worker_thread(void *arg) { 
+
+    int core_id = *(int*)arg;
+    pin_thread_to_core(core_id); 
+    free(arg); 
+
     while(1) { 
         pthread_mutex_lock(&buffer_lock);
         while (ring_head == ring_tail) {    
@@ -109,6 +137,7 @@ void worker_thread(void *arg) {
         // Process packet_info (e.g., print, analyze, etc.)
         // printf("Worker thread processing packet from %s with length %d\n", inet_ntoa(packet_info.src_ip), packet_info.length);
         search_packet(&ring_buffer[index_to_process]);
+        ring_buffer[index_to_process].ready = false; 
     }
 }
 
@@ -287,6 +316,8 @@ int main(int argc, char *argv[]) {
         return 1; 
     }
 
+    pin_thread_to_core(1); // pin main thread (sniffer) to core 1 (note: core 0 reserved for flooding traffic)
+
 
     char *dev; 
     char errbuf[PCAP_ERRBUF_SIZE];
@@ -328,15 +359,21 @@ int main(int argc, char *argv[]) {
        but not information gathering. This means that we will be limited by the speed of the packet sniffer. 
     */
     
+    
     for(int i = 0; i < NUM_WORKERS; i++) {
-        if(pthread_create(&worker_threads[i], NULL, (void*)worker_thread, NULL) != 0) { 
+        int *core_arg = malloc(sizeof(int));
+        *core_arg = i + 2; 
+        if(pthread_create(&worker_threads[i], NULL, (void*)worker_thread, core_arg) != 0) { 
             fprintf(stderr, "Error creating worker thread %d\n", i);
             return 1;
         } 
+        
     }
 
     pthread_t monitor_id; 
-    if(pthread_create(&monitor_id, NULL, (void*)stats_thread, NULL) != 0) { 
+    int *stats_arg = malloc(sizeof(int));
+    *stats_arg = NUM_WORKERS + 2;
+    if(pthread_create(&monitor_id, NULL, (void*)stats_thread, stats_arg) != 0) { 
         fprintf(stderr, "Error creating stats thread\n");
         return 1;
     }

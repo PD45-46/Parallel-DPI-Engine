@@ -2,6 +2,8 @@
 #define PROTOCOL_HEADERS_H
 
 #include <arpa/inet.h>
+#include <stdbool.h> 
+#include <stdatomic.h>
 
 // Ethernet header (always 14 bytes)
 typedef struct { 
@@ -45,6 +47,7 @@ typedef struct {
     u_int32_t length; 
     struct in_addr src_ip;
     u_short src_port; 
+    atomic_bool ready; 
 } packet_t; 
 
 #endif
