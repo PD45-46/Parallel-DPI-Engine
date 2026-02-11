@@ -11,9 +11,12 @@
 #include <stdatomic.h> 
 
 
-#define RING_SIZE 20000
+#define RING_SIZE 131072 // 128 KB buffer for packets 
+#define NUM_WORKERS 4
 
-packet_t ring_buffer[RING_SIZE]; 
+pthread_t worker_threads[NUM_WORKERS];
+
+packet_t *ring_buffer; 
 int ring_head = 0;
 int ring_tail = 0;
 
@@ -61,8 +64,8 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
             ring_head = next_head;
             pthread_cond_signal(&data_ready);
         } else {
-            sleep(10); // sleep to let worker thread catch up 
-            // printf("Ring buffer full, dropping packet\n");
+            // sleep(10); 
+            // Note that sleeping is bad cause it will cause us to miss packets. Use different method 
             // TODO: Implement a better strategy for handling buffer overflow (e.g., overwrite oldest, log, etc.)
         
         }
@@ -103,17 +106,18 @@ void print_payload(const u_char *payload, int len) {
 void worker_thread(void *arg) { 
     while(1) { 
         pthread_mutex_lock(&buffer_lock);
-        while (ring_head == ring_tail) {
+        while (ring_head == ring_tail) {    
             pthread_cond_wait(&data_ready, &buffer_lock);
         }
 
-        packet_t packet_info = ring_buffer[ring_tail];
+        int index_to_process = ring_tail;
         ring_tail = (ring_tail + 1) % RING_SIZE;
+
         pthread_mutex_unlock(&buffer_lock);
 
         // Process packet_info (e.g., print, analyze, etc.)
         // printf("Worker thread processing packet from %s with length %d\n", inet_ntoa(packet_info.src_ip), packet_info.length);
-        search_packet(&packet_info);
+        search_packet(&ring_buffer[index_to_process]);
     }
 }
 
@@ -271,9 +275,9 @@ void* stats_thread(void *arg) {
     printf("\n[DPI ENGINE] Monitoring stats... \n"); 
     while(1) { 
         sleep(1); 
-        long bytes = atomic_load(&total_bytes_scanned);
-        long packets = atomic_load(&total_packets_processed);
-        long matches = atomic_load(&total_matches_found);
+        long bytes = atomic_exchange(&total_bytes_scanned, 0);
+        long packets = atomic_exchange(&total_packets_processed, 0);
+        long matches = atomic_exchange(&total_matches_found, 0);
 
         double mbps = (bytes / 1024.0 / 1024.0) * 8; // convert bytes/s to Mbps
 
@@ -286,6 +290,13 @@ void* stats_thread(void *arg) {
 
 
 int main(int argc, char *argv[]) { 
+    ring_buffer = malloc(sizeof(packet_t) * RING_SIZE); 
+    if(ring_buffer == NULL) { 
+        fprintf(stderr, "Failed allocating ring buffer\n");
+        return 1; 
+    }
+
+
     char *dev; 
     char errbuf[PCAP_ERRBUF_SIZE];
     pcap_t *handle; 
@@ -325,11 +336,13 @@ int main(int argc, char *argv[]) {
        process packets. Adding more worker threads will add more 'computing speed' to only processing 
        but not information gathering. This means that we will be limited by the speed of the packet sniffer. 
     */
-    pthread_t worker_id; 
-    if(pthread_create(&worker_id, NULL, (void*)worker_thread, NULL) != 0) { 
-        fprintf(stderr, "Error creating worker thread\n");
-        return 1;
-    } 
+    
+    for(int i = 0; i < NUM_WORKERS; i++) {
+        if(pthread_create(&worker_threads[i], NULL, (void*)worker_thread, NULL) != 0) { 
+            fprintf(stderr, "Error creating worker thread %d\n", i);
+            return 1;
+        } 
+    }
 
     pthread_t monitor_id; 
     if(pthread_create(&monitor_id, NULL, (void*)stats_thread, NULL) != 0) { 
