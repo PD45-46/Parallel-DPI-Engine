@@ -14,8 +14,8 @@
 #include <stdatomic.h> 
 
 
-#define RING_SIZE 131072 // 128 KB buffer for packets 
-#define NUM_WORKERS 4
+#define RING_SIZE 131072 // 2^17 -> allows for bitwise 
+#define NUM_WORKERS 4 
 
 pthread_t worker_threads[NUM_WORKERS];
 
@@ -90,7 +90,7 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
             (payload_len > MAX_PACKET_SIZE) ? MAX_PACKET_SIZE : payload_len); 
     }
     packet_info->ready = true; // mark as ready for processing
-    pthread_cond_broadcast(&data_ready); // signal worker threads that a new packet is ready for processing
+    pthread_cond_signal(&data_ready); // signal one worker thread that a new packet is ready for processing
 }
 
 void print_payload(const u_char *payload, int len) {
@@ -124,20 +124,24 @@ void worker_thread(void *arg) {
     free(arg); 
 
     while(1) { 
+        int index_to_process = -1; 
+
         pthread_mutex_lock(&buffer_lock);
-        while (ring_head == ring_tail) {    
-            pthread_cond_wait(&data_ready, &buffer_lock);
+        if(ring_head != ring_tail) { 
+            index_to_process = ring_tail;
+            ring_tail = (ring_tail + 1) % RING_SIZE;
         }
-
-        int index_to_process = ring_tail;
-        ring_tail = (ring_tail + 1) % RING_SIZE;
-
         pthread_mutex_unlock(&buffer_lock);
 
-        // Process packet_info (e.g., print, analyze, etc.)
-        // printf("Worker thread processing packet from %s with length %d\n", inet_ntoa(packet_info.src_ip), packet_info.length);
-        search_packet(&ring_buffer[index_to_process]);
-        ring_buffer[index_to_process].ready = false; 
+        if(index_to_process != -1) { 
+            while(!atomic_load(&ring_buffer[index_to_process].ready)) { 
+                __builtin_ia32_pause(); // hint to CPU that we're in spin wait
+            }
+            search_packet(&ring_buffer[index_to_process]);
+            atomic_store(&ring_buffer[index_to_process].ready, false);
+        } else { 
+            usleep(10); 
+        }
     }
 }
 
@@ -292,6 +296,10 @@ void load_patterns(const char *filename) {
  */
 
 void* stats_thread(void *arg) { 
+    int core_id = *(int*)arg; 
+    pin_thread_to_core(core_id);
+    free(arg); 
+
     printf("\n[DPI ENGINE] Monitoring stats... \n"); 
     while(1) { 
         sleep(1); 
@@ -337,9 +345,14 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // open device for live capture (sniffing)
-    // 65535 is the maximum packet size to capture (SNAPLEN)
-    handle = pcap_open_live(dev, 65535, 1, 1000, errbuf);
+    // create pcap buffer instead of 
+    handle = pcap_create(dev, errbuf);
+    pcap_set_snaplen(handle, MAX_PACKET_SIZE); 
+    pcap_set_promisc(handle, 1); 
+    pcap_set_timeout(handle, 0);
+    pcap_set_immediate_mode(handle, 1); // get packets to worker threads as soon as they arrive, rather than buffering in kernel  
+    pcap_set_buffer_size(handle, 128 * 1024 * 1024); // 128 MB buffer for pcap 
+    pcap_activate(handle); 
 
     // init trie root 
     for(int i = 0; i < ALPHABET_SIZE; i++) {
