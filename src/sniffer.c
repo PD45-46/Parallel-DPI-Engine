@@ -14,6 +14,7 @@
 #define RING_SIZE 131072 // 128 KB buffer for packets 
 #define NUM_WORKERS 4
 
+
 pthread_t worker_threads[NUM_WORKERS];
 
 packet_t *ring_buffer; 
@@ -38,45 +39,35 @@ void insert_pattern(const char* pattern, int pattern_id);
  */
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet) {
 
-    const sniff_ip *ip_header;
-    const sniff_tcp *tcp_header;
-    const char *payload;
-
-    // Use hardcoded offsets for speed
-    ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
+    const sniff_ip *ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
     int size_ip = IP_HL(ip_header) * 4;
+    if (size_ip < 20 || ip_header->ip_p != IPPROTO_TCP) return; // not a valid IP header or not TCP
 
-    if (size_ip < 20) return;
-
-    if (ip_header->ip_p == IPPROTO_TCP) {
-
-        int payload_len = ntohs(ip_header->ip_len) - (size_ip + (TH_OFF((sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip)) * 4));
-        pthread_mutex_lock(&buffer_lock);
-
-        int next_head = (ring_head + 1) % RING_SIZE;
-        if(next_head != ring_tail) { 
-            packet_t *packet_info = &ring_buffer[ring_head];
-            packet_info->length = ntohs(ip_header->ip_len);
-            packet_info->src_ip = ip_header->ip_src;
-
-            memcpy(packet_info->data, packet + sizeof(sniff_ethernet) + size_ip + (TH_OFF((sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip)) * 4), payload_len);
-        
-            ring_head = next_head;
-            pthread_cond_signal(&data_ready);
-        } else {
-            // sleep(10); 
-            // Note that sleeping is bad cause it will cause us to miss packets. Use different method 
-            // TODO: Implement a better strategy for handling buffer overflow (e.g., overwrite oldest, log, etc.)
-        
-        }
+    int payload_offset = sizeof(sniff_ethernet) + size_ip + (TH_OFF((sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip)) * 4);
+    int payload_len = ntohs(ip_header->ip_len) - (payload_offset - sizeof(sniff_ethernet));
+    
+    // reserve index in ring buffer to reduce lock holding time 
+    pthread_mutex_lock(&buffer_lock);
+    int next_head = (ring_head + 1) % RING_SIZE;
+    if(next_head == ring_tail) { 
         pthread_mutex_unlock(&buffer_lock);
+        return; // buffer is full, drop packet (TODO: implement better strategy for handling this)
     }
-    /* 
-    packet is ptr to raw bytes. 
-    Byte 0 - 13: Ethernet header
-    Byte 14 - 33: IP header (if Ethernet type is IPv4)
-    Byte 34 - 53: TCP header (if IP protocol is TCP)
-    */
+    int reserved_index = ring_head; 
+    ring_head = next_head; 
+    pthread_mutex_unlock(&buffer_lock);
+
+
+    packet_t *packet_info = &ring_buffer[reserved_index]; 
+    packet_info->length = payload_len; 
+    packet_info->src_ip = ip_header->ip_src;
+    
+    if(payload_len > 0) { 
+        memcpy(packet_info->data, packet + payload_offset, 
+            (payload_len > MAX_PACKET_SIZE) ? MAX_PACKET_SIZE : payload_len); 
+    }
+
+    pthread_cond_signal(&data_ready); // signal worker threads that a new packet is ready for processing
 }
 
 void print_payload(const u_char *payload, int len) {
