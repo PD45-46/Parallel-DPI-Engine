@@ -29,6 +29,7 @@ pthread_cond_t data_ready = PTHREAD_COND_INITIALIZER;
 atomic_long total_bytes_scanned = 0; 
 atomic_long total_packets_processed = 0;
 atomic_long total_matches_found = 0; 
+atomic_long total_packets_dropped = 0; 
 
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 void print_payload(const u_char *payload, int len);
@@ -80,6 +81,7 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
     int next_head = (ring_head + 1) % RING_SIZE;
     if(next_head == ring_tail) { 
         pthread_mutex_unlock(&buffer_lock);
+        atomic_fetch_add(&total_packets_dropped, 1);
         return; // buffer is full, drop packet (TODO: implement better strategy for handling this)
     }
     int reserved_index = ring_head; 
@@ -96,7 +98,7 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
         memcpy(packet_info->data, packet + payload_offset, 
             (payload_len > MAX_PACKET_SIZE) ? MAX_PACKET_SIZE : payload_len); 
     } else { 
-        
+
     }
     packet_info->ready = true; // mark as ready for processing
     pthread_cond_signal(&data_ready); // signal one worker thread that a new packet is ready for processing
@@ -353,11 +355,12 @@ void* stats_thread(void *arg) {
         sleep(1); 
         long bytes = atomic_exchange(&total_bytes_scanned, 0);
         long packets = atomic_exchange(&total_packets_processed, 0);
-        long matches = atomic_exchange(&total_matches_found, 0);
+        long matches = atomic_exchange(&total_matches_found, 0);    
+        long rb_drops = atomic_exchange(&total_packets_dropped, 0);
 
         double mbps = (bytes / 1024.0 / 1024.0) * 8; // convert bytes/s to Mbps
 
-        printf("\r[STATS] Throughput: %.2f MB/s | PPS: %ld | Matches: %ld",mbps, packets, matches);
+        printf("\r[STATS] Throughput: %.2f MB/s | PPS: %ld | Matches: %ld | Dropped: %ld",mbps, packets, matches, rb_drops);
         fflush(stdout); 
     }
     return NULL; 
@@ -372,11 +375,13 @@ void* stats_thread(void *arg) {
 
 /** MAIN... */
 int main(int argc, char *argv[]) { 
-    ring_buffer = malloc(sizeof(packet_t) * RING_SIZE); 
+    ring_buffer = calloc(RING_SIZE, sizeof(packet_t)); // zeros out the ring buffer and sets all packet_t.ready to false
     if(ring_buffer == NULL) { 
         fprintf(stderr, "Failed allocating ring buffer\n");
         return 1; 
     }
+
+    
 
     pin_thread_to_core(1); // pin main thread (sniffer) to core 1 (note: core 0 reserved for flooding traffic)
 
@@ -405,7 +410,7 @@ int main(int argc, char *argv[]) {
     pcap_set_promisc(handle, 1); 
     pcap_set_timeout(handle, 0);
     pcap_set_immediate_mode(handle, 1); // get packets to worker threads as soon as they arrive, rather than buffering in kernel  
-    pcap_set_buffer_size(handle, 128 * 1024 * 1024); // 128 MB buffer for pcap 
+    pcap_set_buffer_size(handle, 512 * 1024 * 1024); // 512 MB buffer for pcap 
     pcap_activate(handle); 
 
     // init trie root 

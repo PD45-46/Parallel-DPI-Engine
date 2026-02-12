@@ -4,6 +4,5 @@ password
 eval(
 SELECT *
 admin
-b
-c
 MATCH
+A
