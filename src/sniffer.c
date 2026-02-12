@@ -41,7 +41,8 @@ void build_failure_links();
 
 
 /** 
- * 
+ * @brief Used to pin a thread to the specified CPU core id 
+ * @param core_id CPU core number (starts from 0). Number of cores is machine specific. 
  */
 void pin_thread_to_core(int core_id) { 
     cpu_set_t cpuset; 
@@ -57,7 +58,13 @@ void pin_thread_to_core(int core_id) {
 
 
 /** 
- * @brief This function is called every time a packet is captured. 
+ * @brief Callback function invoked by pcap_loop for every captured packet. This function acts as a 
+ *        producer in the multi-threaded design. It parses raw packet data to extract the payload, reserves 
+ *        a slot in the ring buffer, and copies the data for worker threads to process later. 
+ * @param args User defined arguments (not used in this case, set to NULL when calling pcap_loop())
+ * @param header Metadata about the captured packet (timestamp, length, etc.)
+ * @param packet Pointer to the raw packet data captured by pcap. This includes the Ethernet header, 
+ *               IP header, TCP header, and payload. 
  */
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet) {
 
@@ -88,16 +95,25 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
     if(payload_len > 0) { 
         memcpy(packet_info->data, packet + payload_offset, 
             (payload_len > MAX_PACKET_SIZE) ? MAX_PACKET_SIZE : payload_len); 
+    } else { 
+        
     }
     packet_info->ready = true; // mark as ready for processing
     pthread_cond_signal(&data_ready); // signal one worker thread that a new packet is ready for processing
 }
 
+
+/**
+ * @brief Used too print specific information about the given payload. 
+ *        This function is archived (no longer in use). 
+ * @param payload Address of payload 
+ * @param len Payload length 
+ */
 void print_payload(const u_char *payload, int len) {
     const u_char *ch = payload;
     printf("   ");
     for(int i = 0; i < len; i++) {
-        if (isprint(*ch)) // If it's a readable character (A, B, 1, @)
+        if (isprint(*ch)) // If it's a readable character
             printf("%c", *ch);
         else
             printf("."); // If it's binary data
@@ -116,7 +132,16 @@ void print_payload(const u_char *payload, int len) {
 
 
 
-
+/** 
+ * @brief Input function for worker thread loop when calling pthread_create(). 
+ *        Each worker thread will pin itself to the specified CPU core and then 
+ *        continuously check the ring buffer for new packets to process. When a packet 
+ *        is ready, the worker thread will call search_packet() to scan the packet for 
+ *        matches in the Aho-Corasick trie.
+ *        
+ * @param arg Contains the CPU core number/id that will be used to pin 
+ *            the worker thread using function pin_thread_to_core(). 
+ */
 void worker_thread(void *arg) { 
 
     int core_id = *(int*)arg;
@@ -146,7 +171,17 @@ void worker_thread(void *arg) {
 }
 
 
-
+/** 
+ * @brief Scans the given packet data for matches in the Aho-Corasick trie. 
+ *        This function is called by worker threads when they find a packet 
+ *        in the ring buffer that is ready for processing. 
+ *        
+ *        *At the moment, this function only counts the number of matches found 
+ *        using atomic variables to update the global match count, but it should 
+ *        be modified to include some kind of 'reporting path'.*
+ * 
+ * @param packet_info Packet information to be searched for matches in the Aho-Corasick trie.
+ */
 void search_packet(packet_t *packet_info) { 
     int current_state = 0; 
     atomic_fetch_add(&total_bytes_scanned, packet_info->length);
@@ -188,7 +223,15 @@ void search_packet(packet_t *packet_info) {
 
 
 /** 
- * @brief Inserts a pattern into the Aho-Corasick trie. 
+ * @brief Inserts a pattern into the Aho-Corasick trie. Note that inserted patterns are 
+ *        strings but each node of the trie is just a one byte character transition. So 
+ *        for example, if we insert 'abc' with pattern ID 1, we will create a path in the 
+ *        trie that goes from the root (state NULL) to byte 'a' to byte 'b' to byte 'c', and 
+ *        then set the output of the final state to 1 to indicate that this path corresponds 
+ *        to a pattern match with ID 1.
+ * 
+ * @param pattern The pattern string to be inserted.
+ * @param pattern_id An integer ID associated with the pattern, used for reporting matches.
  */
 void insert_pattern(const char* pattern, int pattern_id) {
     int current_state = 0; // start at root 
@@ -263,7 +306,9 @@ void build_failure_links() {
 
 
 /** 
- * 
+ * @brief Opens a .txt file containing patterns ordered one per line and 
+ *        inserts them into the Aho-Corasick trie. 
+ * @param filename The path to the file containing patterns to be loaded.
  */
 
 void load_patterns(const char *filename) { 
@@ -292,7 +337,10 @@ void load_patterns(const char *filename) {
 
 
 /** 
- * 
+ * @brief Thread function for monitoring and printing stats about the 
+ *        DPI engine's performance. 
+ * @param arg Contains the CPU core number/id that will be used to pin 
+ *            the stats thread using function pin_thread_to_core().
  */
 
 void* stats_thread(void *arg) { 
@@ -317,6 +365,12 @@ void* stats_thread(void *arg) {
 
 
 
+
+
+
+
+
+/** MAIN... */
 int main(int argc, char *argv[]) { 
     ring_buffer = malloc(sizeof(packet_t) * RING_SIZE); 
     if(ring_buffer == NULL) { 
