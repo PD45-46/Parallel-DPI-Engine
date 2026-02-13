@@ -4,6 +4,7 @@
 #include <arpa/inet.h>
 #include <stdbool.h> 
 #include <stdatomic.h>
+#include "flow_table.h"
 
 // Ethernet header (always 14 bytes)
 typedef struct { 
@@ -48,6 +49,8 @@ typedef struct {
     struct in_addr src_ip;
     u_short src_port; 
     atomic_bool ready; 
+    flow_key_t key; 
+    uint32_t hash; 
 } packet_t; 
 
 #endif

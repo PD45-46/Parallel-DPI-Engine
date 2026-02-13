@@ -10,6 +10,7 @@
 #include "../include/protocol_headers.h"
 #include <pthread.h>
 #include "../include/aho_corasick.h"
+#include "../include/flow_table.h"
 #include <string.h>
 #include <stdatomic.h> 
 
@@ -34,11 +35,14 @@ atomic_long total_packets_dropped = 0;
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 void print_payload(const u_char *payload, int len);
 void worker_thread(void *arg);
-void search_packet(packet_t *packet_info); 
+void search_packet(packet_t *packet_info, flow_entry_t *flow); 
 
 void insert_pattern(const char* pattern, int pattern_id); 
-
 void build_failure_links();
+
+uint32_t hash_5tuple(flow_key_t *key); 
+flow_entry_t* find_or_create_flow(packet_t *packet); 
+
 
 
 /** 
@@ -69,12 +73,24 @@ void pin_thread_to_core(int core_id) {
  */
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet) {
 
+    const sniff_ethernet *eth = (sniff_ethernet*)(packet); 
     const sniff_ip *ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
     int size_ip = IP_HL(ip_header) * 4;
     if (size_ip < 20 || ip_header->ip_p != IPPROTO_TCP) return; // not a valid IP header or not TCP
 
-    int payload_offset = sizeof(sniff_ethernet) + size_ip + (TH_OFF((sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip)) * 4);
-    int payload_len = ntohs(ip_header->ip_len) - (payload_offset - sizeof(sniff_ethernet));
+    const sniff_tcp *tcp = (sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip); 
+    int size_tcp = TH_OFF(tcp) * 4; 
+    int payload_offset = sizeof(sniff_ethernet) + size_ip + size_tcp; 
+    int payload_len = ntohs(ip_header->ip_len) - size_ip - size_tcp;
+
+    // populate the 5-tuple key
+    flow_key_t key = {
+        .src_ip = ip_header->ip_src.s_addr, 
+        .dst_ip = ip_header->ip_dst.s_addr,
+        .src_port = tcp->th_sport,
+        .dst_port = tcp->th_dport,
+        .protocol = ip_header->ip_p 
+    }; 
     
     // reserve index in ring buffer to reduce lock holding time 
     pthread_mutex_lock(&buffer_lock);
@@ -88,11 +104,13 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
     ring_head = next_head; 
     pthread_mutex_unlock(&buffer_lock);
 
-
     packet_t *packet_info = &ring_buffer[reserved_index]; 
     packet_info->ready = false; // mark as not ready until fully populated
     packet_info->length = payload_len; 
     packet_info->src_ip = ip_header->ip_src;
+
+    packet_info->key = key; 
+    packet_info->hash = hash_5tuple(&key); 
     
     if(payload_len > 0) { 
         memcpy(packet_info->data, packet + payload_offset, 
@@ -164,7 +182,8 @@ void worker_thread(void *arg) {
             while(!atomic_load(&ring_buffer[index_to_process].ready)) { 
                 __builtin_ia32_pause(); // hint to CPU that we're in spin wait
             }
-            search_packet(&ring_buffer[index_to_process]);
+            flow_entry_t *my_flow = find_or_create_flow(&ring_buffer[index_to_process]); 
+            search_packet(&ring_buffer[index_to_process], my_flow);
             atomic_store(&ring_buffer[index_to_process].ready, false);
         } else { 
             usleep(10); 
@@ -184,10 +203,12 @@ void worker_thread(void *arg) {
  * 
  * @param packet_info Packet information to be searched for matches in the Aho-Corasick trie.
  */
-void search_packet(packet_t *packet_info) { 
-    int current_state = 0; 
+void search_packet(packet_t *packet_info, flow_entry_t *flow) { 
+
+    int current_state = flow->last_state; 
     atomic_fetch_add(&total_bytes_scanned, packet_info->length);
     atomic_fetch_add(&total_packets_processed, 1);
+
     for(int i = 0; i < packet_info->length; i++) { 
         unsigned char byte = packet_info->data[i]; 
 
@@ -211,6 +232,7 @@ void search_packet(packet_t *packet_info) {
             temp_state = trie[temp_state].dict_link; // follow dict link to find next match
         }
     }
+    flow->last_state = current_state; 
 }
 
 
@@ -352,7 +374,7 @@ void* stats_thread(void *arg) {
 
     printf("\n[DPI ENGINE] Monitoring stats... \n"); 
     while(1) { 
-        sleep(1); 
+        sleep(3); 
         long bytes = atomic_exchange(&total_bytes_scanned, 0);
         long packets = atomic_exchange(&total_packets_processed, 0);
         long matches = atomic_exchange(&total_matches_found, 0);    
@@ -362,9 +384,107 @@ void* stats_thread(void *arg) {
 
         printf("\r[STATS] Throughput: %.2f MB/s | PPS: %ld | Matches: %ld | Dropped: %ld",mbps, packets, matches, rb_drops);
         fflush(stdout); 
+
+
+        // flow aging -> to avoid mem to fill up with dead connections 
+        // we do this in stats thread because it only activates every few seconds 
+        time_t now = time(NULL); 
+        for(int i = 0; i < FLOW_TABLE_SIZE; i++) { 
+            pthread_mutex_lock(GET_FLOW_LOCK(i)); 
+            flow_entry_t **curr = &flow_table[i]; 
+
+            while(*curr) { 
+                if(now - (*curr)->last_seen > 60) { 
+                    flow_entry_t *to_remove = *curr; 
+                    *curr = to_remove->next; 
+                    free(to_remove); 
+                } else { 
+                    curr = &((*curr)->next); 
+                }
+            }
+            pthread_mutex_unlock(GET_FLOW_LOCK(i)); 
+        }
     }
     return NULL; 
 }
+
+
+
+
+
+
+
+
+
+
+/** 
+ * @brief This hash function uses a combination of standard hashing methods 
+ *        from networking (in part 1) and Thomas Wang's hashing method. The goal 
+ *        is for hashing to be fast with decent distribution rather than collision 
+ *        resistant or cryptographic. If interested in space and time conscious 
+ *        hashing methods, have a look at my Custom-Hashing repo at https://github.com/PD45-46 
+ *          
+ * @param key 5-Tuple flow key that contains packet information 
+ * @return hash value to use when inputing element into hash table 
+ */
+uint32_t hash_5tuple(flow_key_t *key) { 
+
+    /* 
+    Combining elements of the 5-tuple to create a hash value to be 
+    use later in Thomas Wang's hashing method. 
+    */ 
+    uint32_t hash = key->src_ip ^ key->dst_ip; 
+    hash ^= (key->src_port << 16) | key->dst_port; 
+    hash ^= key->protocol; 
+
+    hash = ((hash >> 16) ^ hash) * 0x45d9f3b;
+    hash = ((hash >> 16) ^ hash) * 0x45d9f3b;
+    hash = (hash >> 16) ^ hash;
+    return hash % FLOW_TABLE_SIZE;
+}
+
+
+
+
+
+
+
+/** 
+ * @brief
+ * @param packet
+ * @return 
+ */
+flow_entry_t* find_or_create_flow(packet_t *packet) { 
+    uint32_t index = packet->hash; 
+
+    pthread_mutex_lock(GET_FLOW_LOCK(index)); 
+
+    flow_entry_t *entry = flow_table[index]; 
+    while(entry != NULL) { 
+        if(memcmp(&entry->key, &packet->key, sizeof(flow_key_t)) == 0) { 
+            entry->last_seen = time(NULL); 
+            pthread_mutex_unlock(GET_FLOW_LOCK(index)); 
+            return entry; 
+        }
+        entry = entry->next; 
+    }
+
+    // create new flow if not found 
+    flow_entry_t *new_flow = calloc(1, sizeof(flow_entry_t)); 
+    new_flow->key = packet->key; 
+    new_flow->last_state = 0; 
+    new_flow->last_seen = time(NULL); 
+    new_flow->next = flow_table[index]; 
+    flow_table[index] = new_flow; 
+
+    pthread_mutex_unlock(GET_FLOW_LOCK(index)); 
+    return new_flow; 
+}
+
+
+
+
+
 
 
 
@@ -410,7 +530,7 @@ int main(int argc, char *argv[]) {
     pcap_set_promisc(handle, 1); 
     pcap_set_timeout(handle, 0);
     pcap_set_immediate_mode(handle, 1); // get packets to worker threads as soon as they arrive, rather than buffering in kernel  
-    pcap_set_buffer_size(handle, 512 * 1024 * 1024); // 512 MB buffer for pcap 
+    pcap_set_buffer_size(handle, 512 * 1024 * 1024); // 512 MB buffer for pcap (smaller the buffer, faster the kernal buffer fills up with packets) 
     pcap_activate(handle); 
 
     // init trie root 
@@ -431,6 +551,9 @@ int main(int argc, char *argv[]) {
        but not information gathering. This means that we will be limited by the speed of the packet sniffer. 
     */
     
+    for(int i = 0; i < NUM_FLOW_LOCKS; i++) { 
+        pthread_mutex_init(&flow_locks[i], NULL); 
+    }
     
     for(int i = 0; i < NUM_WORKERS; i++) {
         int *core_arg = malloc(sizeof(int));
