@@ -10,6 +10,11 @@
 #define GET_FLOW_LOCK(hash) &flow_locks[(hash) % NUM_FLOW_LOCKS] 
 
 
+/*
+Notice that with this implementation, if the key word is 'MATCH' and packets 
+arrive in the order 'TCH' then 'MA', the Ah-Corasick algorithm will miss the 
+case due to the nature of how the algorithm operates. 
+*/
 
 // 5-tuple flow table 
 typedef struct { 

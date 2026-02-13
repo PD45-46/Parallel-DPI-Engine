@@ -13,6 +13,7 @@
 #include "../include/flow_table.h"
 #include <string.h>
 #include <stdatomic.h> 
+#include <signal.h> 
 
 
 #define RING_SIZE 131072 // 2^17 -> allows for bitwise 
@@ -31,6 +32,8 @@ atomic_long total_bytes_scanned = 0;
 atomic_long total_packets_processed = 0;
 atomic_long total_matches_found = 0; 
 atomic_long total_packets_dropped = 0; 
+atomic_long lifetime_matches = 0; 
+atomic_long lifetime_packets = 0; 
 
 volatile bool keep_running = true; 
 
@@ -191,7 +194,7 @@ void worker_thread(void *arg) {
             search_packet(&ring_buffer[index_to_process], my_flow);
             atomic_store(&ring_buffer[index_to_process].ready, false);
         } else { 
-            usleep(10); 
+            usleep(5); 
         }
     }
 }
@@ -385,9 +388,23 @@ void* stats_thread(void *arg) {
         long matches = atomic_exchange(&total_matches_found, 0);    
         long rb_drops = atomic_exchange(&total_packets_dropped, 0);
 
+        atomic_fetch_add(&lifetime_packets, packets); 
+        atomic_fetch_add(&lifetime_matches, matches); 
+
+        long std_lifetime_packets = atomic_load(&lifetime_packets); 
+        long std_lifetime_matches = atomic_load(&lifetime_matches);
+        
+        double hit_rate = 0.0;  
+        if(std_lifetime_packets > 0) { 
+            hit_rate = ((double)std_lifetime_matches / (double)std_lifetime_packets) * 100.0;
+        }
+
+        
+
         double mbps = (bytes / 1024.0 / 1024.0) * 8; // convert bytes/s to Mbps
 
-        printf("\r[STATS] Throughput: %.2f MB/s | PPS: %ld | Matches: %ld | Dropped: %ld",mbps, packets, matches, rb_drops);
+        printf("\r\033[K[STATS] %.2f MB/s | PPS: %ld | M: %ld | Drp: %ld | Total Pkt: %ld | Total M: %ld | Hit: %.2f%%", 
+            mbps, packets, matches, rb_drops, std_lifetime_packets, std_lifetime_matches, hit_rate);
         fflush(stdout); 
 
 
