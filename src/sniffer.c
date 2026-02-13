@@ -32,6 +32,11 @@ atomic_long total_packets_processed = 0;
 atomic_long total_matches_found = 0; 
 atomic_long total_packets_dropped = 0; 
 
+volatile bool keep_running = true; 
+
+pcap_t *handle = NULL; 
+
+
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 void print_payload(const u_char *payload, int len);
 void worker_thread(void *arg);
@@ -168,7 +173,7 @@ void worker_thread(void *arg) {
     pin_thread_to_core(core_id); 
     free(arg); 
 
-    while(1) { 
+    while(keep_running) { 
         int index_to_process = -1; 
 
         pthread_mutex_lock(&buffer_lock);
@@ -373,7 +378,7 @@ void* stats_thread(void *arg) {
     free(arg); 
 
     printf("\n[DPI ENGINE] Monitoring stats... \n"); 
-    while(1) { 
+    while(keep_running) { 
         sleep(3); 
         long bytes = atomic_exchange(&total_bytes_scanned, 0);
         long packets = atomic_exchange(&total_packets_processed, 0);
@@ -486,7 +491,11 @@ flow_entry_t* find_or_create_flow(packet_t *packet) {
 
 
 
-
+void signal_handler(int sig) { 
+    keep_running = false; 
+    if(handle) pcap_breakloop(handle); 
+    printf("Exit Program\n");  
+}
 
 
 
@@ -495,20 +504,20 @@ flow_entry_t* find_or_create_flow(packet_t *packet) {
 
 /** MAIN... */
 int main(int argc, char *argv[]) { 
+
+    signal(SIGINT, signal_handler); 
+
     ring_buffer = calloc(RING_SIZE, sizeof(packet_t)); // zeros out the ring buffer and sets all packet_t.ready to false
     if(ring_buffer == NULL) { 
         fprintf(stderr, "Failed allocating ring buffer\n");
         return 1; 
     }
 
-    
-
     pin_thread_to_core(1); // pin main thread (sniffer) to core 1 (note: core 0 reserved for flooding traffic)
 
 
     char *dev; 
-    char errbuf[PCAP_ERRBUF_SIZE];
-    pcap_t *handle; 
+    char errbuf[PCAP_ERRBUF_SIZE]; 
     char *pattern_file; 
 
     if(argc > 1) { 
