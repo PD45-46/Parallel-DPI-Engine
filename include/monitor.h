@@ -12,7 +12,9 @@ extern atomic_long total_bytes_scanned;
 extern atomic_long total_packets_processed;
 extern atomic_long total_matches_found;
 extern atomic_long total_packets_dropped;
-extern double current_mbps; // Calculated in stats thread
+extern atomic_long lifetime_packets; 
+extern atomic_long lifetime_matches; 
+extern _Atomic double current_mbps; // Calculated in stats thread
 
 typedef struct { 
     char message[ALERT_MSG_LEN]; 

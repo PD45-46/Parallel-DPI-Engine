@@ -3,12 +3,15 @@
 #include <pthread.h> 
 #include <time.h> 
 #include <stdio.h> 
+#include <stdbool.h> 
 #include "../include/monitor.h" 
 
 #define COLOUR_DEFAULT 1 
 #define COLOUR_HEADER 2 
 #define COLOUR_ALERT 3
-#define COLOUR_GOOD 4  
+#define COLOUR_GOOD 4 
+
+static volatile bool keep_running = true; 
 
 void draw_dashboard(WINDOW *win); 
 void draw_alerts(WINDOW *win);
@@ -21,6 +24,8 @@ void *ui_loop(void *arg) {
     noecho(); 
     curs_set(0); 
     start_color(); 
+    keypad(stdscr, TRUE);
+    nodelay(stdscr, TRUE); 
     use_default_colors(); 
 
     // colour pairs for foreground and background 
@@ -30,14 +35,32 @@ void *ui_loop(void *arg) {
     init_pair(COLOUR_GOOD, COLOR_GREEN, -1);
 
     // create windows 
-    int height_log = 10; 
-    int height_dash = LINES - height_log; 
-
-    WINDOW *win_dash = newwin(height_dash, COLS, 0, 0);
-    WINDOW *win_log = newwin(height_log, COLS, height_dash, 0);
+    int height_dash_log = 12;
+    int half_width = COLS / 2; 
     
+
+    WINDOW *win_dash = newwin(height_dash_log, half_width, 0, 0);
+    WINDOW *win_log = newwin(height_dash_log, COLS - half_width, 0, half_width);
+    
+
     // ui loop 
-    while(1) { 
+    while(keep_running) { 
+        int ch = getch(); 
+        if(ch == 'q') { 
+            keep_running = false; 
+        } else if(ch == KEY_RESIZE) { 
+            erase(); 
+            refresh(); 
+
+            delwin(win_dash); 
+            delwin(win_log); 
+
+            half_width = COLS / 2; 
+
+            win_dash = newwin(height_dash_log, half_width, 0, 0);
+            win_log = newwin(height_dash_log, COLS - half_width, 0, half_width);
+        }
+
         // clear windows to redraw
         werase(win_dash); 
         werase(win_log);
@@ -56,9 +79,11 @@ void *ui_loop(void *arg) {
 
         // stall 
         napms(100);
-        
-        // TODO: Implement escape scheme 
+
     }
+
+    delwin(win_dash); 
+    delwin(win_log); 
     endwin(); 
     return NULL; 
 }
@@ -71,25 +96,24 @@ void draw_dashboard(WINDOW *win) {
     wattroff(win, COLOR_PAIR(COLOUR_HEADER)); 
 
     // get atomics safely 
-    long packets = atomic_load(&total_packets_processed); 
+    double local_mbps = atomic_load(&current_mbps); 
+    long life_pkts = atomic_load(&lifetime_packets); 
     long drops = atomic_load(&total_packets_dropped); 
-    long matches = atomic_load(&total_matches_found); 
+    long life_match = atomic_load(&total_matches_found); 
 
     // stats col 1 
-    mvwprintw(win, 3, 4, "Packets Processed: %ld", packets);
-    mvwprintw(win, 4, 4, "Bytes Scanned:     %ld MB", atomic_load(&total_bytes_scanned) / 1024 / 1024);
+    mvwprintw(win, 3, 4, "Lifetime Packets Processed:  %ld", life_pkts);
+    mvwprintw(win, 4, 4, "Bytes Scanned TO CHANGE... : %.2fMB", (double)atomic_load(&total_bytes_scanned) / (1024.0 * 1024.0));
 
     // stats col 2 
-    mvwprintw(win, 3, 40, "Matches Found:");
-    wattron(win, COLOR_PAIR(COLOUR_ALERT) | A_BOLD);
-    mvwprintw(win, 3, 55, "%ld", matches); // Highlight matches in RED
-    wattroff(win, COLOR_PAIR(COLOUR_ALERT) | A_BOLD);
-    mvwprintw(win, 4, 40, "Packets Dropped:   %ld", drops);
+    mvwprintw(win, 3, 45, "Lifetime Matches Found:        %ld", life_match); 
+    mvwprintw(win, 4, 45, "Packets Dropped TO CHANGE... : %ld", drops);
 
     // throughput bar
     mvwprintw(win, 6, 4, "Network Load:");
     wattron(win, COLOR_PAIR(COLOUR_GOOD)); 
-    int bars = (packets  % 100) / 5; 
+    int bars = (int)(local_mbps / 5); 
+    if(bars > 30) bars = 30; 
     for(int i = 0; i < bars; i++) { 
         mvwaddch(win, 6, 18+i, '|'); 
     }  

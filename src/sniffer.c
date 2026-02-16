@@ -49,9 +49,11 @@ atomic_long total_packets_dropped = 0;
 atomic_long lifetime_matches = 0; 
 atomic_long lifetime_packets = 0; 
 
-volatile bool keep_running = true; 
+static volatile bool keep_running = true; 
 
 pcap_t *handle = NULL; 
+
+_Atomic double current_mbps = 0; 
 
 // declarations
 
@@ -271,6 +273,11 @@ void search_packet(packet_t *packet_info, flow_entry_t *flow) {
             if(trie[temp_state].output != -1) { 
                 // printf("[!] Found pattern ID %d in packet from %s\n", trie[temp_state].output, inet_ntoa(packet_info->src_ip));
                 atomic_fetch_add(&total_matches_found, 1);
+
+                // string for alert 
+                char msg[ALERT_MSG_LEN]; 
+                snprintf(msg, sizeof(msg), "MATCH: Pattern ID %d from %s", trie[temp_state].output, inet_ntoa(packet_info->src_ip)); 
+                add_alert(1, msg); 
             }
             temp_state = trie[temp_state].dict_link; // follow dict link to find next match
         }
@@ -419,7 +426,7 @@ void* stats_thread(void *arg) {
 
     printf("\n[DPI ENGINE] Monitoring stats... \n"); 
     while(keep_running) { 
-        sleep(3); 
+        sleep(1); 
         long bytes = atomic_exchange(&total_bytes_scanned, 0);
         long packets = atomic_exchange(&total_packets_processed, 0);
         long matches = atomic_exchange(&total_matches_found, 0);    
@@ -439,10 +446,11 @@ void* stats_thread(void *arg) {
         
 
         double mbps = (bytes / 1024.0 / 1024.0) * 8; // convert bytes/s to Mbps
+        atomic_store(&current_mbps, mbps); 
 
-        printf("\r\033[K[STATS] %.2f MB/s | PPS: %ld | M: %ld | Drp: %ld | Total Pkt: %ld | Total M: %ld | Hit: %.2f%%", 
-            mbps, packets, matches, rb_drops, std_lifetime_packets, std_lifetime_matches, hit_rate);
-        fflush(stdout); 
+        // printf("\r\033[K[STATS] %.2f MB/s | PPS: %ld | M: %ld | Drp: %ld | Total Pkt: %ld | Total M: %ld | Hit: %.2f%%", 
+        //     mbps, packets, matches, rb_drops, std_lifetime_packets, std_lifetime_matches, hit_rate);
+        // fflush(stdout); 
 
 
         // flow aging -> to avoid mem to fill up with dead connections 
