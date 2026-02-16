@@ -6,6 +6,10 @@
 #include <stdatomic.h>
 #include "flow_table.h"
 
+#define RING_SIZE 1024 // 2^10 -> allows for bitwise 
+#define MAX_PACKET_SIZE 65536
+#define NUM_WORKERS 4 
+
 // Ethernet header (always 14 bytes)
 typedef struct { 
     u_char ether_dhost[6]; // destination host address
@@ -42,7 +46,7 @@ typedef struct {
 #define TH_OFF(th) (((th)->th_offx2 & 0xf0) >> 4) // TCP header length in 32-bit words
 
 // shared packet structure for threading 
-#define MAX_PACKET_SIZE 65536
+
 typedef struct { 
     u_char data[MAX_PACKET_SIZE];
     u_int32_t length; 
@@ -52,5 +56,16 @@ typedef struct {
     flow_key_t key; 
     uint32_t hash; 
 } packet_t; 
+
+
+typedef struct { 
+    packet_t buffer[RING_SIZE]; 
+    int head; 
+    int tail; 
+    pthread_mutex_t lock; 
+    pthread_cond_t cond; 
+} worker_queue_t; 
+
+extern worker_queue_t *worker_queues; 
 
 #endif

@@ -16,17 +16,23 @@
 #include <signal.h> 
 
 
-#define RING_SIZE 131072 // 2^17 -> allows for bitwise 
-#define NUM_WORKERS 4 
+// globals defined in aho-corasick.h
 
-pthread_t worker_threads[NUM_WORKERS];
+ACNode trie[MAX_STATES]; 
+int state_count = 1;  
 
-packet_t *ring_buffer; 
-int ring_head = 0;
-int ring_tail = 0;
+// globals defined in flow_table.h
 
-pthread_mutex_t buffer_lock = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t data_ready = PTHREAD_COND_INITIALIZER;
+flow_entry_t *flow_table[FLOW_TABLE_SIZE]; 
+pthread_mutex_t flow_locks[NUM_FLOW_LOCKS]; 
+
+// globals defined in protocol_headers.h
+
+worker_queue_t *worker_queues = NULL; 
+
+// globals defined in this file
+
+pthread_t *worker_threads = NULL;
 
 atomic_long total_bytes_scanned = 0; 
 atomic_long total_packets_processed = 0;
@@ -39,6 +45,7 @@ volatile bool keep_running = true;
 
 pcap_t *handle = NULL; 
 
+// declarations
 
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 void print_payload(const u_char *payload, int len);
@@ -101,34 +108,34 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
         .protocol = ip_header->ip_p 
     }; 
     
+    // get assigned worker using hash
+    uint32_t hash = hash_5tuple(&key); 
+    int worker_id = hash % NUM_WORKERS; 
+    worker_queue_t *q = &worker_queues[worker_id]; 
+
     // reserve index in ring buffer to reduce lock holding time 
-    pthread_mutex_lock(&buffer_lock);
-    int next_head = (ring_head + 1) % RING_SIZE;
-    if(next_head == ring_tail) { 
-        pthread_mutex_unlock(&buffer_lock);
+    pthread_mutex_lock(&q->lock);
+    int next_head = (q->head + 1) % RING_SIZE;
+    if(next_head == q->tail) { 
+        pthread_mutex_unlock(&q->lock);
         atomic_fetch_add(&total_packets_dropped, 1);
         return; // buffer is full, drop packet (TODO: implement better strategy for handling this)
     }
-    int reserved_index = ring_head; 
-    ring_head = next_head; 
-    pthread_mutex_unlock(&buffer_lock);
 
-    packet_t *packet_info = &ring_buffer[reserved_index]; 
-    packet_info->ready = false; // mark as not ready until fully populated
+    packet_t *packet_info = &q->buffer[q->head]; 
     packet_info->length = payload_len; 
     packet_info->src_ip = ip_header->ip_src;
-
     packet_info->key = key; 
-    packet_info->hash = hash_5tuple(&key); 
+    packet_info->hash = hash; 
     
     if(payload_len > 0) { 
         memcpy(packet_info->data, packet + payload_offset, 
             (payload_len > MAX_PACKET_SIZE) ? MAX_PACKET_SIZE : payload_len); 
-    } else { 
-
     }
-    packet_info->ready = true; // mark as ready for processing
-    pthread_cond_signal(&data_ready); // signal one worker thread that a new packet is ready for processing
+
+    q->head = next_head; 
+    pthread_mutex_unlock(&q->lock); 
+    pthread_cond_signal(&q->cond);
 }
 
 
@@ -169,36 +176,42 @@ void print_payload(const u_char *payload, int len) {
  *        is ready, the worker thread will call search_packet() to scan the packet for 
  *        matches in the Aho-Corasick trie.
  *        
- * @param arg Contains the CPU core number/id that will be used to pin 
- *            the worker thread using function pin_thread_to_core(). 
+ * @param arg Contains the worker id which can be used to pin that worker to a specific core 
+ *            and also to get that worker's buffer. 
  */
 void worker_thread(void *arg) { 
 
-    int core_id = *(int*)arg;
-    pin_thread_to_core(core_id); 
+    int worker_id = *(int*)arg;
+    // core 0 = sniffer, 1 = stats, 2+ = workers 
+    pin_thread_to_core(worker_id + 2); 
     free(arg); 
 
+    worker_queue_t *q = &worker_queues[worker_id]; 
+
     while(keep_running) { 
-        int index_to_process = -1; 
-
-        pthread_mutex_lock(&buffer_lock);
-        if(ring_head != ring_tail) { 
-            index_to_process = ring_tail;
-            ring_tail = (ring_tail + 1) % RING_SIZE;
+        pthread_mutex_lock(&q->lock); 
+        
+        while(q->head == q->tail && keep_running) { 
+            pthread_cond_wait(&q->cond, &q->lock); 
         }
-        pthread_mutex_unlock(&buffer_lock);
 
-        if(index_to_process != -1) { 
-            while(!atomic_load(&ring_buffer[index_to_process].ready)) { 
-                __builtin_ia32_pause(); // hint to CPU that we're in spin wait
-            }
-            flow_entry_t *my_flow = find_or_create_flow(&ring_buffer[index_to_process]); 
-            search_packet(&ring_buffer[index_to_process], my_flow);
-            atomic_store(&ring_buffer[index_to_process].ready, false);
-        } else { 
-            usleep(5); 
+        if(!keep_running) { 
+            pthread_mutex_unlock(&q->lock); 
+            break; 
         }
-    }
+
+        packet_t *packet = &q->buffer[q->tail]; 
+        /* 
+        No longer need the 'ready' atomic flag because only one 
+        specified worker can hold this lock and the sniffer only updates
+        q->head after it finishes copying the data. This packet is 
+        guaranteed to be ready. 
+        */
+        flow_entry_t *my_flow = find_or_create_flow(packet); 
+        search_packet(packet, my_flow); 
+        q->tail = (q->tail + 1) % RING_SIZE; 
+        pthread_mutex_unlock(&q->lock); 
+    } 
 }
 
 
@@ -531,88 +544,91 @@ void signal_handler(int sig) {
 
 
 
-
-/** MAIN... */
+/* MAIN */
 int main(int argc, char *argv[]) { 
-
     signal(SIGINT, signal_handler); 
 
-    ring_buffer = calloc(RING_SIZE, sizeof(packet_t)); // zeros out the ring buffer and sets all packet_t.ready to false
-    if(ring_buffer == NULL) { 
-        fprintf(stderr, "Failed allocating ring buffer\n");
-        return 1; 
-    }
-
-    pin_thread_to_core(1); // pin main thread (sniffer) to core 1 (note: core 0 reserved for flooding traffic)
-
-
-    char *dev; 
+    char *dev = NULL; 
     char errbuf[PCAP_ERRBUF_SIZE]; 
     char *pattern_file; 
 
+    // device lookup
     if(argc > 1) { 
-        // use lo for local testing, otherwise find a default device -> internet 
         dev = argv[1]; 
         pattern_file = argv[2];
     } else { 
-        // find a default device to capture from
-        dev = pcap_lookupdev(errbuf);
-        if(dev == NULL) { 
-            fprintf(stderr, "Couldn't find default device: %s\n", errbuf);
+        pcap_if_t *alldevs;
+        if (pcap_findalldevs(&alldevs, errbuf) == -1) {
+            fprintf(stderr, "Error in pcap_findalldevs: %s\n", errbuf);
             return 1;
         }
+        dev = strdup(alldevs->name); // Take the first device
+        pcap_freealldevs(alldevs);
     }
 
-    // create pcap buffer instead of 
+    // heap alloc 
+    worker_queues = calloc(NUM_WORKERS, sizeof(worker_queue_t));
+    worker_threads = malloc(NUM_WORKERS * sizeof(pthread_t));
+    
+    if(!worker_queues || !worker_threads) {
+        fprintf(stderr, "Failed to allocate memory for workers\n");
+        return 1;
+    }
+
+    // init queue locks (before threads)
+    for(int i = 0; i < NUM_WORKERS; i++) {
+        worker_queues[i].head = 0; 
+        worker_queues[i].tail = 0;
+        pthread_mutex_init(&worker_queues[i].lock, NULL); 
+        pthread_cond_init(&worker_queues[i].cond, NULL); 
+    }
+
+    for(int i = 0; i < NUM_FLOW_LOCKS; i++) { 
+        pthread_mutex_init(&flow_locks[i], NULL); 
+    }
+
+    
+    /* 
+    trie set up 
+    Note that since we only have one Aho-Corasick model to use, we don't 
+    NEED to have the trie on the heap, in this case its ok to just leave
+    it on the stack. 
+    */
+    for(int i = 0; i < ALPHABET_SIZE; i++) {
+        trie[0].next_state[i] = -1;
+    }
+    trie[0].output = -1;
+    state_count = 1;
+    load_patterns(pattern_file);
+
+    // worker thread init 
+    for(int i = 0; i < NUM_WORKERS; i++) {
+        int *worker_id_arg = malloc(sizeof(int));
+        *worker_id_arg = i; 
+        
+        if(pthread_create(&worker_threads[i], NULL, (void*)worker_thread, worker_id_arg) != 0) { 
+            fprintf(stderr, "Error creating worker thread %d\n", i);
+            return 1;
+        } 
+    }
+
+    // stats monitor 
+    pthread_t monitor_id; 
+    int *stats_arg = malloc(sizeof(int));
+    *stats_arg = NUM_WORKERS + 2;
+    pthread_create(&monitor_id, NULL, (void*)stats_thread, stats_arg);
+
+    // sniffer setup
     handle = pcap_create(dev, errbuf);
     pcap_set_snaplen(handle, MAX_PACKET_SIZE); 
     pcap_set_promisc(handle, 1); 
     pcap_set_timeout(handle, 0);
-    pcap_set_immediate_mode(handle, 1); // get packets to worker threads as soon as they arrive, rather than buffering in kernel  
-    pcap_set_buffer_size(handle, 512 * 1024 * 1024); // 512 MB buffer for pcap (smaller the buffer, faster the kernal buffer fills up with packets) 
+    pcap_set_immediate_mode(handle, 1); 
+    pcap_set_buffer_size(handle, 512 * 1024 * 1024); 
     pcap_activate(handle); 
 
-    // init trie root 
-    for(int i = 0; i < ALPHABET_SIZE; i++) {
-        trie[0].next_state[i] = -1; // initialize root state
-    }
-    trie[0].output = -1; // no pattern ends at root
-    state_count = 1;
+    pin_thread_to_core(1); 
 
-    load_patterns(pattern_file);
-    
-    /* NOTE: 
-       We have two sections of the program, first being the packet sniffer (main thread) and 
-       second being the worker thread that processes packets from the ring buffer. Keep in mind 
-       that pthread_create only creates one thread that will run the worker_thread function to 
-       process packets. Adding more worker threads will add more 'computing speed' to only processing 
-       but not information gathering. This means that we will be limited by the speed of the packet sniffer. 
-    */
-    
-    for(int i = 0; i < NUM_FLOW_LOCKS; i++) { 
-        pthread_mutex_init(&flow_locks[i], NULL); 
-    }
-    
-    for(int i = 0; i < NUM_WORKERS; i++) {
-        int *core_arg = malloc(sizeof(int));
-        *core_arg = i + 2; 
-        if(pthread_create(&worker_threads[i], NULL, (void*)worker_thread, core_arg) != 0) { 
-            fprintf(stderr, "Error creating worker thread %d\n", i);
-            return 1;
-        } 
-        
-    }
-
-    pthread_t monitor_id; 
-    int *stats_arg = malloc(sizeof(int));
-    *stats_arg = NUM_WORKERS + 2;
-    if(pthread_create(&monitor_id, NULL, (void*)stats_thread, stats_arg) != 0) { 
-        fprintf(stderr, "Error creating stats thread\n");
-        return 1;
-    }
-
-
-    // start the capture loop
     printf("Sniffing on device: %s\n", dev); 
     pcap_loop(handle, -1, packet_handler, NULL);
 

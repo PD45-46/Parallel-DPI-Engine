@@ -1,7 +1,7 @@
 #ifndef AHO_CORASICK_H
 #define AHO_CORASICK_H
 
-#define MAX_STATES 1000   // total number of states in the trie
+#define MAX_STATES 1024   // total number of states in the trie
 #define ALPHABET_SIZE 256 // every possible byte value
 
 typedef struct { 
@@ -11,8 +11,8 @@ typedef struct {
     int output;                    // pattern index found
 } ACNode; 
 
-ACNode trie[MAX_STATES]; // the trie itself
-int state_count = 1;     // init with one state (the root -- index 0)
+extern ACNode trie[MAX_STATES]; // the trie itself
+extern int state_count;     // init with one state (the root -- index 0)
 
 
 

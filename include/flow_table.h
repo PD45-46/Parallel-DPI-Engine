@@ -32,7 +32,7 @@ typedef struct flow_entry {
     struct flow_entry *next;     // for handling hash collisions using regular chaining method
 } flow_entry_t; 
 
-flow_entry_t *flow_table[FLOW_TABLE_SIZE]; 
-pthread_mutex_t flow_locks[NUM_FLOW_LOCKS]; 
+extern flow_entry_t *flow_table[FLOW_TABLE_SIZE]; 
+extern pthread_mutex_t flow_locks[NUM_FLOW_LOCKS]; 
 
 #endif
