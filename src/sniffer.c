@@ -11,10 +11,18 @@
 #include <pthread.h>
 #include "../include/aho_corasick.h"
 #include "../include/flow_table.h"
+#include "../include/monitor.h"
 #include <string.h>
 #include <stdatomic.h> 
 #include <signal.h> 
 
+
+// globals defined in monitor.h
+
+alert_t alert_queue[MAX_ALERTS]; 
+int alert_head = 0; 
+int alert_tail = 0; 
+pthread_mutex_t alert_lock = PTHREAD_MUTEX_INITIALIZER; 
 
 // globals defined in aho-corasick.h
 
@@ -57,6 +65,18 @@ void build_failure_links();
 
 uint32_t hash_5tuple(flow_key_t *key); 
 flow_entry_t* find_or_create_flow(packet_t *packet); 
+
+
+void add_alert(int severity, const char *msg) { 
+    pthread_mutex_lock(&alert_lock); 
+    snprintf(alert_queue[alert_head].message, ALERT_MSG_LEN, "%s", msg); 
+    alert_queue[alert_head].severity = severity; 
+    alert_head = (alert_head + 1) % MAX_ALERTS; 
+    if(alert_head == alert_tail) { 
+        alert_tail = (alert_tail + 1) % MAX_ALERTS; // overwrite the oldest
+    }
+    pthread_mutex_unlock(&alert_lock); 
+}
 
 
 
@@ -628,6 +648,8 @@ int main(int argc, char *argv[]) {
     pcap_activate(handle); 
 
     pin_thread_to_core(1); 
+
+    start_ui_thread(); 
 
     printf("Sniffing on device: %s\n", dev); 
     pcap_loop(handle, -1, packet_handler, NULL);
