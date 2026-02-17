@@ -18,6 +18,9 @@ void draw_alerts(WINDOW *win);
 
 void *ui_loop(void *arg) { 
 
+    // unused argument
+    (void)arg; 
+
     // init ncurses 
     initscr(); 
     cbreak(); 
@@ -99,18 +102,18 @@ void draw_dashboard(WINDOW *win) {
     double local_mbps = atomic_load(&current_mbps); 
     long life_pkts = atomic_load(&lifetime_packets); 
     long drops = atomic_load(&total_packets_dropped); 
-    long life_match = atomic_load(&total_matches_found); 
+    long life_match = atomic_load(&lifetime_matches); 
 
     // stats col 1 
     mvwprintw(win, 3, 4, "Lifetime Packets Processed:  %ld", life_pkts);
-    mvwprintw(win, 4, 4, "Bytes Scanned TO CHANGE... : %.2fMB", (double)atomic_load(&total_bytes_scanned) / (1024.0 * 1024.0));
-
+    mvwprintw(win, 4, 4, "Lifetime Matches Found:      %ld", life_match); 
+    mvwprintw(win, 5, 4, "Packet Maliciousness:        %.2f%%", ((double)life_match / (double)life_pkts) * 100.0); 
     // stats col 2 
-    mvwprintw(win, 3, 45, "Lifetime Matches Found:        %ld", life_match); 
-    mvwprintw(win, 4, 45, "Packets Dropped TO CHANGE... : %ld", drops);
+    mvwprintw(win, 4, 45, "Bytes Scanned TO CHANGE... : %.2fMB", (double)atomic_load(&total_bytes_scanned) / (1024.0 * 1024.0));
+    mvwprintw(win, 5, 45, "Packets Dropped TO CHANGE... : %ld", drops);
 
     // throughput bar
-    mvwprintw(win, 6, 4, "Network Load:");
+    mvwprintw(win, 6, 4, "Network Load: [");
     wattron(win, COLOR_PAIR(COLOUR_GOOD)); 
     int bars = (int)(local_mbps / 5); 
     if(bars > 30) bars = 30; 

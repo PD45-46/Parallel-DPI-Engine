@@ -111,7 +111,11 @@ void pin_thread_to_core(int core_id) {
  */
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet) {
 
-    const sniff_ethernet *eth = (sniff_ethernet*)(packet); 
+    // unused 
+    (void)args; 
+    (void)header; 
+
+    // const sniff_ethernet *eth = (sniff_ethernet*)(packet); 
     const sniff_ip *ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
     int size_ip = IP_HL(ip_header) * 4;
     if (size_ip < 20 || ip_header->ip_p != IPPROTO_TCP) return; // not a valid IP header or not TCP
@@ -254,7 +258,7 @@ void search_packet(packet_t *packet_info, flow_entry_t *flow) {
     atomic_fetch_add(&total_bytes_scanned, packet_info->length);
     atomic_fetch_add(&total_packets_processed, 1);
 
-    for(int i = 0; i < packet_info->length; i++) { 
+    for(u_int32_t i = 0; i < packet_info->length; i++) { 
         unsigned char byte = packet_info->data[i]; 
 
         // while there is no transition for this byte and we're not at root, follow failure links 
@@ -309,7 +313,7 @@ void search_packet(packet_t *packet_info, flow_entry_t *flow) {
  */
 void insert_pattern(const char* pattern, int pattern_id) {
     int current_state = 0; // start at root 
-    for(int i = 0; i < pattern[i] != '\0'; i++) { 
+    for(int i = 0; pattern[i] != '\0'; i++) { 
         unsigned char byte = pattern[i]; 
         if(trie[current_state].next_state[byte] == -1) { 
 
@@ -443,6 +447,10 @@ void* stats_thread(void *arg) {
             hit_rate = ((double)std_lifetime_matches / (double)std_lifetime_packets) * 100.0;
         }
 
+        // TODO: Use for later
+        (void)hit_rate;  
+        (void) rb_drops; 
+
         
 
         double mbps = (bytes / 1024.0 / 1024.0) * 8; // convert bytes/s to Mbps
@@ -560,9 +568,10 @@ flow_entry_t* find_or_create_flow(packet_t *packet) {
 
 /** 
  * @brief Handler for interrupt signal 
- * @param sig Expected to be SIGINT 
+ * @param sig Any signal will lead to termination (for now...)
  */
 void signal_handler(int sig) { 
+    (void)sig; 
     keep_running = false; 
     if(handle) pcap_breakloop(handle); 
     printf("Exit Program\n");  
@@ -578,7 +587,7 @@ int main(int argc, char *argv[]) {
 
     char *dev = NULL; 
     char errbuf[PCAP_ERRBUF_SIZE]; 
-    char *pattern_file; 
+    char *pattern_file = NULL; 
 
     // device lookup
     if(argc > 1) { 
@@ -627,6 +636,12 @@ int main(int argc, char *argv[]) {
     }
     trie[0].output = -1;
     state_count = 1;
+
+    if(pattern_file == NULL) { 
+        fprintf(stderr, "Failed to init pattern file\n"); 
+        return 1; 
+    }
+
     load_patterns(pattern_file);
 
     // worker thread init 
