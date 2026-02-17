@@ -19,6 +19,24 @@
 
 // globals defined in monitor.h
 
+engine_stats_t engine_metrics = { 
+    .acc_packets = ATOMIC_VAR_INIT(0), 
+    .acc_bytes = ATOMIC_VAR_INIT(0), 
+    .acc_matches = ATOMIC_VAR_INIT(0), 
+    .acc_drops = ATOMIC_VAR_INIT(0), 
+
+    .current_mbps = ATOMIC_VAR_INIT(0.0),
+    .current_pps = ATOMIC_VAR_INIT(0.0), 
+
+    .lifetime_packets = ATOMIC_VAR_INIT(0),
+    .lifetime_bytes = ATOMIC_VAR_INIT(0),
+    .lifetime_matches = ATOMIC_VAR_INIT(0),
+    .lifetime_drops = ATOMIC_VAR_INIT(0),
+
+
+    .engine_active = ATOMIC_VAR_INIT(true) 
+};
+
 alert_t alert_queue[MAX_ALERTS]; 
 int alert_head = 0; 
 int alert_tail = 0; 
@@ -42,18 +60,11 @@ worker_queue_t *worker_queues = NULL;
 
 pthread_t *worker_threads = NULL;
 
-atomic_long total_bytes_scanned = 0; 
-atomic_long total_packets_processed = 0;
-atomic_long total_matches_found = 0; 
-atomic_long total_packets_dropped = 0; 
-atomic_long lifetime_matches = 0; 
-atomic_long lifetime_packets = 0; 
-
 static volatile bool keep_running = true; 
 
 pcap_t *handle = NULL; 
 
-_Atomic double current_mbps = 0; 
+
 
 // declarations
 
@@ -113,7 +124,7 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
 
     // unused 
     (void)args; 
-    (void)header; 
+    (void) header; 
 
     // const sniff_ethernet *eth = (sniff_ethernet*)(packet); 
     const sniff_ip *ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
@@ -144,7 +155,7 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
     int next_head = (q->head + 1) % RING_SIZE;
     if(next_head == q->tail) { 
         pthread_mutex_unlock(&q->lock);
-        atomic_fetch_add(&total_packets_dropped, 1);
+        atomic_fetch_add(&engine_metrics.acc_drops, 1); 
         return; // buffer is full, drop packet (TODO: implement better strategy for handling this)
     }
 
@@ -255,8 +266,8 @@ void worker_thread(void *arg) {
 void search_packet(packet_t *packet_info, flow_entry_t *flow) { 
 
     int current_state = flow->last_state; 
-    atomic_fetch_add(&total_bytes_scanned, packet_info->length);
-    atomic_fetch_add(&total_packets_processed, 1);
+    atomic_fetch_add(&engine_metrics.acc_bytes, packet_info->length);
+    atomic_fetch_add(&engine_metrics.acc_packets, 1);
 
     for(u_int32_t i = 0; i < packet_info->length; i++) { 
         unsigned char byte = packet_info->data[i]; 
@@ -276,7 +287,7 @@ void search_packet(packet_t *packet_info, flow_entry_t *flow) {
         while(temp_state != 0) { 
             if(trie[temp_state].output != -1) { 
                 // printf("[!] Found pattern ID %d in packet from %s\n", trie[temp_state].output, inet_ntoa(packet_info->src_ip));
-                atomic_fetch_add(&total_matches_found, 1);
+                atomic_fetch_add(&engine_metrics.acc_matches, 1); 
 
                 // string for alert 
                 char msg[ALERT_MSG_LEN]; 
@@ -431,30 +442,19 @@ void* stats_thread(void *arg) {
     printf("\n[DPI ENGINE] Monitoring stats... \n"); 
     while(keep_running) { 
         sleep(1); 
-        long bytes = atomic_exchange(&total_bytes_scanned, 0);
-        long packets = atomic_exchange(&total_packets_processed, 0);
-        long matches = atomic_exchange(&total_matches_found, 0);    
-        long rb_drops = atomic_exchange(&total_packets_dropped, 0);
+        long b_sec = atomic_exchange(&engine_metrics.acc_bytes, 0);
+        long p_sec = atomic_exchange(&engine_metrics.acc_packets, 0);
+        long m_sec = atomic_exchange(&engine_metrics.acc_matches, 0);    
+        long d_sec = atomic_exchange(&engine_metrics.acc_drops, 0);
 
-        atomic_fetch_add(&lifetime_packets, packets); 
-        atomic_fetch_add(&lifetime_matches, matches); 
+        atomic_fetch_add(&engine_metrics.lifetime_bytes, b_sec); 
+        atomic_fetch_add(&engine_metrics.lifetime_packets, p_sec); 
+        atomic_fetch_add(&engine_metrics.lifetime_matches, m_sec); 
+        atomic_fetch_add(&engine_metrics.lifetime_drops, d_sec);
 
-        long std_lifetime_packets = atomic_load(&lifetime_packets); 
-        long std_lifetime_matches = atomic_load(&lifetime_matches);
-        
-        double hit_rate = 0.0;  
-        if(std_lifetime_packets > 0) { 
-            hit_rate = ((double)std_lifetime_matches / (double)std_lifetime_packets) * 100.0;
-        }
-
-        // TODO: Use for later
-        (void)hit_rate;  
-        (void) rb_drops; 
-
-        
-
-        double mbps = (bytes / 1024.0 / 1024.0) * 8; // convert bytes/s to Mbps
-        atomic_store(&current_mbps, mbps); 
+        double mbps = (b_sec / 1024.0 / 1024.0) * 8; // convert bytes/s to Mbps
+        atomic_store(&engine_metrics.current_mbps, mbps); 
+        atomic_store(&engine_metrics.current_pps, p_sec); 
 
         // printf("\r\033[K[STATS] %.2f MB/s | PPS: %ld | M: %ld | Drp: %ld | Total Pkt: %ld | Total M: %ld | Hit: %.2f%%", 
         //     mbps, packets, matches, rb_drops, std_lifetime_packets, std_lifetime_matches, hit_rate);

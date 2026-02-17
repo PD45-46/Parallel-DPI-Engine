@@ -99,23 +99,25 @@ void draw_dashboard(WINDOW *win) {
     wattroff(win, COLOR_PAIR(COLOUR_HEADER)); 
 
     // get atomics safely 
-    double local_mbps = atomic_load(&current_mbps); 
-    long life_pkts = atomic_load(&lifetime_packets); 
-    long drops = atomic_load(&total_packets_dropped); 
-    long life_match = atomic_load(&lifetime_matches); 
+    long total_bytes = atomic_load(&engine_metrics.lifetime_bytes); 
+    long total_packets = atomic_load(&engine_metrics.lifetime_packets); 
+    long total_drops = atomic_load(&engine_metrics.lifetime_drops); 
+    long total_matches = atomic_load(&engine_metrics.lifetime_matches); 
+    double current_mbps = atomic_load(&engine_metrics.current_mbps); 
 
     // stats col 1 
-    mvwprintw(win, 3, 4, "Lifetime Packets Processed:  %ld", life_pkts);
-    mvwprintw(win, 4, 4, "Lifetime Matches Found:      %ld", life_match); 
-    mvwprintw(win, 5, 4, "Packet Maliciousness:        %.2f%%", ((double)life_match / (double)life_pkts) * 100.0); 
+    mvwprintw(win, 3, 4, "Lifetime Packets Processed:  %ld", total_packets);
+    mvwprintw(win, 4, 4, "Lifetime Matches Found:      %ld", total_matches); 
+    mvwprintw(win, 5, 4, "Packet Maliciousness:        %.2f%%", ((double)total_matches / (double)total_packets) * 100.0); 
     // stats col 2 
-    mvwprintw(win, 4, 45, "Bytes Scanned TO CHANGE... : %.2fMB", (double)atomic_load(&total_bytes_scanned) / (1024.0 * 1024.0));
-    mvwprintw(win, 5, 45, "Packets Dropped TO CHANGE... : %ld", drops);
+    mvwprintw(win, 3, 45, "Total Bytes Scanned:        %ld", total_bytes);
+    mvwprintw(win, 4, 45, "Packet Sniffing Speed:      %.2fMbps", current_mbps);
+    mvwprintw(win, 5, 45, "Lifetime Packet Drops:      %ld", total_drops);
 
     // throughput bar
-    mvwprintw(win, 6, 4, "Network Load: [");
+    mvwprintw(win, 7, 4, "Network Load: [");
     wattron(win, COLOR_PAIR(COLOUR_GOOD)); 
-    int bars = (int)(local_mbps / 5); 
+    int bars = (int)(current_mbps / 5); 
     if(bars > 30) bars = 30; 
     for(int i = 0; i < bars; i++) { 
         mvwaddch(win, 6, 18+i, '|'); 
