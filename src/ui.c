@@ -104,6 +104,8 @@ void draw_dashboard(WINDOW *win) {
     long total_drops = atomic_load(&engine_metrics.lifetime_drops); 
     long total_matches = atomic_load(&engine_metrics.lifetime_matches); 
     double current_mbps = atomic_load(&engine_metrics.current_mbps); 
+    long current_active_flows = atomic_load(&engine_metrics.active_flows); 
+    long max = engine_metrics.max_flow_capacity; 
 
     // stats col 1 
     mvwprintw(win, 3, 4, "Lifetime Packets Processed:  %ld", total_packets);
@@ -114,15 +116,30 @@ void draw_dashboard(WINDOW *win) {
     mvwprintw(win, 4, 45, "Packet Sniffing Speed:      %.2fMbps", current_mbps);
     mvwprintw(win, 5, 45, "Lifetime Packet Drops:      %ld", total_drops);
 
-    // throughput bar
-    mvwprintw(win, 7, 4, "Network Load: [");
-    wattron(win, COLOR_PAIR(COLOUR_GOOD)); 
-    int bars = (int)(current_mbps / 5); 
-    if(bars > 30) bars = 30; 
-    for(int i = 0; i < bars; i++) { 
-        mvwaddch(win, 6, 18+i, '|'); 
-    }  
-    wattroff(win, COLOR_PAIR(COLOUR_GOOD)); 
+    // flow capcity bar 
+    double flow_capacity = (max > 0) ? ((double)current_active_flows / max) * 100.0 : 0.0; 
+    int max_bar_width = 10; 
+    int bars_to_fill = (int)((flow_capacity / 100.0) * max_bar_width); 
+
+    if(bars_to_fill > max_bar_width) bars_to_fill = max_bar_width; 
+
+    mvwprintw(win, 7, 4, "Flow Table Capacity: ["); 
+    int bar_start_col = 26; 
+
+    int colour_pair = COLOUR_GOOD; 
+    if(flow_capacity > 80.0) colour_pair = COLOUR_ALERT; 
+    else if(flow_capacity > 50.0) colour_pair = COLOUR_HEADER;
+    
+    wattron(win, COLOR_PAIR(colour_pair)); 
+    for(int i = 0; i < max_bar_width; i++) { 
+        if(i < bars_to_fill) { 
+            mvwaddch(win, 7, bar_start_col + i, '|'); 
+        } else { 
+            mvwaddch(win, 7, bar_start_col + i, ' '); 
+        }
+    }
+    wattroff(win, COLOR_PAIR(colour_pair));
+    mvwprintw(win, 7, bar_start_col + max_bar_width, "] %.1f%% (%ld/%ld)", flow_capacity, current_active_flows, max);
 }
 
 void draw_alerts(WINDOW *win) { 

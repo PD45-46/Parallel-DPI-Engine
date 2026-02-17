@@ -34,7 +34,10 @@ engine_stats_t engine_metrics = {
     .lifetime_drops = ATOMIC_VAR_INIT(0),
 
 
-    .engine_active = ATOMIC_VAR_INIT(true) 
+    .engine_active = ATOMIC_VAR_INIT(true), 
+
+    .active_flows = ATOMIC_VAR_INIT(0), 
+    .max_flow_capacity = FLOW_TABLE_SIZE * 8 // ie. each bucket has 8 slots 
 };
 
 alert_t alert_queue[MAX_ALERTS]; 
@@ -78,6 +81,7 @@ void build_failure_links();
 
 uint32_t hash_5tuple(flow_key_t *key); 
 flow_entry_t* find_or_create_flow(packet_t *packet); 
+void cleanup_aged_flows(unsigned int timeout_seconds); 
 
 
 void add_alert(int severity, const char *msg) { 
@@ -456,28 +460,12 @@ void* stats_thread(void *arg) {
         atomic_store(&engine_metrics.current_mbps, mbps); 
         atomic_store(&engine_metrics.current_pps, p_sec); 
 
-        // printf("\r\033[K[STATS] %.2f MB/s | PPS: %ld | M: %ld | Drp: %ld | Total Pkt: %ld | Total M: %ld | Hit: %.2f%%", 
-        //     mbps, packets, matches, rb_drops, std_lifetime_packets, std_lifetime_matches, hit_rate);
-        // fflush(stdout); 
-
-
-        // flow aging -> to avoid mem to fill up with dead connections 
-        // we do this in stats thread because it only activates every few seconds 
-        time_t now = time(NULL); 
-        for(int i = 0; i < FLOW_TABLE_SIZE; i++) { 
-            pthread_mutex_lock(GET_FLOW_LOCK(i)); 
-            flow_entry_t **curr = &flow_table[i]; 
-
-            while(*curr) { 
-                if(now - (*curr)->last_seen > 60) { 
-                    flow_entry_t *to_remove = *curr; 
-                    *curr = to_remove->next; 
-                    free(to_remove); 
-                } else { 
-                    curr = &((*curr)->next); 
-                }
-            }
-            pthread_mutex_unlock(GET_FLOW_LOCK(i)); 
+        // in the case we reach the max flow capacity quickly, the flows need to be cleared out quickly 
+        // hence boundary timeout for the flow is reduced so more can be deleted. 
+        if(atomic_load(&engine_metrics.active_flows) >= (engine_metrics.max_flow_capacity * 0.9)) { 
+            cleanup_aged_flows(30);  
+        } else { 
+            cleanup_aged_flows(60); 
         }
     }
     return NULL; 
@@ -558,8 +546,39 @@ flow_entry_t* find_or_create_flow(packet_t *packet) {
     new_flow->next = flow_table[index]; 
     flow_table[index] = new_flow; 
 
+    atomic_fetch_add(&engine_metrics.active_flows, 1); 
+
     pthread_mutex_unlock(GET_FLOW_LOCK(index)); 
     return new_flow; 
+}
+
+
+
+/** 
+ * @brief 
+ * @param timeout_seconds Defines how long a flow can be 'silent' until it must be removed 
+ */
+void cleanup_aged_flows(unsigned int timeout_seconds) { 
+
+    time_t now = time(NULL); 
+
+    for(int i = 0; i < FLOW_TABLE_SIZE; i++) { 
+
+        pthread_mutex_lock(GET_FLOW_LOCK(i)); 
+        flow_entry_t **curr = &flow_table[i]; 
+
+        while(*curr) { 
+            if(now - (*curr)->last_seen > timeout_seconds) { 
+                flow_entry_t *to_remove = *curr; 
+                *curr = to_remove->next; 
+                free(to_remove); 
+                atomic_fetch_sub(&engine_metrics.active_flows, 1); 
+            } else { 
+                curr = &((*curr)->next); 
+            }
+        }
+        pthread_mutex_unlock(GET_FLOW_LOCK(i)); 
+    }
 }
 
 

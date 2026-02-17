@@ -28,6 +28,10 @@ typedef struct {
 
     _Atomic double worker_load[NUM_WORKERS]; // percentage usage of each worker thread
     _Atomic bool engine_active; 
+
+    // flow table trackers 
+    atomic_long active_flows; 
+    const long max_flow_capacity; 
 } engine_stats_t; 
 
 extern engine_stats_t engine_metrics; 
