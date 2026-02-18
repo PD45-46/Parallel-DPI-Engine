@@ -267,7 +267,19 @@ void worker_thread(void *arg) {
         guaranteed to be ready. 
         */
         flow_entry_t *my_flow = find_or_create_flow(packet); 
+
+        struct timespec start, end; 
+        clock_gettime(CLOCK_MONOTONIC, &start); 
+
         search_packet(packet, my_flow); 
+
+        clock_gettime(CLOCK_MONOTONIC, &end); 
+        double delta_ns = (end.tv_sec - start.tv_sec) * 1e9 + (end.tv_nsec - start.tv_nsec); 
+        double old_avg = atomic_load(&engine_metrics.worker_avg_ns[worker_id]); 
+        double new_avg = (delta_ns * EMA_ALPHA) + (old_avg * (1.0 - EMA_ALPHA)); 
+        atomic_store(&engine_metrics.worker_avg_ns[worker_id], new_avg); 
+
+
         atomic_fetch_add(&engine_metrics.worker_pps[worker_id], 1); 
         q->tail = (q->tail + 1) % RING_SIZE; 
         pthread_mutex_unlock(&q->lock); 

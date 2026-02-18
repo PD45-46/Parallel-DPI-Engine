@@ -151,7 +151,7 @@ void draw_dashboard(WINDOW *win) {
         }
     }
     wattroff(win, COLOR_PAIR(colour_pair));
-    mvwprintw(win, 9, bar_start_col + max_bar_width, "] %.1f%% (%ld/%ld)", flow_capacity, current_active_flows, max);
+    mvwprintw(win, 9, bar_start_col + max_bar_width, "] %.2f%% (%ld/%ld)", flow_capacity, current_active_flows, max);
 }
 
 void draw_alerts(WINDOW *win) { 
@@ -185,6 +185,7 @@ void draw_worker_info(WINDOW *win) {
         long worker_pps = atomic_exchange(&engine_metrics.worker_pps[i], 0); 
         double max_expected_pps = GLOBAL_PPS_LIMIT; 
         double percentage = (worker_pps / max_expected_pps) * 100.0; 
+        double ms = atomic_load(&engine_metrics.worker_avg_ns[i]); 
 
         if(percentage > 100.0) percentage = 100.0; 
         int bars_to_fill = (int)((percentage / 100.0) * max_bar_width); 
@@ -208,7 +209,7 @@ void draw_worker_info(WINDOW *win) {
             }
         }
         wattroff(win, COLOR_PAIR(colour_pair));
-        mvwprintw(win, current_row, bar_start_col + max_bar_width, "] %.1f%%", percentage);
+        mvwprintw(win, current_row, bar_start_col + max_bar_width, "] %.2f%% | Latency: %.2f Microseconds", percentage, ms);
     }
 }
  

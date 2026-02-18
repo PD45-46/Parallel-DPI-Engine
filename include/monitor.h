@@ -9,6 +9,16 @@
 #define MAX_ALERTS 50 
 #define ALERT_MSG_LEN 200
 
+/*
+Avg = (Current time * alpha) + (old average * (1 - alpha))
+Alpha (Smoothing Factor) = 2 / (N + 1)
+8 <= N <= 21, in this case N = 19
+The reason why N is within these boundaries is because smaller N values 
+allows for short term events (such as sniffing) as it increases the indicator's 
+sensitivity to recent fluctuations hence more accuracy.  
+*/
+#define EMA_ALPHA 0.1f
+
 typedef struct { 
     // accumulators that reset to 0 every second by the stats thread 
     atomic_long acc_packets;
@@ -28,6 +38,14 @@ typedef struct {
 
     // atomic_long worker_load[NUM_WORKERS]; // percentage usage of each worker thread
     atomic_long worker_pps[NUM_WORKERS]; 
+    
+    /*
+    Uses EMA calculation to keep track of avgs. The times are for how long a worker
+    thread spends in the search_packet() function in sniffer.c 
+    */ 
+    _Atomic double worker_avg_ns[NUM_WORKERS]; 
+
+    
     _Atomic bool engine_active; 
 
     // flow table trackers 
