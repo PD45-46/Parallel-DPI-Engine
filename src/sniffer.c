@@ -250,9 +250,19 @@ void worker_thread(void *arg) {
 
         pthread_mutex_lock(&q->lock); 
         
+        struct timespec start_wait, end_wait; 
+        clock_gettime(CLOCK_MONOTONIC, &start_wait); 
+
         while(q->head == q->tail && keep_running) { 
             pthread_cond_wait(&q->cond, &q->lock); 
         }
+
+        clock_gettime(CLOCK_MONOTONIC, &end_wait); 
+        double delta_wait = (end_wait.tv_sec - start_wait.tv_sec) * 1e9 + (end_wait.tv_nsec - start_wait.tv_nsec); 
+        double old_avg_wait = atomic_load(&engine_metrics.worker_avg_wait[worker_id]); 
+        double new_avg_wait = (delta_wait * EMA_ALPHA) + (old_avg_wait * (1.0 - EMA_ALPHA)); 
+        atomic_store(&engine_metrics.worker_avg_wait[worker_id], new_avg_wait); 
+
 
         if(!keep_running) { 
             pthread_mutex_unlock(&q->lock); 
@@ -266,18 +276,29 @@ void worker_thread(void *arg) {
         q->head after it finishes copying the data. This packet is 
         guaranteed to be ready. 
         */
+
+        struct timespec start_hash, end_hash; 
+        clock_gettime(CLOCK_MONOTONIC, &start_hash); 
+
         flow_entry_t *my_flow = find_or_create_flow(packet); 
 
-        struct timespec start, end; 
-        clock_gettime(CLOCK_MONOTONIC, &start); 
+        clock_gettime(CLOCK_MONOTONIC, &end_hash); 
+        double delta_hash = (end_hash.tv_sec - start_hash.tv_sec) * 1e9 + (end_hash.tv_nsec - start_hash.tv_nsec); 
+        double old_avg_hash = atomic_load(&engine_metrics.worker_avg_hash[worker_id]); 
+        double new_avg_hash = (delta_hash * EMA_ALPHA) + (old_avg_hash * (1.0 - EMA_ALPHA)); 
+        atomic_store(&engine_metrics.worker_avg_hash[worker_id], new_avg_hash); 
+
+
+        struct timespec start_algo, end_algo; 
+        clock_gettime(CLOCK_MONOTONIC, &start_algo); 
 
         search_packet(packet, my_flow); 
 
-        clock_gettime(CLOCK_MONOTONIC, &end); 
-        double delta_ns = (end.tv_sec - start.tv_sec) * 1e9 + (end.tv_nsec - start.tv_nsec); 
-        double old_avg = atomic_load(&engine_metrics.worker_avg_ns[worker_id]); 
-        double new_avg = (delta_ns * EMA_ALPHA) + (old_avg * (1.0 - EMA_ALPHA)); 
-        atomic_store(&engine_metrics.worker_avg_ns[worker_id], new_avg); 
+        clock_gettime(CLOCK_MONOTONIC, &end_algo); 
+        double delta_algo = (end_algo.tv_sec - start_algo.tv_sec) * 1e9 + (end_algo.tv_nsec - start_algo.tv_nsec); 
+        double old_avg_algo = atomic_load(&engine_metrics.worker_avg_algo[worker_id]); 
+        double new_avg_algo = (delta_algo * EMA_ALPHA) + (old_avg_algo * (1.0 - EMA_ALPHA)); 
+        atomic_store(&engine_metrics.worker_avg_algo[worker_id], new_avg_algo); 
 
 
         atomic_fetch_add(&engine_metrics.worker_pps[worker_id], 1); 

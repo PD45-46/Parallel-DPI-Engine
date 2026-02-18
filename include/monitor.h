@@ -43,7 +43,10 @@ typedef struct {
     Uses EMA calculation to keep track of avgs. The times are for how long a worker
     thread spends in the search_packet() function in sniffer.c 
     */ 
-    _Atomic double worker_avg_ns[NUM_WORKERS]; 
+    _Atomic double worker_avg_algo[NUM_WORKERS];
+    _Atomic double worker_avg_wait[NUM_WORKERS]; 
+    _Atomic double worker_avg_hash[NUM_WORKERS]; 
+
 
     
     _Atomic bool engine_active; 

@@ -185,7 +185,9 @@ void draw_worker_info(WINDOW *win) {
         long worker_pps = atomic_exchange(&engine_metrics.worker_pps[i], 0); 
         double max_expected_pps = GLOBAL_PPS_LIMIT; 
         double percentage = (worker_pps / max_expected_pps) * 100.0; 
-        double ms = atomic_load(&engine_metrics.worker_avg_ns[i]); 
+        double algo_time = atomic_load(&engine_metrics.worker_avg_algo[i]); 
+        double wait_time = atomic_load(&engine_metrics.worker_avg_wait[i]); 
+        double hash_time = atomic_load(&engine_metrics.worker_avg_hash[i]); 
 
         if(percentage > 100.0) percentage = 100.0; 
         int bars_to_fill = (int)((percentage / 100.0) * max_bar_width); 
@@ -209,7 +211,7 @@ void draw_worker_info(WINDOW *win) {
             }
         }
         wattroff(win, COLOR_PAIR(colour_pair));
-        mvwprintw(win, current_row, bar_start_col + max_bar_width, "] %.2f%% | Latency: %.2f Microseconds", percentage, ms);
+        mvwprintw(win, current_row, bar_start_col + max_bar_width, "] %.2f%% | Algorithm Processing Time: %.2f us | Wait Time: %.2f us | Hash Lookup Time: %.2f", percentage, algo_time, wait_time, hash_time);
     }
 }
  
