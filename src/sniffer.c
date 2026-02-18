@@ -128,7 +128,24 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
 
     // unused 
     (void)args; 
-    (void) header; 
+    // (void) header; 
+
+    // pps rate limiting 
+    static long last_sec = 0; 
+    static atomic_long current_sec_count = 0; 
+    long now = header->ts.tv_sec; // use timestamp from pcap rather than time(NULL)
+
+    if(now != last_sec) { 
+        last_sec = now; 
+        atomic_store(&current_sec_count, 0); 
+    }
+
+    if (atomic_load(&current_sec_count) >= GLOBAL_PPS_LIMIT) {
+        atomic_fetch_add(&engine_metrics.acc_drops, 1);
+        return; // DROP: Do not add to worker queues
+    }
+
+    atomic_fetch_add(&current_sec_count, 1);
 
     // const sniff_ethernet *eth = (sniff_ethernet*)(packet); 
     const sniff_ip *ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
@@ -230,6 +247,7 @@ void worker_thread(void *arg) {
     worker_queue_t *q = &worker_queues[worker_id]; 
 
     while(keep_running) { 
+
         pthread_mutex_lock(&q->lock); 
         
         while(q->head == q->tail && keep_running) { 
@@ -250,6 +268,7 @@ void worker_thread(void *arg) {
         */
         flow_entry_t *my_flow = find_or_create_flow(packet); 
         search_packet(packet, my_flow); 
+        atomic_fetch_add(&engine_metrics.worker_pps[worker_id], 1); 
         q->tail = (q->tail + 1) % RING_SIZE; 
         pthread_mutex_unlock(&q->lock); 
     } 
@@ -539,6 +558,12 @@ flow_entry_t* find_or_create_flow(packet_t *packet) {
     }
 
     // create new flow if not found 
+    /*
+    Note: As the number of active_flows increases, if multiple workers find
+    new flows at the same time, they will fight for the heap lock which slows 
+    the engine down. Eventually, I can pre-allocate a pool of flow entries and 
+    just grab one from the pool. 
+    */
     flow_entry_t *new_flow = calloc(1, sizeof(flow_entry_t)); 
     new_flow->key = packet->key; 
     new_flow->last_state = 0; 

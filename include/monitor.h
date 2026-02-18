@@ -26,7 +26,8 @@ typedef struct {
     atomic_long lifetime_matches; 
     atomic_long lifetime_drops; 
 
-    _Atomic double worker_load[NUM_WORKERS]; // percentage usage of each worker thread
+    // atomic_long worker_load[NUM_WORKERS]; // percentage usage of each worker thread
+    atomic_long worker_pps[NUM_WORKERS]; 
     _Atomic bool engine_active; 
 
     // flow table trackers 

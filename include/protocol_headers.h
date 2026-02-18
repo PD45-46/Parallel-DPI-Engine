@@ -8,7 +8,8 @@
 
 #define RING_SIZE 1024 // 2^10 -> allows for bitwise 
 #define MAX_PACKET_SIZE 65536
-#define NUM_WORKERS 4 
+#define NUM_WORKERS 4
+#define GLOBAL_PPS_LIMIT 10000 // a worker can only process 10,000 packets per second at max
 
 // Ethernet header (always 14 bytes)
 typedef struct { 
