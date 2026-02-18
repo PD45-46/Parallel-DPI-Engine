@@ -16,7 +16,9 @@ static volatile bool keep_running = true;
 
 void draw_dashboard(WINDOW *win); 
 void draw_alerts(WINDOW *win);
+void draw_sniffer_info(WINDOW *win); 
 void draw_worker_info(WINDOW *win); 
+void draw_options_keys(WINDOW *win); 
 
 void *ui_loop(void *arg) { 
 
@@ -43,12 +45,16 @@ void *ui_loop(void *arg) {
     // create windows 
     int height_dash_log = 12;
     int half_width = COLS / 2; 
+    int height_win_sniffer_info = 10; 
     int height_win_worker_info = 12; 
+    int height_options_keys = 3; 
     
 
     WINDOW *win_dash = newwin(height_dash_log, half_width, 0, 0);
     WINDOW *win_log = newwin(height_dash_log, COLS - half_width, 0, half_width);
-    WINDOW *win_worker_info = newwin(height_win_worker_info, COLS, height_dash_log, 0); 
+    WINDOW *win_sniffer_info = newwin(height_win_sniffer_info, COLS, height_dash_log, 0);
+    WINDOW *win_worker_info = newwin(height_win_worker_info, COLS, height_dash_log + height_win_sniffer_info, 0); 
+    WINDOW *win_options_keys = newwin(height_options_keys, COLS, height_dash_log + height_win_sniffer_info + height_win_worker_info, 0); 
     
 
     // ui loop 
@@ -62,34 +68,46 @@ void *ui_loop(void *arg) {
 
             delwin(win_dash); 
             delwin(win_log); 
+            delwin(win_sniffer_info);
             delwin(win_worker_info); 
+            delwin(win_options_keys); 
 
             half_width = COLS / 2; 
 
             win_dash = newwin(height_dash_log, half_width, 0, 0);
             win_log = newwin(height_dash_log, COLS - half_width, 0, half_width);
-            win_worker_info = newwin(height_win_worker_info, COLS, height_dash_log, 0); 
+            win_sniffer_info = newwin(height_win_sniffer_info, COLS, height_dash_log, 0);
+            win_worker_info = newwin(height_win_worker_info, COLS, height_dash_log + height_win_sniffer_info, 0); 
+            win_options_keys = newwin(height_options_keys, COLS, height_dash_log + height_win_sniffer_info + height_win_worker_info, 0); 
         }
 
         // clear windows to redraw
         werase(win_dash); 
         werase(win_log);
+        werase(win_sniffer_info); 
         werase(win_worker_info); 
+        werase(win_options_keys); 
 
         // draw box boarders 
         box(win_dash, 0, 0);
         box(win_log, 0, 0);
+        box(win_sniffer_info, 0, 0); 
         box(win_worker_info, 0, 0); 
+        // box(win_options_keys, 0, 0); 
 
         // draw content 
         draw_dashboard(win_dash);
         draw_alerts(win_log);
+        draw_sniffer_info(win_sniffer_info); 
         draw_worker_info(win_worker_info); 
+        draw_options_keys(win_options_keys); 
 
         // push changes to screen 
         wrefresh(win_dash); 
         wrefresh(win_log); 
+        wrefresh(win_sniffer_info); 
         wrefresh(win_worker_info); 
+        wrefresh(win_options_keys); 
 
         // stall 
         napms(100);
@@ -98,7 +116,9 @@ void *ui_loop(void *arg) {
 
     delwin(win_dash); 
     delwin(win_log); 
+    delwin(win_sniffer_info);
     delwin(win_worker_info);
+    delwin(win_options_keys); 
     endwin(); 
     return NULL; 
 }
@@ -172,6 +192,19 @@ void draw_alerts(WINDOW *win) {
     pthread_mutex_unlock(&alert_lock); 
 }
 
+
+
+void draw_sniffer_info(WINDOW *win) { 
+
+    wattron(win, COLOR_PAIR(COLOUR_HEADER)); 
+    mvwprintw(win, 1, 2, "[ SNIFFER INFO ]");
+    wattroff(win, COLOR_PAIR(COLOUR_HEADER));
+
+}
+
+
+
+
 void draw_worker_info(WINDOW *win) { 
 
     wattron(win, COLOR_PAIR(COLOUR_HEADER)); 
@@ -215,6 +248,20 @@ void draw_worker_info(WINDOW *win) {
     }
 }
  
+
+
+void draw_options_keys(WINDOW* win) { 
+
+    mvwprintw(win, 1, 2, "[ Q: Quit ]");
+    mvwprintw(win, 1, 16, "[ P: Pause ]");
+    mvwprintw(win, 1, 30, "[ R: Reset ]");
+    mvwprintw(win, 1, 44, "[ C: Clear Alerts ]");
+    mvwprintw(win, 1, 66, "[ ETC... ]"); 
+
+}
+
+
+
 void start_ui_thread() { 
     pthread_t thread_id; 
     pthread_create(&thread_id, NULL, ui_loop, NULL);
