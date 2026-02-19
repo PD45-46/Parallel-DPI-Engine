@@ -211,7 +211,7 @@ void draw_worker_info(WINDOW *win) {
     mvwprintw(win, 1, 2, "[ WORKER INFO ]");
     wattroff(win, COLOR_PAIR(COLOUR_HEADER));
 
-    int max_bar_width = 20; 
+    int max_bar_width = 65; 
 
     for(int i = 0; i < NUM_WORKERS; i++) { 
 

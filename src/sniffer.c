@@ -12,6 +12,8 @@
 #include "../include/aho_corasick.h"
 #include "../include/flow_table.h"
 #include "../include/monitor.h"
+#include "../include/ingress.h"
+#include <poll.h> 
 #include <string.h>
 #include <stdatomic.h> 
 #include <signal.h> 
@@ -83,6 +85,8 @@ uint32_t hash_5tuple(flow_key_t *key);
 flow_entry_t* find_or_create_flow(packet_t *packet); 
 void cleanup_aged_flows(unsigned int timeout_seconds); 
 
+void run_sniffer_loop(af_packet_handle_t *h); 
+
 
 void add_alert(int severity, const char *msg) { 
     pthread_mutex_lock(&alert_lock); 
@@ -112,6 +116,79 @@ void pin_thread_to_core(int core_id) {
     }
 } 
 
+
+/** 
+ * 
+ * 
+ */
+void run_sniffer_loop(af_packet_handle_t *h) { 
+
+    struct pollfd pfd = { 
+        .fd = h->socket_fd, 
+        .events = POLLIN
+    }; 
+
+    printf("AF_PACKET Zero-Copy Ingress Active... \n"); 
+
+    while(keep_running) { 
+        struct tpacket2_hdr *hdr = (struct tpacket2_hdr *)h->rd[h->current_frame].iov_base; 
+
+        // check if kernal gave frame to user 
+        if(!(hdr->tp_status & TP_STATUS_USER)) { 
+            poll(&pfd, 1, 10); 
+            continue;  
+        }   
+
+        uint8_t *packet = (uint8_t *)hdr + hdr->tp_mac; 
+
+        const sniff_ip *ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
+        int size_ip = IP_HL(ip_header) * 4;
+
+        if(size_ip >= 20 && ip_header->ip_p == IPPROTO_TCP) { 
+            const sniff_tcp *tcp = (sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip); 
+            int size_tcp = TH_OFF(tcp) * 4; 
+            int payload_offset = sizeof(sniff_ethernet) + size_ip + size_tcp; 
+            int payload_len = ntohs(ip_header->ip_len) - size_ip - size_tcp;
+
+            // populate the 5-tuple key
+            flow_key_t key = {
+                .src_ip = ip_header->ip_src.s_addr, 
+                .dst_ip = ip_header->ip_dst.s_addr,
+                .src_port = tcp->th_sport,
+                .dst_port = tcp->th_dport,
+                .protocol = ip_header->ip_p 
+            }; 
+
+            uint32_t hash = hash_5tuple(&key); 
+            int worker_id = hash % NUM_WORKERS; 
+            worker_queue_t *q = &worker_queues[worker_id]; 
+
+            pthread_mutex_lock(&q->lock);
+            int next_head = (q->head + 1) % RING_SIZE;
+            if(next_head != q->tail) { 
+                packet_t *packet_info = &q->buffer[q->head]; 
+                packet_info->length = payload_len; 
+                packet_info->src_ip = ip_header->ip_src;
+                packet_info->key = key; 
+                packet_info->hash = hash; 
+
+                if(payload_len > 0) { 
+                    memcpy(packet_info->data, packet + payload_offset, 
+                        (payload_len > MAX_PACKET_SIZE) ? MAX_PACKET_SIZE : payload_len); 
+                }
+                q->head = next_head; 
+                pthread_cond_signal(&q->cond); 
+            } else { 
+                atomic_fetch_add(&engine_metrics.acc_drops, 1); 
+            }
+            pthread_mutex_unlock(&q->lock); 
+        }
+
+        // hand frame back to kernal 
+        hdr->tp_status = TP_STATUS_KERNEL; 
+        h->current_frame = (h->current_frame + 1) % CONF_RING_FRAMES; 
+    } 
+}
 
 
 /** 
@@ -660,25 +737,11 @@ void signal_handler(int sig) {
 
 /* MAIN */
 int main(int argc, char *argv[]) { 
+
     signal(SIGINT, signal_handler); 
 
-    char *dev = NULL; 
-    char errbuf[PCAP_ERRBUF_SIZE]; 
-    char *pattern_file = NULL; 
-
-    // device lookup
-    if(argc > 1) { 
-        dev = argv[1]; 
-        pattern_file = argv[2];
-    } else { 
-        pcap_if_t *alldevs;
-        if (pcap_findalldevs(&alldevs, errbuf) == -1) {
-            fprintf(stderr, "Error in pcap_findalldevs: %s\n", errbuf);
-            return 1;
-        }
-        dev = strdup(alldevs->name); // Take the first device
-        pcap_freealldevs(alldevs);
-    }
+    char *dev = (argc > 1) ? argv[1] : "eth0"; 
+    char *pattern_file = (argc > 2) ? argv[2] : NULL; 
 
     // heap alloc 
     worker_queues = calloc(NUM_WORKERS, sizeof(worker_queue_t));
@@ -739,21 +802,14 @@ int main(int argc, char *argv[]) {
     pthread_create(&monitor_id, NULL, (void*)stats_thread, stats_arg);
 
     // sniffer setup
-    handle = pcap_create(dev, errbuf);
-    pcap_set_snaplen(handle, MAX_PACKET_SIZE); 
-    pcap_set_promisc(handle, 1); 
-    pcap_set_timeout(handle, 0);
-    pcap_set_immediate_mode(handle, 1); 
-    pcap_set_buffer_size(handle, 512 * 1024 * 1024); 
-    pcap_activate(handle); 
-
-    pin_thread_to_core(1); 
+    af_packet_handle_t *ring_handle = setup_af_packet(dev); 
+    if(!ring_handle) { 
+        return 1; 
+    } 
 
     start_ui_thread(); 
-
-    printf("Sniffing on device: %s\n", dev); 
-    pcap_loop(handle, -1, packet_handler, NULL);
-
-    pcap_close(handle);
+    pin_thread_to_core(1); 
+    run_sniffer_loop(ring_handle); 
+    teardown_af_packet(ring_handle); 
     return 0;
 }
