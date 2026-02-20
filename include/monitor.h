@@ -28,7 +28,7 @@ typedef struct {
 
     // rea; time gauges 
     _Atomic double current_mbps; 
-    _Atomic double current_pps; 
+    _Atomic double current_pps;
 
     // lifetime total 
     atomic_long lifetime_packets; 
@@ -46,7 +46,7 @@ typedef struct {
     _Atomic double worker_avg_algo[NUM_WORKERS];
     _Atomic double worker_avg_wait[NUM_WORKERS]; 
     _Atomic double worker_avg_hash[NUM_WORKERS]; 
-
+    _Atomic double worker_load[NUM_WORKERS]; 
 
     
     _Atomic bool engine_active; 

@@ -140,6 +140,11 @@ void run_sniffer_loop(af_packet_handle_t *h) {
         }   
 
         uint8_t *packet = (uint8_t *)hdr + hdr->tp_mac; 
+        /* 
+        uint16_t eth_type = ntohs(eth->ether_type); 
+        int eth_hdr_len = 14; 
+        if(eth_type = 0x8100) eth_hdr_len = 18; 
+        */
 
         const sniff_ip *ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
         int size_ip = IP_HL(ip_header) * 4;
@@ -339,6 +344,8 @@ void worker_thread(void *arg) {
         double old_avg_wait = atomic_load(&engine_metrics.worker_avg_wait[worker_id]); 
         double new_avg_wait = (delta_wait * EMA_ALPHA) + (old_avg_wait * (1.0 - EMA_ALPHA)); 
         atomic_store(&engine_metrics.worker_avg_wait[worker_id], new_avg_wait); 
+
+
 
 
         if(!keep_running) { 
@@ -588,6 +595,17 @@ void* stats_thread(void *arg) {
         double mbps = (b_sec / 1024.0 / 1024.0) * 8; // convert bytes/s to Mbps
         atomic_store(&engine_metrics.current_mbps, mbps); 
         atomic_store(&engine_metrics.current_pps, p_sec); 
+
+        for (int i = 0; i < NUM_WORKERS; i++) {
+            worker_queue_t *q = &worker_queues[i];
+            
+            int head = q->head;
+            int tail = q->tail;
+            int occupied = (head - tail + RING_SIZE) % RING_SIZE;
+            
+            double load_percent = ((double)occupied / (RING_SIZE - 1)) * 100.0;
+            atomic_store(&engine_metrics.worker_load[i], load_percent);
+        }
 
         // in the case we reach the max flow capacity quickly, the flows need to be cleared out quickly 
         // hence boundary timeout for the flow is reduced so more can be deleted. 
