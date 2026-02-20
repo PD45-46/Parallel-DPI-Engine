@@ -31,6 +31,8 @@ https://docs.securityonion.net/en/2.4/af-packet.html#more-information
 #define CONF_BLOCK_SIZE 4096
 #define CONF_BLOCK_NR ((CONF_FRAME_SIZE * CONF_RING_FRAMES) / CONF_BLOCK_SIZE) 
 
+#define FANOUT_GROUP_ID 0x1234
+
 typedef struct { 
     int socket_fd; 
     uint8_t *map;                   // start of mmap mem 

@@ -215,10 +215,9 @@ void draw_worker_info(WINDOW *win) {
 
     for(int i = 0; i < NUM_WORKERS; i++) { 
 
-        // long worker_pps = atomic_exchange(&engine_metrics.worker_pps[i], 0); 
+        
         double percentage = atomic_load( &engine_metrics.worker_load[i]); 
-        // double max_expected_pps = GLOBAL_PPS_LIMIT; 
-        // double percentage = (worker_pps / max_expected_pps) * 100.0; 
+        
         double algo_time = atomic_load(&engine_metrics.worker_avg_algo[i]); 
         double wait_time = atomic_load(&engine_metrics.worker_avg_wait[i]); 
         double hash_time = atomic_load(&engine_metrics.worker_avg_hash[i]); 

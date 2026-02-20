@@ -37,7 +37,7 @@ typedef struct {
     atomic_long lifetime_drops; 
 
     // atomic_long worker_load[NUM_WORKERS]; // percentage usage of each worker thread
-    atomic_long worker_pps[NUM_WORKERS]; 
+    // atomic_long worker_pps[NUM_WORKERS]; 
     
     /*
     Uses EMA calculation to keep track of avgs. The times are for how long a worker

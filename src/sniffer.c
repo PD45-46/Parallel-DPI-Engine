@@ -117,89 +117,13 @@ void pin_thread_to_core(int core_id) {
 } 
 
 
-/** 
- * 
- * 
- */
-void run_sniffer_loop(af_packet_handle_t *h) { 
-
-    struct pollfd pfd = { 
-        .fd = h->socket_fd, 
-        .events = POLLIN
-    }; 
-
-    printf("AF_PACKET Zero-Copy Ingress Active... \n"); 
-
-    while(keep_running) { 
-        struct tpacket2_hdr *hdr = (struct tpacket2_hdr *)h->rd[h->current_frame].iov_base; 
-
-        // check if kernal gave frame to user 
-        if(!(hdr->tp_status & TP_STATUS_USER)) { 
-            poll(&pfd, 1, 10); 
-            continue;  
-        }   
-
-        uint8_t *packet = (uint8_t *)hdr + hdr->tp_mac; 
-        /* 
-        uint16_t eth_type = ntohs(eth->ether_type); 
-        int eth_hdr_len = 14; 
-        if(eth_type = 0x8100) eth_hdr_len = 18; 
-        */
-
-        const sniff_ip *ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
-        int size_ip = IP_HL(ip_header) * 4;
-
-        if(size_ip >= 20 && ip_header->ip_p == IPPROTO_TCP) { 
-            const sniff_tcp *tcp = (sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip); 
-            int size_tcp = TH_OFF(tcp) * 4; 
-            int payload_offset = sizeof(sniff_ethernet) + size_ip + size_tcp; 
-            int payload_len = ntohs(ip_header->ip_len) - size_ip - size_tcp;
-
-            // populate the 5-tuple key
-            flow_key_t key = {
-                .src_ip = ip_header->ip_src.s_addr, 
-                .dst_ip = ip_header->ip_dst.s_addr,
-                .src_port = tcp->th_sport,
-                .dst_port = tcp->th_dport,
-                .protocol = ip_header->ip_p 
-            }; 
-
-            uint32_t hash = hash_5tuple(&key); 
-            int worker_id = hash % NUM_WORKERS; 
-            worker_queue_t *q = &worker_queues[worker_id]; 
-
-            pthread_mutex_lock(&q->lock);
-            int next_head = (q->head + 1) % RING_SIZE;
-            if(next_head != q->tail) { 
-                packet_t *packet_info = &q->buffer[q->head]; 
-                packet_info->length = payload_len; 
-                packet_info->src_ip = ip_header->ip_src;
-                packet_info->key = key; 
-                packet_info->hash = hash; 
-
-                if(payload_len > 0) { 
-                    memcpy(packet_info->data, packet + payload_offset, 
-                        (payload_len > MAX_PACKET_SIZE) ? MAX_PACKET_SIZE : payload_len); 
-                }
-                q->head = next_head; 
-                pthread_cond_signal(&q->cond); 
-            } else { 
-                atomic_fetch_add(&engine_metrics.acc_drops, 1); 
-            }
-            pthread_mutex_unlock(&q->lock); 
-        }
-
-        // hand frame back to kernal 
-        hdr->tp_status = TP_STATUS_KERNEL; 
-        h->current_frame = (h->current_frame + 1) % CONF_RING_FRAMES; 
-    } 
-}
-
 
 /** 
  * @brief Callback function invoked by pcap_loop for every captured packet. This function acts as a 
  *        producer in the multi-threaded design. It parses raw packet data to extract the payload, reserves 
  *        a slot in the ring buffer, and copies the data for worker threads to process later. 
+ * 
+ * NOTE: The packet_handler func has essentially been ARCHIVED, it is only here to compare and contrast between versions. 
  * 
  * @param args User defined arguments (not used in this case, set to NULL when calling pcap_loop())
  * @param header Metadata about the captured packet (timestamp, length, etc.)
@@ -326,69 +250,65 @@ void worker_thread(void *arg) {
     pin_thread_to_core(worker_id + 2); 
     free(arg); 
 
-    worker_queue_t *q = &worker_queues[worker_id]; 
+    // worker_queue_t *q = &worker_queues[worker_id]; 
+    af_packet_handle_t *h = setup_af_packet("lo"); 
+
+    struct pollfd pfd = { 
+        .fd = h->socket_fd, 
+        .events = POLLIN 
+    };
 
     while(keep_running) { 
 
-        pthread_mutex_lock(&q->lock); 
-        
-        struct timespec start_wait, end_wait; 
-        clock_gettime(CLOCK_MONOTONIC, &start_wait); 
+        struct tpacket2_hdr *hdr = (struct tpacket2_hdr *)(h->map + (h->current_frame * h->ring_req.tp_frame_size)); 
 
-        while(q->head == q->tail && keep_running) { 
-            pthread_cond_wait(&q->cond, &q->lock); 
+        if(!(hdr->tp_status & TP_STATUS_USER)) {
+            poll(&pfd, 1, 10);
+            continue;
         }
 
-        clock_gettime(CLOCK_MONOTONIC, &end_wait); 
-        double delta_wait = (end_wait.tv_sec - start_wait.tv_sec) * 1e9 + (end_wait.tv_nsec - start_wait.tv_nsec); 
-        double old_avg_wait = atomic_load(&engine_metrics.worker_avg_wait[worker_id]); 
-        double new_avg_wait = (delta_wait * EMA_ALPHA) + (old_avg_wait * (1.0 - EMA_ALPHA)); 
-        atomic_store(&engine_metrics.worker_avg_wait[worker_id], new_avg_wait); 
+        uint8_t *raw_packet = (uint8_t *)hdr + hdr->tp_mac;
+        const sniff_ip *ip = (sniff_ip*)(raw_packet + sizeof(sniff_ethernet)); 
 
-
-
-
-        if(!keep_running) { 
-            pthread_mutex_unlock(&q->lock); 
-            break; 
+        if(ip->ip_vhl >> 4 != 4) { 
+            atomic_fetch_add(&engine_metrics.acc_drops, 1); 
+            goto next_frame; 
         }
 
-        packet_t *packet = &q->buffer[q->tail]; 
-        /* 
-        No longer need the 'ready' atomic flag because only one 
-        specified worker can hold this lock and the sniffer only updates
-        q->head after it finishes copying the data. This packet is 
-        guaranteed to be ready. 
-        */
 
-        struct timespec start_hash, end_hash; 
-        clock_gettime(CLOCK_MONOTONIC, &start_hash); 
+        int size_ip = IP_HL(ip) * 4; 
+        if (ip->ip_p != IPPROTO_TCP) {
+            atomic_fetch_add(&engine_metrics.acc_drops, 1); 
+            goto next_frame;
+        }
 
-        flow_entry_t *my_flow = find_or_create_flow(packet); 
+        const sniff_tcp *tcp = (sniff_tcp*)(raw_packet + sizeof(sniff_ethernet) + size_ip);
+        int size_tcp = TH_OFF(tcp) * 4;
+        int payload_len = ntohs(ip->ip_len) - size_ip - size_tcp;
 
-        clock_gettime(CLOCK_MONOTONIC, &end_hash); 
-        double delta_hash = (end_hash.tv_sec - start_hash.tv_sec) * 1e9 + (end_hash.tv_nsec - start_hash.tv_nsec); 
-        double old_avg_hash = atomic_load(&engine_metrics.worker_avg_hash[worker_id]); 
-        double new_avg_hash = (delta_hash * EMA_ALPHA) + (old_avg_hash * (1.0 - EMA_ALPHA)); 
-        atomic_store(&engine_metrics.worker_avg_hash[worker_id], new_avg_hash); 
+        // prepare packet_t for the search algorithm
+        packet_t pkt_info;
+        pkt_info.length = (payload_len > MAX_PACKET_SIZE) ? MAX_PACKET_SIZE : payload_len;
+        pkt_info.src_ip = ip->ip_src;
+        pkt_info.key = (flow_key_t){
+            .src_ip = ip->ip_src.s_addr, .dst_ip = ip->ip_dst.s_addr,
+            .src_port = tcp->th_sport, .dst_port = tcp->th_dport,
+            .protocol = ip->ip_p
+        };
+        pkt_info.hash = (uint32_t)worker_id; // flow index is irrelevant for lookup now
+        memcpy(pkt_info.data, (uint8_t*)tcp + size_tcp, pkt_info.length);
 
+        // process Flow and Aho-Corasick
+        flow_entry_t *my_flow = find_or_create_flow(&pkt_info); 
+        search_packet(&pkt_info, my_flow); 
+        // atomic_fetch_add(&engine_metrics.worker_pps[worker_id], 1); 
 
-        struct timespec start_algo, end_algo; 
-        clock_gettime(CLOCK_MONOTONIC, &start_algo); 
-
-        search_packet(packet, my_flow); 
-
-        clock_gettime(CLOCK_MONOTONIC, &end_algo); 
-        double delta_algo = (end_algo.tv_sec - start_algo.tv_sec) * 1e9 + (end_algo.tv_nsec - start_algo.tv_nsec); 
-        double old_avg_algo = atomic_load(&engine_metrics.worker_avg_algo[worker_id]); 
-        double new_avg_algo = (delta_algo * EMA_ALPHA) + (old_avg_algo * (1.0 - EMA_ALPHA)); 
-        atomic_store(&engine_metrics.worker_avg_algo[worker_id], new_avg_algo); 
-
-
-        atomic_fetch_add(&engine_metrics.worker_pps[worker_id], 1); 
-        q->tail = (q->tail + 1) % RING_SIZE; 
-        pthread_mutex_unlock(&q->lock); 
+        // return frame to Kernel
+    next_frame: 
+        hdr->tp_status = TP_STATUS_KERNEL;
+        h->current_frame = (h->current_frame + 1) % h->ring_req.tp_frame_nr;
     } 
+    teardown_af_packet(h);
 }
 
 
@@ -400,6 +320,8 @@ void worker_thread(void *arg) {
  *        *At the moment, this function only counts the number of matches found 
  *        using atomic variables to update the global match count, but it should 
  *        be modified to include some kind of 'reporting path'.*
+ * 
+ * TODO: Change to not need the failure link... 
  * 
  * @param packet_info Packet information to be searched for matches in the Aho-Corasick trie.
  */
@@ -426,7 +348,7 @@ void search_packet(packet_t *packet_info, flow_entry_t *flow) {
         int temp_state = current_state; 
         while(temp_state != 0) { 
             if(trie[temp_state].output != -1) { 
-                // printf("[!] Found pattern ID %d in packet from %s\n", trie[temp_state].output, inet_ntoa(packet_info->src_ip));
+                printf("[!] Found pattern ID %d in packet from %s\n", trie[temp_state].output, inet_ntoa(packet_info->src_ip));
                 atomic_fetch_add(&engine_metrics.acc_matches, 1); 
 
                 // string for alert 
@@ -488,6 +410,7 @@ void insert_pattern(const char* pattern, int pattern_id) {
 
 /** 
  * @brief Builds the failure links for the Aho-Corasick trie.
+ * TODO: Change to be faster O(n * failure depth) -> O(n)
  */
 
 void build_failure_links() {
@@ -758,76 +681,26 @@ int main(int argc, char *argv[]) {
 
     signal(SIGINT, signal_handler); 
 
-    char *dev = (argc > 1) ? argv[1] : "eth0"; 
+    // char *dev = (argc > 1) ? argv[1] : "eth0"; 
     char *pattern_file = (argc > 2) ? argv[2] : NULL; 
 
-    // heap alloc 
+
+    load_patterns(pattern_file); 
+    for(int i = 0; i < NUM_FLOW_LOCKS; i++) pthread_mutex_init(&flow_locks[i], NULL);
     worker_queues = calloc(NUM_WORKERS, sizeof(worker_queue_t));
-    worker_threads = malloc(NUM_WORKERS * sizeof(pthread_t));
-    
-    if(!worker_queues || !worker_threads) {
-        fprintf(stderr, "Failed to allocate memory for workers\n");
-        return 1;
-    }
-
-    // init queue locks (before threads)
-    for(int i = 0; i < NUM_WORKERS; i++) {
-        worker_queues[i].head = 0; 
-        worker_queues[i].tail = 0;
-        pthread_mutex_init(&worker_queues[i].lock, NULL); 
-        pthread_cond_init(&worker_queues[i].cond, NULL); 
-    }
-
-    for(int i = 0; i < NUM_FLOW_LOCKS; i++) { 
-        pthread_mutex_init(&flow_locks[i], NULL); 
-    }
-
-    
-    /* 
-    trie set up 
-    Note that since we only have one Aho-Corasick model to use, we don't 
-    NEED to have the trie on the heap, in this case its ok to just leave
-    it on the stack. 
-    */
-    for(int i = 0; i < ALPHABET_SIZE; i++) {
-        trie[0].next_state[i] = -1;
-    }
-    trie[0].output = -1;
-    state_count = 1;
-
-    if(pattern_file == NULL) { 
-        fprintf(stderr, "Failed to init pattern file\n"); 
-        return 1; 
-    }
-
-    load_patterns(pattern_file);
-
-    // worker thread init 
+    worker_threads = malloc(NUM_WORKERS * sizeof(pthread_t));    
     for(int i = 0; i < NUM_WORKERS; i++) {
         int *worker_id_arg = malloc(sizeof(int));
         *worker_id_arg = i; 
-        
-        if(pthread_create(&worker_threads[i], NULL, (void*)worker_thread, worker_id_arg) != 0) { 
-            fprintf(stderr, "Error creating worker thread %d\n", i);
-            return 1;
-        } 
+        pthread_create(&worker_threads[i], NULL, (void*)worker_thread, worker_id_arg);
     }
 
-    // stats monitor 
-    pthread_t monitor_id; 
-    int *stats_arg = malloc(sizeof(int));
-    *stats_arg = NUM_WORKERS + 2;
+    pthread_t monitor_id;
+    int *stats_arg = malloc(sizeof(int)); *stats_arg = NUM_WORKERS + 2;
     pthread_create(&monitor_id, NULL, (void*)stats_thread, stats_arg);
 
-    // sniffer setup
-    af_packet_handle_t *ring_handle = setup_af_packet(dev); 
-    if(!ring_handle) { 
-        return 1; 
-    } 
-
     start_ui_thread(); 
-    pin_thread_to_core(1); 
-    run_sniffer_loop(ring_handle); 
-    teardown_af_packet(ring_handle); 
+    while(keep_running) { sleep(1); }
+
     return 0;
 }

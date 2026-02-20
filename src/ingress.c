@@ -9,6 +9,17 @@
 
 
 
+/** 
+ * @brief Setup function to allow for AF_PACKET which enables shared kernal-user
+ *        memory to avoid unnecessarily expensive memory copy calls. 
+ * 
+ * Also includes FANOUT to allow for multiple AF_PACKET sockets (one for each worker) 
+ * so that I can tell the kernal to auto hash the 5-tuple and put the packet into into 
+ * its respective worker ring buffer. 
+ * 
+ * @param 
+ * @return  
+ */
 af_packet_handle_t* setup_af_packet(const char *interface) { 
     af_packet_handle_t *h = calloc(1, sizeof(af_packet_handle_t)); 
 
@@ -43,13 +54,6 @@ af_packet_handle_t* setup_af_packet(const char *interface) {
         return NULL; 
     }
 
-    // set up frame pointers 
-    h->rd = malloc(h->ring_req.tp_frame_nr * sizeof (struct iovec)); 
-    for(unsigned int i = 0; i < h->ring_req.tp_frame_nr; ++i) { 
-        h->rd[i].iov_base = h->map + (i * h->ring_req.tp_frame_size); 
-        h->rd[i].iov_len = h->ring_req.tp_frame_size; 
-    }
-
     // bind to interface
     struct sockaddr_ll sll = { 
         .sll_family = AF_PACKET, 
@@ -57,6 +61,13 @@ af_packet_handle_t* setup_af_packet(const char *interface) {
         .sll_ifindex = if_nametoindex(interface)
     }; 
     bind(h->socket_fd, (struct sockaddr *)&sll, sizeof(sll)); 
+
+    // enable FANOUT 
+    int fanout_arg = (FANOUT_GROUP_ID & 0xffff) | (PACKET_FANOUT_HASH << 16); 
+    if(setsockopt(h->socket_fd, SOL_PACKET, PACKET_FANOUT, &fanout_arg, sizeof(fanout_arg)) < 0) { 
+        perror("setsockopt PACKET_FANOUT"); 
+        return NULL; 
+    } 
 
     return h;  
 }
@@ -68,6 +79,6 @@ void teardown_af_packet(af_packet_handle_t *h) {
     if(!h) return; 
     munmap(h->map, h->ring_req.tp_block_size * h->ring_req.tp_block_nr); 
     close(h->socket_fd); 
-    free(h->rd); 
+    // free(h->rd); 
     free(h); 
 }
