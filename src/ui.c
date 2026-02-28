@@ -244,7 +244,7 @@ void draw_worker_info(WINDOW *win) {
             }
         }
         wattroff(win, COLOR_PAIR(colour_pair));
-        mvwprintw(win, current_row, bar_start_col + max_bar_width, "] %.2f%% | Algorithm Processing Time: %.2f us | Wait Time: %.2f us | Hash Lookup Time: %.2f", percentage, algo_time, wait_time, hash_time);
+        mvwprintw(win, current_row, bar_start_col + max_bar_width, "] %.2f%% | Algorithm Processing Time: %.2f us | Total Time: %.2f us | Hash Lookup Time: %.2f", percentage, algo_time, wait_time, hash_time);
     }
 }
  

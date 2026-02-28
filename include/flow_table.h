@@ -4,10 +4,13 @@
 #include <stdint.h> 
 #include <pthread.h> 
 
-#define FLOW_TABLE_SIZE 65536 // 2^16 buckets 
+// num of buckets
+#define FLOW_TABLE_SIZE 131072
 #define FLOW_HASH_MASK (FLOW_TABLE_SIZE - 1)
 #define NUM_FLOW_LOCKS 1024 
 #define GET_FLOW_LOCK(hash) &flow_locks[(hash) % NUM_FLOW_LOCKS] 
+// total connections allowed
+#define MAX_TOTAL_FLOWS 524288
 
 
 /*
@@ -30,9 +33,17 @@ typedef struct flow_entry {
     int last_state;              // Aho-Corasick trie state where we left off
     uint64_t last_seen;          // timestamp for aging out of old flows 
     struct flow_entry *next;     // for handling hash collisions using regular chaining method
+    pthread_mutex_t lock; 
 } flow_entry_t; 
 
 extern flow_entry_t *flow_table[FLOW_TABLE_SIZE]; 
 extern pthread_mutex_t flow_locks[NUM_FLOW_LOCKS]; 
+
+// pool of pre-alloc mem for all possible flows 
+extern flow_entry_t flow_pool[MAX_TOTAL_FLOWS]; 
+
+// points to free slots 
+extern int flow_free_stack[MAX_TOTAL_FLOWS];
+extern atomic_int stack_ptr; 
 
 #endif

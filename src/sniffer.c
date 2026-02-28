@@ -39,13 +39,15 @@ engine_stats_t engine_metrics = {
     .engine_active = ATOMIC_VAR_INIT(true), 
 
     .active_flows = ATOMIC_VAR_INIT(0), 
-    .max_flow_capacity = FLOW_TABLE_SIZE * 8 // ie. each bucket has 8 slots 
+    .max_flow_capacity = MAX_TOTAL_FLOWS
 };
 
 alert_t alert_queue[MAX_ALERTS]; 
 int alert_head = 0; 
 int alert_tail = 0; 
 pthread_mutex_t alert_lock = PTHREAD_MUTEX_INITIALIZER; 
+
+
 
 // globals defined in aho-corasick.h
 
@@ -56,6 +58,9 @@ int state_count = 1;
 
 flow_entry_t *flow_table[FLOW_TABLE_SIZE]; 
 pthread_mutex_t flow_locks[NUM_FLOW_LOCKS]; 
+flow_entry_t flow_pool[MAX_TOTAL_FLOWS]; 
+int flow_free_stack[MAX_TOTAL_FLOWS]; 
+atomic_int stack_ptr = ATOMIC_VAR_INIT(MAX_TOTAL_FLOWS - 1); 
 
 // globals defined in protocol_headers.h
 
@@ -253,12 +258,20 @@ void worker_thread(void *arg) {
     // worker_queue_t *q = &worker_queues[worker_id]; 
     af_packet_handle_t *h = setup_af_packet("lo"); 
 
-    struct pollfd pfd = { 
+    struct pollfd pfd = {  
         .fd = h->socket_fd, 
         .events = POLLIN 
     };
 
+    struct timespec start, end; 
+    struct timespec start_total, end_total; 
+    double delta; 
+    double old_avg_time; 
+    double elapsed_time; 
+
     while(keep_running) { 
+
+        clock_gettime(CLOCK_MONOTONIC, &start_total); 
 
         struct tpacket2_hdr *hdr = (struct tpacket2_hdr *)(h->map + (h->current_frame * h->ring_req.tp_frame_size)); 
 
@@ -295,18 +308,39 @@ void worker_thread(void *arg) {
             .src_port = tcp->th_sport, .dst_port = tcp->th_dport,
             .protocol = ip->ip_p
         };
-        pkt_info.hash = (uint32_t)worker_id; // flow index is irrelevant for lookup now
+        pkt_info.hash = hash_5tuple(&pkt_info.key); 
         memcpy(pkt_info.data, (uint8_t*)tcp + size_tcp, pkt_info.length);
 
         // process Flow and Aho-Corasick
+
+        clock_gettime(CLOCK_MONOTONIC, &start); 
         flow_entry_t *my_flow = find_or_create_flow(&pkt_info); 
+        clock_gettime(CLOCK_MONOTONIC, &end); 
+        delta = (end.tv_sec - start.tv_sec) * 1e6 + (end.tv_nsec - start.tv_nsec); 
+        old_avg_time = atomic_load(&engine_metrics.worker_avg_hash[worker_id]);
+        elapsed_time = (delta * EMA_ALPHA) + (old_avg_time * (1.0 - EMA_ALPHA)); 
+        atomic_store(&engine_metrics.worker_avg_hash[worker_id], elapsed_time);
+
+        clock_gettime(CLOCK_MONOTONIC, &start); 
         search_packet(&pkt_info, my_flow); 
-        // atomic_fetch_add(&engine_metrics.worker_pps[worker_id], 1); 
+        clock_gettime(CLOCK_MONOTONIC, &end); 
+        delta = (end.tv_sec - start.tv_sec) * 1e6 + (end.tv_nsec - start.tv_nsec); 
+        old_avg_time = atomic_load(&engine_metrics.worker_avg_algo[worker_id]);
+        elapsed_time = (delta * EMA_ALPHA) + (old_avg_time * (1.0 - EMA_ALPHA)); 
+        atomic_store(&engine_metrics.worker_avg_algo[worker_id], elapsed_time);
+        
+        
 
         // return frame to Kernel
     next_frame: 
         hdr->tp_status = TP_STATUS_KERNEL;
         h->current_frame = (h->current_frame + 1) % h->ring_req.tp_frame_nr;
+
+        clock_gettime(CLOCK_MONOTONIC, &end_total); 
+        delta = (end_total.tv_sec - start_total.tv_sec) * 1e6 + (end_total.tv_nsec - start_total.tv_nsec); 
+        old_avg_time = atomic_load(&engine_metrics.worker_avg_wait[worker_id]);
+        elapsed_time = (delta * EMA_ALPHA) + (old_avg_time * (1.0 - EMA_ALPHA)); 
+        atomic_store(&engine_metrics.worker_avg_wait[worker_id], elapsed_time);
     } 
     teardown_af_packet(h);
 }
@@ -327,6 +361,10 @@ void worker_thread(void *arg) {
  */
 void search_packet(packet_t *packet_info, flow_entry_t *flow) { 
 
+    if(!flow) return; 
+
+    pthread_mutex_lock(&flow->lock); 
+
     int current_state = flow->last_state; 
     atomic_fetch_add(&engine_metrics.acc_bytes, packet_info->length);
     atomic_fetch_add(&engine_metrics.acc_packets, 1);
@@ -339,27 +377,27 @@ void search_packet(packet_t *packet_info, flow_entry_t *flow) {
             current_state = trie[current_state].failure_link;
         }
 
-        // if there is a transition for this byte, take it
-        if(trie[current_state].next_state[byte] != -1) { 
-            current_state = trie[current_state].next_state[byte];
-        }
+        int next = trie[current_state].next_state[byte];
+        current_state = (next != -1) ? next : 0;
 
         // follow dictionary links to find all matches 
         int temp_state = current_state; 
         while(temp_state != 0) { 
             if(trie[temp_state].output != -1) { 
-                printf("[!] Found pattern ID %d in packet from %s\n", trie[temp_state].output, inet_ntoa(packet_info->src_ip));
                 atomic_fetch_add(&engine_metrics.acc_matches, 1); 
 
                 // string for alert 
                 char msg[ALERT_MSG_LEN]; 
-                snprintf(msg, sizeof(msg), "MATCH: Pattern ID %d from %s", trie[temp_state].output, inet_ntoa(packet_info->src_ip)); 
+                char ip_str[INET_ADDRSTRLEN]; 
+                inet_ntop(AF_INET, &packet_info->src_ip, ip_str, INET_ADDRSTRLEN);
+                snprintf(msg, sizeof(msg), "MATCH: Pattern ID %d from %s", trie[temp_state].output, ip_str); 
                 add_alert(1, msg); 
             }
             temp_state = trie[temp_state].dict_link; // follow dict link to find next match
         }
     }
     flow->last_state = current_state; 
+    pthread_mutex_unlock(&flow->lock); 
 }
 
 
@@ -495,6 +533,8 @@ void load_patterns(const char *filename) {
  * 
  * @param arg Contains the CPU core number/id that will be used to pin 
  *            the stats thread using function pin_thread_to_core().
+ * 
+ * TODO - Exclude worker_queues, they're no longer used 
  */
 
 void* stats_thread(void *arg) { 
@@ -502,7 +542,7 @@ void* stats_thread(void *arg) {
     pin_thread_to_core(core_id);
     free(arg); 
 
-    printf("\n[DPI ENGINE] Monitoring stats... \n"); 
+    // printf("\n[DPI ENGINE] Monitoring stats... \n"); 
     while(keep_running) { 
         sleep(1); 
         long b_sec = atomic_exchange(&engine_metrics.acc_bytes, 0);
@@ -608,22 +648,24 @@ flow_entry_t* find_or_create_flow(packet_t *packet) {
         entry = entry->next; 
     }
 
-    // create new flow if not found 
-    /*
-    Note: As the number of active_flows increases, if multiple workers find
-    new flows at the same time, they will fight for the heap lock which slows 
-    the engine down. Eventually, I can pre-allocate a pool of flow entries and 
-    just grab one from the pool. 
-    */
-    flow_entry_t *new_flow = calloc(1, sizeof(flow_entry_t)); 
+    // will be creating a new flow from pre-alloc pool instead of heap 
+    int pool_idx = atomic_fetch_sub(&stack_ptr, 1); 
+    if(pool_idx < 0) { 
+        atomic_fetch_add(&stack_ptr, 1); 
+        pthread_mutex_unlock(GET_FLOW_LOCK(index));
+        return NULL;  
+    }
+
+    flow_entry_t *new_flow = &flow_pool[flow_free_stack[pool_idx]]; 
+    memset(new_flow, 0, sizeof(flow_entry_t)); 
     new_flow->key = packet->key; 
-    new_flow->last_state = 0; 
     new_flow->last_seen = time(NULL); 
+    pthread_mutex_init(&new_flow->lock, NULL); 
+    
     new_flow->next = flow_table[index]; 
     flow_table[index] = new_flow; 
 
     atomic_fetch_add(&engine_metrics.active_flows, 1); 
-
     pthread_mutex_unlock(GET_FLOW_LOCK(index)); 
     return new_flow; 
 }
@@ -647,8 +689,12 @@ void cleanup_aged_flows(unsigned int timeout_seconds) {
             if(now - (*curr)->last_seen > timeout_seconds) { 
                 flow_entry_t *to_remove = *curr; 
                 *curr = to_remove->next; 
-                free(to_remove); 
+
+                int pool_idx = to_remove - flow_pool; 
+                int stack_pos = atomic_fetch_add(&stack_ptr, 1) + 1; 
+                flow_free_stack[stack_pos] = pool_idx;
                 atomic_fetch_sub(&engine_metrics.active_flows, 1); 
+
             } else { 
                 curr = &((*curr)->next); 
             }
@@ -664,11 +710,13 @@ void cleanup_aged_flows(unsigned int timeout_seconds) {
 /** 
  * @brief Handler for interrupt signal 
  * @param sig Any signal will lead to termination (for now...)
+ * 
+ * TODO - Change signals... 
  */
 void signal_handler(int sig) { 
     (void)sig; 
     keep_running = false; 
-    if(handle) pcap_breakloop(handle); 
+    // if(handle) pcap_breakloop(handle); 
     printf("Exit Program\n");  
 }
 
@@ -687,6 +735,10 @@ int main(int argc, char *argv[]) {
 
     load_patterns(pattern_file); 
     for(int i = 0; i < NUM_FLOW_LOCKS; i++) pthread_mutex_init(&flow_locks[i], NULL);
+    for(int i = 0; i < MAX_TOTAL_FLOWS; i++) { 
+        flow_free_stack[i] = i; 
+
+    }
     worker_queues = calloc(NUM_WORKERS, sizeof(worker_queue_t));
     worker_threads = malloc(NUM_WORKERS * sizeof(pthread_t));    
     for(int i = 0; i < NUM_WORKERS; i++) {
