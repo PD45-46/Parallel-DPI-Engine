@@ -60,7 +60,8 @@ flow_entry_t *flow_table[FLOW_TABLE_SIZE];
 pthread_mutex_t flow_locks[NUM_FLOW_LOCKS]; 
 flow_entry_t flow_pool[MAX_TOTAL_FLOWS]; 
 int flow_free_stack[MAX_TOTAL_FLOWS]; 
-atomic_int stack_ptr = ATOMIC_VAR_INIT(MAX_TOTAL_FLOWS - 1); 
+int stack_ptr = MAX_TOTAL_FLOWS - 1; 
+pthread_mutex_t pool_lock = PTHREAD_MUTEX_INITIALIZER; 
 
 // globals defined in protocol_headers.h
 
@@ -72,7 +73,7 @@ pthread_t *worker_threads = NULL;
 
 static volatile bool keep_running = true; 
 
-pcap_t *handle = NULL; 
+int offset = 14; // header offset is pointing to ethernet by default
 
 
 
@@ -281,7 +282,8 @@ void worker_thread(void *arg) {
         }
 
         uint8_t *raw_packet = (uint8_t *)hdr + hdr->tp_mac;
-        const sniff_ip *ip = (sniff_ip*)(raw_packet + sizeof(sniff_ethernet)); 
+        int link_offset = offset; 
+        const sniff_ip *ip = (sniff_ip*)(raw_packet + link_offset); 
 
         if(ip->ip_vhl >> 4 != 4) { 
             atomic_fetch_add(&engine_metrics.acc_drops, 1); 
@@ -649,14 +651,17 @@ flow_entry_t* find_or_create_flow(packet_t *packet) {
     }
 
     // will be creating a new flow from pre-alloc pool instead of heap 
-    int pool_idx = atomic_fetch_sub(&stack_ptr, 1); 
-    if(pool_idx < 0) { 
-        atomic_fetch_add(&stack_ptr, 1); 
-        pthread_mutex_unlock(GET_FLOW_LOCK(index));
-        return NULL;  
-    }
+    pthread_mutex_lock(&pool_lock); 
+    if(stack_ptr < 0) { 
+        pthread_mutex_unlock(&pool_lock); 
+        pthread_mutex_unlock(GET_FLOW_LOCK(index)); 
+        return NULL; 
+    } 
 
-    flow_entry_t *new_flow = &flow_pool[flow_free_stack[pool_idx]]; 
+    int pool_idx = flow_free_stack[stack_ptr--]; 
+    pthread_mutex_unlock(&pool_lock); 
+
+    flow_entry_t *new_flow = &flow_pool[pool_idx]; 
     memset(new_flow, 0, sizeof(flow_entry_t)); 
     new_flow->key = packet->key; 
     new_flow->last_seen = time(NULL); 
@@ -686,15 +691,17 @@ void cleanup_aged_flows(unsigned int timeout_seconds) {
         flow_entry_t **curr = &flow_table[i]; 
 
         while(*curr) { 
+
             if(now - (*curr)->last_seen > timeout_seconds) { 
                 flow_entry_t *to_remove = *curr; 
-                *curr = to_remove->next; 
-
+                *curr = to_remove->next;
                 int pool_idx = to_remove - flow_pool; 
-                int stack_pos = atomic_fetch_add(&stack_ptr, 1) + 1; 
-                flow_free_stack[stack_pos] = pool_idx;
+                pthread_mutex_lock(&pool_lock); 
+                if(stack_ptr < MAX_TOTAL_FLOWS - 1) { 
+                    flow_free_stack[++stack_ptr] = pool_idx; 
+                }
+                pthread_mutex_unlock(&pool_lock); 
                 atomic_fetch_sub(&engine_metrics.active_flows, 1); 
-
             } else { 
                 curr = &((*curr)->next); 
             }
@@ -753,6 +760,12 @@ int main(int argc, char *argv[]) {
 
     start_ui_thread(); 
     while(keep_running) { sleep(1); }
+
+    for(int i = 0; i < NUM_WORKERS; i++) { 
+        pthread_join(worker_threads[i], NULL); 
+    }
+    pthread_join(monitor_id, NULL); 
+    free(worker_threads); 
 
     return 0;
 }

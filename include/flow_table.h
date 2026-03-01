@@ -44,6 +44,6 @@ extern flow_entry_t flow_pool[MAX_TOTAL_FLOWS];
 
 // points to free slots 
 extern int flow_free_stack[MAX_TOTAL_FLOWS];
-extern atomic_int stack_ptr; 
-
+extern int stack_ptr; 
+extern pthread_mutex_t pool_lock; 
 #endif
