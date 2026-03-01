@@ -1,0 +1,142 @@
+START LOG
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+START LOG
+DEBUG: Trie loaded with 1 states
+DEBUG: Transition for 'M' (0x4d) from root 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+START LOG
+DEBUG: Trie loaded with 1 states
+DEBUG: Transition for 'M' (0x4d) from root 0
+START LOG
+LOADED PATTERNS -- Total Trie States: 8
+DEBUG: Trie loaded with 1 states
+DEBUG: Transition for 'M' (0x4d) from root 0
+START LOG
+LOADED PATTERNS -- Total Trie States: 8
+DEBUG: Trie loaded with 44 states
+DEBUG: Transition for 'M' (0x4d) from root 38
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+START LOG
+LOADED PATTERNS -- Total Trie States: 8
+DEBUG: Trie loaded with 44 states
+DEBUG: Transition for 'M' (0x4d) from root 38
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0

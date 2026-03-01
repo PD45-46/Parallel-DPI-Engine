@@ -17,6 +17,7 @@
 #include <string.h>
 #include <stdatomic.h> 
 #include <signal.h> 
+#include <stdarg.h>
 
 
 // globals defined in monitor.h
@@ -52,7 +53,7 @@ pthread_mutex_t alert_lock = PTHREAD_MUTEX_INITIALIZER;
 // globals defined in aho-corasick.h
 
 ACNode trie[MAX_STATES]; 
-int state_count = 1;  
+int state_count; 
 
 // globals defined in flow_table.h
 
@@ -73,11 +74,15 @@ pthread_t *worker_threads = NULL;
 
 static volatile bool keep_running = true; 
 
-int offset = 14; // header offset is pointing to ethernet by default
+int offset = 14;
+
+pthread_mutex_t log_lock = PTHREAD_MUTEX_INITIALIZER; 
 
 
 
 // declarations
+
+void init_trie(); 
 
 void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 void print_payload(const u_char *payload, int len);
@@ -93,6 +98,8 @@ void cleanup_aged_flows(unsigned int timeout_seconds);
 
 void run_sniffer_loop(af_packet_handle_t *h); 
 
+void debug_log(const char *fmt, ...); 
+
 
 void add_alert(int severity, const char *msg) { 
     pthread_mutex_lock(&alert_lock); 
@@ -106,6 +113,17 @@ void add_alert(int severity, const char *msg) {
 }
 
 
+void init_trie() { 
+    state_count = 1; 
+    for(int i = 0; i < MAX_STATES; i++) { 
+        trie[i].output = -1; 
+        trie[i].failure_link = 0; 
+        trie[i].dict_link = 0; 
+        for(int j = 0; j < ALPHABET_SIZE; j++) { 
+            trie[i].next_state[j] = -1; 
+        }
+    }
+}
 
 /** 
  * @brief Used to pin a thread to the specified CPU core id 
@@ -121,121 +139,6 @@ void pin_thread_to_core(int core_id) {
         fprintf(stderr, "Error setting thread affinity\n");
     }
 } 
-
-
-
-/** 
- * @brief Callback function invoked by pcap_loop for every captured packet. This function acts as a 
- *        producer in the multi-threaded design. It parses raw packet data to extract the payload, reserves 
- *        a slot in the ring buffer, and copies the data for worker threads to process later. 
- * 
- * NOTE: The packet_handler func has essentially been ARCHIVED, it is only here to compare and contrast between versions. 
- * 
- * @param args User defined arguments (not used in this case, set to NULL when calling pcap_loop())
- * @param header Metadata about the captured packet (timestamp, length, etc.)
- * @param packet Pointer to the raw packet data captured by pcap. This includes the Ethernet header, 
- *               IP header, TCP header, and payload. 
- */
-void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet) {
-
-    // unused 
-    (void)args; 
-    // (void) header; 
-
-    // pps rate limiting 
-    static long last_sec = 0; 
-    static atomic_long current_sec_count = 0; 
-    long now = header->ts.tv_sec; // use timestamp from pcap rather than time(NULL)
-
-    if(now != last_sec) { 
-        last_sec = now; 
-        atomic_store(&current_sec_count, 0); 
-    }
-
-    if (atomic_load(&current_sec_count) >= GLOBAL_PPS_LIMIT) {
-        atomic_fetch_add(&engine_metrics.acc_drops, 1);
-        return; // DROP: Do not add to worker queues
-    }
-
-    atomic_fetch_add(&current_sec_count, 1);
-
-    // const sniff_ethernet *eth = (sniff_ethernet*)(packet); 
-    const sniff_ip *ip_header = (sniff_ip*)(packet + sizeof(sniff_ethernet));
-    int size_ip = IP_HL(ip_header) * 4;
-    if (size_ip < 20 || ip_header->ip_p != IPPROTO_TCP) return; // not a valid IP header or not TCP
-
-    const sniff_tcp *tcp = (sniff_tcp*)(packet + sizeof(sniff_ethernet) + size_ip); 
-    int size_tcp = TH_OFF(tcp) * 4; 
-    int payload_offset = sizeof(sniff_ethernet) + size_ip + size_tcp; 
-    int payload_len = ntohs(ip_header->ip_len) - size_ip - size_tcp;
-
-    // populate the 5-tuple key
-    flow_key_t key = {
-        .src_ip = ip_header->ip_src.s_addr, 
-        .dst_ip = ip_header->ip_dst.s_addr,
-        .src_port = tcp->th_sport,
-        .dst_port = tcp->th_dport,
-        .protocol = ip_header->ip_p 
-    }; 
-    
-    // get assigned worker using hash
-    uint32_t hash = hash_5tuple(&key); 
-    int worker_id = hash % NUM_WORKERS; 
-    worker_queue_t *q = &worker_queues[worker_id]; 
-
-    // reserve index in ring buffer to reduce lock holding time 
-    pthread_mutex_lock(&q->lock);
-    int next_head = (q->head + 1) % RING_SIZE;
-    if(next_head == q->tail) { 
-        pthread_mutex_unlock(&q->lock);
-        atomic_fetch_add(&engine_metrics.acc_drops, 1); 
-        return; // buffer is full, drop packet (TODO: implement better strategy for handling this)
-    }
-
-    packet_t *packet_info = &q->buffer[q->head]; 
-    packet_info->length = payload_len; 
-    packet_info->src_ip = ip_header->ip_src;
-    packet_info->key = key; 
-    packet_info->hash = hash; 
-    
-    if(payload_len > 0) { 
-        memcpy(packet_info->data, packet + payload_offset, 
-            (payload_len > MAX_PACKET_SIZE) ? MAX_PACKET_SIZE : payload_len); 
-    }
-
-    q->head = next_head; 
-    pthread_mutex_unlock(&q->lock); 
-    pthread_cond_signal(&q->cond);
-}
-
-
-/**
- * @brief Used too print specific information about the given payload. 
- *        This function is archived (no longer in use). 
- * 
- * @param payload Address of payload 
- * @param len Payload length 
- */
-void print_payload(const u_char *payload, int len) {
-    const u_char *ch = payload;
-    printf("   ");
-    for(int i = 0; i < len; i++) {
-        if (isprint(*ch)) // If it's a readable character
-            printf("%c", *ch);
-        else
-            printf("."); // If it's binary data
-        ch++;
-    }
-    printf("\n");
-}
-
-
-
-
-
-
-
-
 
 
 
@@ -297,7 +200,7 @@ void worker_thread(void *arg) {
             goto next_frame;
         }
 
-        const sniff_tcp *tcp = (sniff_tcp*)(raw_packet + sizeof(sniff_ethernet) + size_ip);
+        const sniff_tcp *tcp = (sniff_tcp*)(raw_packet + link_offset + size_ip);
         int size_tcp = TH_OFF(tcp) * 4;
         int payload_len = ntohs(ip->ip_len) - size_ip - size_tcp;
 
@@ -362,6 +265,8 @@ void worker_thread(void *arg) {
  * @param packet_info Packet information to be searched for matches in the Aho-Corasick trie.
  */
 void search_packet(packet_t *packet_info, flow_entry_t *flow) { 
+    static _Atomic int counter = 0;
+    int c = atomic_fetch_add(&counter, 1);
 
     if(!flow) return; 
 
@@ -371,8 +276,14 @@ void search_packet(packet_t *packet_info, flow_entry_t *flow) {
     atomic_fetch_add(&engine_metrics.acc_bytes, packet_info->length);
     atomic_fetch_add(&engine_metrics.acc_packets, 1);
 
+    if (c % 10000 == 0) {
+        debug_log("[SAMPLE] Pkt Len: %d | Data[0]: %02x | State: %d", 
+                  packet_info->length, packet_info->data[0], flow->last_state);
+    }
+
     for(u_int32_t i = 0; i < packet_info->length; i++) { 
         unsigned char byte = packet_info->data[i]; 
+        
 
         // while there is no transition for this byte and we're not at root, follow failure links 
         while(trie[current_state].next_state[byte] == -1 && current_state != 0) { 
@@ -386,13 +297,17 @@ void search_packet(packet_t *packet_info, flow_entry_t *flow) {
         int temp_state = current_state; 
         while(temp_state != 0) { 
             if(trie[temp_state].output != -1) { 
-                atomic_fetch_add(&engine_metrics.acc_matches, 1); 
+                int m = atomic_fetch_add(&engine_metrics.acc_matches, 1); 
+                // debug_log("increment acc_matches: %i | search_packet()", m); 
+
 
                 // string for alert 
+                
                 char msg[ALERT_MSG_LEN]; 
                 char ip_str[INET_ADDRSTRLEN]; 
                 inet_ntop(AF_INET, &packet_info->src_ip, ip_str, INET_ADDRSTRLEN);
                 snprintf(msg, sizeof(msg), "MATCH: Pattern ID %d from %s", trie[temp_state].output, ip_str); 
+                // debug_log("Creating alert msg: %s | search_packet()", msg); 
                 add_alert(1, msg); 
             }
             temp_state = trie[temp_state].dict_link; // follow dict link to find next match
@@ -508,11 +423,14 @@ void load_patterns(const char *filename) {
     FILE *file = fopen(filename, "r");
     if(!file) { 
         perror("Error opening pattern file");
+        debug_log("Failed to open file: %s", filename); 
         exit(1); 
     }
 
     char line[256]; 
     int id = 1; 
+    int loaded_count = 0; 
+
     while(fgets(line, sizeof(line), file)) { 
         // remove newline character
         line[strcspn(line, "\r\n")] = 0;
@@ -520,10 +438,14 @@ void load_patterns(const char *filename) {
         if(strlen(line) > 0) { 
             printf("Loading pattern: %s with ID %d\n", line, id);
             insert_pattern(line, id++); 
+            loaded_count++; 
         }
     }
     fclose(file); 
     build_failure_links(); 
+
+    debug_log("LOADED PATTERNS -- Total Trie States: %d", loaded_count); 
+    sleep(1); 
 }
 
 
@@ -714,6 +636,32 @@ void cleanup_aged_flows(unsigned int timeout_seconds) {
 
 
 
+void debug_log(const char *fmt, ...) { 
+    pthread_mutex_lock(&log_lock);
+    FILE *f = fopen("engine_debug.log", "a"); 
+    if(f) { 
+        va_list args; 
+        va_start(args, fmt); 
+        vfprintf(f, fmt, args);
+        va_end(args);
+        fprintf(f, "\n");
+
+        fflush(f); 
+        fsync(fileno(f));
+
+        fclose(f);
+    }
+    pthread_mutex_unlock(&log_lock); 
+}
+
+
+
+
+
+
+
+
+
 /** 
  * @brief Handler for interrupt signal 
  * @param sig Any signal will lead to termination (for now...)
@@ -735,12 +683,19 @@ void signal_handler(int sig) {
 int main(int argc, char *argv[]) { 
 
     signal(SIGINT, signal_handler); 
-
+    init_trie(); 
+    debug_log("START LOG"); 
     // char *dev = (argc > 1) ? argv[1] : "eth0"; 
     char *pattern_file = (argc > 2) ? argv[2] : NULL; 
 
 
     load_patterns(pattern_file); 
+    debug_log("DEBUG: Trie loaded with %d states", state_count); 
+    if(state_count > 0) { 
+        debug_log("DEBUG: Transition for 'M' (0x4d) from root %d", trie[0].next_state[0x4d]); 
+    }
+
+
     for(int i = 0; i < NUM_FLOW_LOCKS; i++) pthread_mutex_init(&flow_locks[i], NULL);
     for(int i = 0; i < MAX_TOTAL_FLOWS; i++) { 
         flow_free_stack[i] = i; 
