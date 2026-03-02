@@ -12,13 +12,18 @@
 /** 
  * @brief Setup function to allow for AF_PACKET which enables shared kernal-user
  *        memory to avoid unnecessarily expensive memory copy calls. 
+ *  
+ *        Kernel writes the packet data directly into the specifed region of RAM
+ *        via the request of PACKET_RX_RING. af_packet_handle_t is then used to 
+ *        map those same addresses to my processes address space, hence the worker 
+ *        only needs to check if the kernel is done writing a new packet. 
  * 
  * Also includes FANOUT to allow for multiple AF_PACKET sockets (one for each worker) 
- * so that I can tell the kernal to auto hash the 5-tuple and put the packet into into 
+ * so that I can tell the kernel to auto hash the 5-tuple and put the packet into into 
  * its respective worker ring buffer. 
  * 
- * @param 
- * @return  
+ * @param interface The interface to sniff, ie "eth0", "lo", ... 
+ * @return Container for all required info for workers 
  */
 af_packet_handle_t* setup_af_packet(const char *interface) { 
     af_packet_handle_t *h = calloc(1, sizeof(af_packet_handle_t)); 
@@ -74,7 +79,11 @@ af_packet_handle_t* setup_af_packet(const char *interface) {
 
 
 
-
+/**
+ * @brief cleanup method for structs -- af_packet_handle_t
+ * 
+ * @param h 
+ */
 void teardown_af_packet(af_packet_handle_t *h) { 
     if(!h) return; 
     munmap(h->map, h->ring_req.tp_block_size * h->ring_req.tp_block_nr); 
@@ -82,13 +91,3 @@ void teardown_af_packet(af_packet_handle_t *h) {
     // free(h->rd); 
     free(h); 
 }
-
-// // todo - remove or fix
-// void update_kernal_stats(int socket_fd) { 
-//     struct tpacket_stats stats; 
-//     socketlen_t len = sizeof(stats); 
-
-//     if(getsockopt(socket_fd, SOL_PACKET, PACKET_STATISTICS, &stats, &len) > -1) { 
-        
-//     }
-// }

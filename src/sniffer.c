@@ -53,7 +53,7 @@ pthread_mutex_t alert_lock = PTHREAD_MUTEX_INITIALIZER;
 // globals defined in aho-corasick.h
 
 ACNode trie[MAX_STATES]; 
-int state_count = 0; 
+int state_count = 1; 
 int loaded_count = 0; 
 
 
@@ -114,7 +114,10 @@ void add_alert(int severity, const char *msg) {
     pthread_mutex_unlock(&alert_lock); 
 }
 
-
+/**
+ * @brief Initialises the trie values.
+ * 
+ */
 void init_trie() { 
     state_count = 1; 
     for(int i = 0; i < MAX_STATES; i++) { 
@@ -150,6 +153,11 @@ void pin_thread_to_core(int core_id) {
  *        continuously check the ring buffer for new packets to process. When a packet 
  *        is ready, the worker thread will call search_packet() to scan the packet for 
  *        matches in the Aho-Corasick trie.
+ * 
+ *        UPDATE -- 
+ *          Note that initially I was copying memory from Kernel space to User space 
+ *          but now I am just taking information that the Kernel stores in RAM directly. 
+ *          Read ingress.h & ingress.c for more info. 
  *        
  * @param arg Contains the worker id which can be used to pin that worker to a specific core 
  *            and also to get that worker's buffer. 
@@ -161,8 +169,7 @@ void worker_thread(void *arg) {
     pin_thread_to_core(worker_id + 2); 
     free(arg); 
 
-    // worker_queue_t *q = &worker_queues[worker_id]; 
-    af_packet_handle_t *h = setup_af_packet("lo"); 
+    af_packet_handle_t *h = setup_af_packet("lo"); // hard coded for now
 
     struct pollfd pfd = {  
         .fd = h->socket_fd, 
@@ -261,8 +268,6 @@ void worker_thread(void *arg) {
  *        *At the moment, this function only counts the number of matches found 
  *        using atomic variables to update the global match count, but it should 
  *        be modified to include some kind of 'reporting path'.*
- * 
- * TODO: Change to not need the failure link... 
  * 
  * @param packet_info Packet information to be searched for matches in the Aho-Corasick trie.
  */

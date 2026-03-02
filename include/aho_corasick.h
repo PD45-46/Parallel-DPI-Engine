@@ -12,8 +12,8 @@ typedef struct {
 } ACNode; 
 
 extern ACNode trie[MAX_STATES]; // the trie itself
-extern int state_count;     // init with one state (the root -- index 0)
-extern int loaded_count; 
+extern int state_count;         // init with one state (the root -- index 0)
+extern int loaded_count;        // number of patterns loaded
 
 
 #endif

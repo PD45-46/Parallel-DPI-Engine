@@ -16,7 +16,9 @@
 /*
 Notice that with this implementation, if the key word is 'MATCH' and packets 
 arrive in the order 'TCH' then 'MA', the Ah-Corasick algorithm will miss the 
-case due to the nature of how the algorithm operates. 
+case due to the nature of how the algorithm operates. But also note that when using 
+a tool like hping3, the contents will be sent in a random order and so hit 
+rates will only be 50%. 
 */
 
 // 5-tuple flow table 

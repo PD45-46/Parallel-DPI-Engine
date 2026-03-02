@@ -21,6 +21,13 @@ void draw_sniffer_info(WINDOW *win);
 void draw_worker_info(WINDOW *win); 
 void draw_options_keys(WINDOW *win); 
 
+/**
+ * @brief Loop for making sure all elemnets of the TUI are displayed 
+ *        in a dynamic manner, in accordance to changing terminal sizes.  
+ * 
+ * @param arg nothing of importance 
+ * @return void* nothing of importance 
+ */
 void *ui_loop(void *arg) { 
 
     // unused argument
@@ -124,6 +131,12 @@ void *ui_loop(void *arg) {
     return NULL; 
 }
 
+/**
+ * @brief Creates display elements for the dashboard window. 
+ * 
+ * @param win The WINDOW* in which the following elements are 
+ *            going to be placed in. 
+ */
 void draw_dashboard(WINDOW *win) { 
 
     // title 
@@ -175,6 +188,12 @@ void draw_dashboard(WINDOW *win) {
     mvwprintw(win, 9, bar_start_col + max_bar_width, "] %.2f%% (%ld/%ld)", flow_capacity, current_active_flows, max);
 }
 
+/**
+ * @brief Displays all the alerts being sent from the sniffer. 
+ * 
+ * @param win The WINDOW* in which the following elements are 
+ *            going to be placed in. 
+ */
 void draw_alerts(WINDOW *win) { 
 
     wattron(win, COLOR_PAIR(COLOUR_HEADER));
@@ -194,7 +213,12 @@ void draw_alerts(WINDOW *win) {
 }
 
 
-
+/** 
+ * @brief Displays general info about the program. 
+ * 
+ * @param win The WINDOW* in which the following elements are 
+ *            going to be placed in. 
+ */
 void draw_sniffer_info(WINDOW *win) { 
 
     wattron(win, COLOR_PAIR(COLOUR_HEADER)); 
@@ -235,7 +259,12 @@ void draw_sniffer_info(WINDOW *win) {
 
 
 
-
+/**
+ * @brief Dedicated information about the worker threads
+ * 
+ * @param win The WINDOW* in which the following elements are 
+ *            going to be placed in. 
+ */
 void draw_worker_info(WINDOW *win) { 
 
     wattron(win, COLOR_PAIR(COLOUR_HEADER)); 
@@ -296,7 +325,11 @@ void draw_options_keys(WINDOW* win) {
 }
 
 
-
+/**
+ * @brief Creates the thread for displaying the UI so that other CPU cores 
+ *        are taking some of this program's load. 
+ * 
+ */
 void start_ui_thread() { 
     pthread_t thread_id; 
     pthread_create(&thread_id, NULL, ui_loop, NULL);
