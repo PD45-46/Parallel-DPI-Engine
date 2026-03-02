@@ -43,5 +43,6 @@ typedef struct {
 
 af_packet_handle_t* setup_af_packet(const char *interface); 
 void teardown_af_packet(af_packet_handle_t *h); 
+void update_kernal_stats(int socket_fd); 
 
 #endif 

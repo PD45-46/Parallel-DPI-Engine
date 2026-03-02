@@ -1,2 +1,10 @@
-MAT
-CH
+admin
+A
+password
+/etc/passwd
+D
+eval(
+SELECT *
+MATCH
+A
+B

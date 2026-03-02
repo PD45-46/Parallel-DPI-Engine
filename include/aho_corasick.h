@@ -13,7 +13,7 @@ typedef struct {
 
 extern ACNode trie[MAX_STATES]; // the trie itself
 extern int state_count;     // init with one state (the root -- index 0)
-
+extern int loaded_count; 
 
 
 #endif

@@ -82,3 +82,13 @@ void teardown_af_packet(af_packet_handle_t *h) {
     // free(h->rd); 
     free(h); 
 }
+
+// // todo - remove or fix
+// void update_kernal_stats(int socket_fd) { 
+//     struct tpacket_stats stats; 
+//     socketlen_t len = sizeof(stats); 
+
+//     if(getsockopt(socket_fd, SOL_PACKET, PACKET_STATISTICS, &stats, &len) > -1) { 
+        
+//     }
+// }

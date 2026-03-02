@@ -8,7 +8,7 @@
 
 #define RING_SIZE 1024 // 2^10 -> allows for bitwise 
 #define MAX_PACKET_SIZE 1800 // must pay respect to CONF_FRAME_SIZE in ingress.h 
-#define NUM_WORKERS 4
+#define NUM_WORKERS 6
 #define GLOBAL_PPS_LIMIT 10000 // a worker can only process 10,000 packets per second at max
 
 // Ethernet header (always 14 bytes)

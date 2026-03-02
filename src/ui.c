@@ -4,6 +4,7 @@
 #include <time.h> 
 #include <stdio.h> 
 #include <stdbool.h> 
+#include "../include/aho_corasick.h"
 #include "../include/monitor.h" 
 
 #define COLOUR_DEFAULT 1 
@@ -45,16 +46,16 @@ void *ui_loop(void *arg) {
     // create windows 
     int height_dash_log = 12;
     int half_width = COLS / 2; 
-    int height_win_sniffer_info = 10; 
-    int height_win_worker_info = 12; 
-    int height_options_keys = 3; 
+    int height_win_sniffer_info = 18; 
+    int height_win_worker_info = 7 + NUM_WORKERS; 
+    // int height_options_keys = 3; 
     
 
     WINDOW *win_dash = newwin(height_dash_log, half_width, 0, 0);
-    WINDOW *win_log = newwin(height_dash_log, COLS - half_width, 0, half_width);
-    WINDOW *win_sniffer_info = newwin(height_win_sniffer_info, COLS, height_dash_log, 0);
+    WINDOW *win_log = newwin(height_dash_log + height_win_sniffer_info, COLS - half_width, 0, half_width);
+    WINDOW *win_sniffer_info = newwin(height_win_sniffer_info, half_width, height_dash_log, 0);
     WINDOW *win_worker_info = newwin(height_win_worker_info, COLS, height_dash_log + height_win_sniffer_info, 0); 
-    WINDOW *win_options_keys = newwin(height_options_keys, COLS, height_dash_log + height_win_sniffer_info + height_win_worker_info, 0); 
+    // WINDOW *win_options_keys = newwin(height_options_keys, COLS, height_dash_log + height_win_sniffer_info + height_win_worker_info, 0); 
     
 
     // ui loop 
@@ -70,15 +71,15 @@ void *ui_loop(void *arg) {
             delwin(win_log); 
             delwin(win_sniffer_info);
             delwin(win_worker_info); 
-            delwin(win_options_keys); 
+            // delwin(win_options_keys); 
 
             half_width = COLS / 2; 
 
             win_dash = newwin(height_dash_log, half_width, 0, 0);
-            win_log = newwin(height_dash_log, COLS - half_width, 0, half_width);
-            win_sniffer_info = newwin(height_win_sniffer_info, COLS, height_dash_log, 0);
+            win_log = newwin(height_dash_log + height_win_sniffer_info, COLS - half_width, 0, half_width);
+            win_sniffer_info = newwin(height_win_sniffer_info, half_width, height_dash_log, 0);
             win_worker_info = newwin(height_win_worker_info, COLS, height_dash_log + height_win_sniffer_info, 0); 
-            win_options_keys = newwin(height_options_keys, COLS, height_dash_log + height_win_sniffer_info + height_win_worker_info, 0); 
+            // win_options_keys = newwin(height_options_keys, COLS, height_dash_log + height_win_sniffer_info + height_win_worker_info, 0); 
         }
 
         // clear windows to redraw
@@ -86,7 +87,7 @@ void *ui_loop(void *arg) {
         werase(win_log);
         werase(win_sniffer_info); 
         werase(win_worker_info); 
-        werase(win_options_keys); 
+        // werase(win_options_keys); 
 
         // draw box boarders 
         box(win_dash, 0, 0);
@@ -100,14 +101,14 @@ void *ui_loop(void *arg) {
         draw_alerts(win_log);
         draw_sniffer_info(win_sniffer_info); 
         draw_worker_info(win_worker_info); 
-        draw_options_keys(win_options_keys); 
+        // draw_options_keys(win_options_keys); 
 
         // push changes to screen 
         wrefresh(win_dash); 
         wrefresh(win_log); 
         wrefresh(win_sniffer_info); 
         wrefresh(win_worker_info); 
-        wrefresh(win_options_keys); 
+        // wrefresh(win_options_keys); 
 
         // stall 
         napms(100);
@@ -118,7 +119,7 @@ void *ui_loop(void *arg) {
     delwin(win_log); 
     delwin(win_sniffer_info);
     delwin(win_worker_info);
-    delwin(win_options_keys); 
+    // delwin(win_options_keys); 
     endwin(); 
     return NULL; 
 }
@@ -185,7 +186,7 @@ void draw_alerts(WINDOW *win) {
     int y = 3; 
     int i = alert_tail; 
 
-    while(i != alert_head && y < 10) { 
+    while(i != alert_head && y < 28) { 
         mvwprintw(win, y++, 4, "> %s", alert_queue[i].message); 
         i = (i + 1) % MAX_ALERTS; 
     }
@@ -200,6 +201,36 @@ void draw_sniffer_info(WINDOW *win) {
     mvwprintw(win, 1, 2, "[ SNIFFER INFO ]");
     wattroff(win, COLOR_PAIR(COLOUR_HEADER));
 
+    int active_flows = atomic_load(&engine_metrics.active_flows); 
+    // int total_p = atomic_load(&engine_metrics.lifetime_packets); 
+    // int tcp_p = atomic_load(&engine_metrics.lifetime_tcp_p);
+    // double tcp_percentage = (total_p > 0) ? ((double)tcp_p / total_p) * 100 : 0; 
+    double tcp_percentage = 50; 
+
+    mvwprintw(win, 3, 4, "[INTERFACE]: lo (loopback)");
+    mvwprintw(win, 3, 32, "[DRIVER]: AF_PACKET -- ZERO COPY"); 
+    
+    mvwprintw(win, 4, 4, "[RING BUFFER]: {percentage...} | {total frames} | {kernal drops}"); 
+
+    mvwprintw(win, 6, 4, "[CPU AFFINITY MAP]:"); 
+    mvwprintw(win, 7, 6, "CORE 0 - OS/MAIN");
+    mvwprintw(win, 8, 6, "CORE 1 - TUI INTERFACE");
+    mvwprintw(win, 7, 35, "CORE 2 to CORE %d - WORKERS", 2 + NUM_WORKERS);
+    mvwprintw(win, 8, 35, "CORE %d - STATS HANDLER", 3 + NUM_WORKERS);
+    
+    
+
+    mvwprintw(win, 10, 4, "[FLOW ENGINE]:");
+    mvwprintw(win, 11, 6, "ACTIVE FLOWS: %d / %d", active_flows, MAX_TOTAL_FLOWS); 
+
+    mvwprintw(win, 12, 6, "TCP TRAFFIC: %.1f%%", tcp_percentage); 
+    mvwprintw(win, 12, 35, "UDP/OTHER: %.1f%%", 100.0 - tcp_percentage); 
+    
+    mvwprintw(win, 14, 4, "[TRIE STATUS]: "); 
+    mvwprintw(win, 15, 6, "PATTERNS LOADED: %d", loaded_count); 
+    mvwprintw(win, 15, 35, "TOTAL STATES: %d", state_count); 
+
+
 }
 
 
@@ -208,43 +239,47 @@ void draw_sniffer_info(WINDOW *win) {
 void draw_worker_info(WINDOW *win) { 
 
     wattron(win, COLOR_PAIR(COLOUR_HEADER)); 
-    mvwprintw(win, 1, 2, "[ WORKER INFO ]");
+    mvwprintw(win, 1, 2, "[ WORKER LATENCY ]");
     wattroff(win, COLOR_PAIR(COLOUR_HEADER));
 
-    int max_bar_width = 65; 
+    int max_bar_width = 110; 
+
+    mvwprintw(win, 3, 4, "[LEGEND]: GREEN -- ALGO PROCESSING TIME | YELLOW -- HASH LOOKUP TIME | RED -- REMAINING TIME SPENT IN WORKER LOOP | EXPONENTIAL MOVING AVERAGES (EMA)");
 
     for(int i = 0; i < NUM_WORKERS; i++) { 
 
-        
-        double percentage = atomic_load( &engine_metrics.worker_load[i]); 
-        
         double algo_time = atomic_load(&engine_metrics.worker_avg_algo[i]); 
         double wait_time = atomic_load(&engine_metrics.worker_avg_wait[i]); 
         double hash_time = atomic_load(&engine_metrics.worker_avg_hash[i]); 
 
-        if(percentage > 100.0) percentage = 100.0; 
-        int bars_to_fill = (int)((percentage / 100.0) * max_bar_width); 
+        double total_time = algo_time + wait_time + hash_time; 
+        if(total_time <= 0) total_time = 1.; 
+
+        int bar_start_col = 18; 
+        int current_row = 5 + i; 
+
+        int algo_bars = (int)((algo_time / total_time) * max_bar_width);
+        int hash_bars = (int)((hash_time / total_time) * max_bar_width);
+        int wait_bars = max_bar_width - (algo_bars + hash_bars); 
+
+        int col = 6; 
+        mvwprintw(win, current_row, col, "[WORKER %d]: [", i);
+        col = bar_start_col + 1; 
+        
+        wattron(win, COLOR_PAIR(COLOUR_GOOD));
+        for(int j = 0; j < algo_bars; j++) mvwaddch(win, current_row, col++, '|');
+        wattroff(win, COLOR_PAIR(COLOUR_GOOD)); 
+
+        wattron(win, COLOR_PAIR(COLOUR_ALERT));
+        for(int j = 0; j < hash_bars; j++) mvwaddch(win, current_row, col++, '|');
+        wattroff(win, COLOR_PAIR(COLOUR_ALERT)); 
+
+        wattron(win, COLOR_PAIR(COLOUR_CRITICAL));
+        for(int j = 0; j < wait_bars; j++) mvwaddch(win, current_row, col++, '|');
+        wattroff(win, COLOR_PAIR(COLOUR_CRITICAL)); 
 
 
-        int bar_start_col = 17; 
-        int current_row = 3 + i; 
-
-        mvwprintw(win, current_row, 4, "[WORKER %d]: [", i);
-
-        int colour_pair = COLOUR_GOOD; 
-        if(percentage > 80.0) colour_pair = COLOUR_CRITICAL; 
-        else if(percentage > 50.0) colour_pair = COLOUR_ALERT;
-
-        wattron(win, COLOR_PAIR(colour_pair)); 
-        for(int j = 0; j < max_bar_width; j++) { 
-            if(j < bars_to_fill) { 
-                mvwaddch(win, current_row, bar_start_col + j, '|'); 
-            } else { 
-                mvwaddch(win, current_row, bar_start_col + j, ' '); 
-            }
-        }
-        wattroff(win, COLOR_PAIR(colour_pair));
-        mvwprintw(win, current_row, bar_start_col + max_bar_width, "] %.2f%% | Algorithm Processing Time: %.2f us | Total Time: %.2f us | Hash Lookup Time: %.2f", percentage, algo_time, wait_time, hash_time);
+        mvwprintw(win, current_row, bar_start_col + max_bar_width, "]");
     }
 }
  

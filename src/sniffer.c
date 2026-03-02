@@ -40,7 +40,7 @@ engine_stats_t engine_metrics = {
     .engine_active = ATOMIC_VAR_INIT(true), 
 
     .active_flows = ATOMIC_VAR_INIT(0), 
-    .max_flow_capacity = MAX_TOTAL_FLOWS
+    .max_flow_capacity = MAX_TOTAL_FLOWS, 
 };
 
 alert_t alert_queue[MAX_ALERTS]; 
@@ -53,7 +53,9 @@ pthread_mutex_t alert_lock = PTHREAD_MUTEX_INITIALIZER;
 // globals defined in aho-corasick.h
 
 ACNode trie[MAX_STATES]; 
-int state_count; 
+int state_count = 0; 
+int loaded_count = 0; 
+
 
 // globals defined in flow_table.h
 
@@ -429,14 +431,13 @@ void load_patterns(const char *filename) {
 
     char line[256]; 
     int id = 1; 
-    int loaded_count = 0; 
 
     while(fgets(line, sizeof(line), file)) { 
         // remove newline character
         line[strcspn(line, "\r\n")] = 0;
 
         if(strlen(line) > 0) { 
-            printf("Loading pattern: %s with ID %d\n", line, id);
+            debug_log("Loading pattern: %s with ID %d\n", line, id);
             insert_pattern(line, id++); 
             loaded_count++; 
         }

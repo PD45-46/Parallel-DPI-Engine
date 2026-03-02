@@ -3,6 +3,5 @@ password
 /etc/passwd
 eval(
 SELECT *
-admin
 MATCH
 A
