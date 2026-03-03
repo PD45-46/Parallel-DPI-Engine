@@ -2,11 +2,11 @@
 #include <string.h> 
 
 /**
- * @brief 
+ * @brief Identifies the type of l7 protocol. 
  * 
- * @param packet_start 
- * @param len 
- * @return l7_proto_t 
+ * @param packet_start Points to the head of the packet. 
+ * @param len Used for safety checks 
+ * @return l7_proto_t Enum value to be used in the worker_thread() function. 
  */
 l7_proto_t identify_l7_protocol(unsigned char *packet_start, uint32_t len) { 
 
