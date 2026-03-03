@@ -185,7 +185,7 @@ void draw_dashboard(WINDOW *win) {
         }
     }
     wattroff(win, COLOR_PAIR(colour_pair));
-    mvwprintw(win, 9, bar_start_col + max_bar_width, "] %.2f%% (%ld/%ld)", flow_capacity, current_active_flows, max);
+    mvwprintw(win, 9, bar_start_col + max_bar_width, "] %.2f%% ", flow_capacity);
 }
 
 /**
@@ -229,12 +229,14 @@ void draw_sniffer_info(WINDOW *win) {
     // int total_p = atomic_load(&engine_metrics.lifetime_packets); 
     // int tcp_p = atomic_load(&engine_metrics.lifetime_tcp_p);
     // double tcp_percentage = (total_p > 0) ? ((double)tcp_p / total_p) * 100 : 0; 
+    int http_count = atomic_load(&engine_metrics.http_count); 
+    int tls_count = atomic_load(&engine_metrics.tls_count); 
     double tcp_percentage = 50; 
 
     mvwprintw(win, 3, 4, "[INTERFACE]: lo (loopback)");
     mvwprintw(win, 3, 32, "[DRIVER]: AF_PACKET -- ZERO COPY"); 
     
-    mvwprintw(win, 4, 4, "[RING BUFFER]: {percentage...} | {total frames} | {kernal drops}"); 
+    mvwprintw(win, 4, 4, "[PROTOCOL OCCURRENCE]: HTTP - %d | TLS - %d", http_count, tls_count); 
 
     mvwprintw(win, 6, 4, "[CPU AFFINITY MAP]:"); 
     mvwprintw(win, 7, 6, "CORE 0 - OS/MAIN");
@@ -247,8 +249,9 @@ void draw_sniffer_info(WINDOW *win) {
     mvwprintw(win, 10, 4, "[FLOW ENGINE]:");
     mvwprintw(win, 11, 6, "ACTIVE FLOWS: %d / %d", active_flows, MAX_TOTAL_FLOWS); 
 
-    mvwprintw(win, 12, 6, "TCP TRAFFIC: %.1f%%", tcp_percentage); 
-    mvwprintw(win, 12, 35, "UDP/OTHER: %.1f%%", 100.0 - tcp_percentage); 
+    // always bugs out for some reason when using real values 
+    // mvwprintw(win, 12, 6, "TCP TRAFFIC: %.1f%%", tcp_percentage); 
+    // mvwprintw(win, 12, 35, "UDP/OTHER: %.1f%%", 100.0 - tcp_percentage); 
     
     mvwprintw(win, 14, 4, "[TRIE STATUS]: "); 
     mvwprintw(win, 15, 6, "PATTERNS LOADED: %d", loaded_count); 

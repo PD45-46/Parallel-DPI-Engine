@@ -14,6 +14,7 @@ START LOG
 [SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
 [SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
 [SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
+ [SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
 [SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
 [SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
 [SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
@@ -44,1130 +45,6 @@ START LOG
 [SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
 [SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
 [SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-START LOG
-DEBUG: Trie loaded with 1 states
-DEBUG: Transition for 'M' (0x4d) from root 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-START LOG
-DEBUG: Trie loaded with 1 states
-DEBUG: Transition for 'M' (0x4d) from root 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 1 states
-DEBUG: Transition for 'M' (0x4d) from root 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 50 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 48 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 48 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 48 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 48 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 38
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 43
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 48 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 38
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 43
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 48 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 8
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 4d | State: 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 START LOG
 Loading pattern: admin with ID 1
 
@@ -1190,6 +67,29 @@ DEBUG: Transition for 'M' (0x4d) from root 38
 [SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
@@ -1208,51 +108,7 @@ DEBUG: Transition for 'M' (0x4d) from root 38
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
@@ -1282,24 +138,6 @@ DEBUG: Transition for 'M' (0x4d) from root 38
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
@@ -1307,81 +145,6 @@ DEBUG: Transition for 'M' (0x4d) from root 38
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
@@ -1397,34 +160,6 @@ DEBUG: Transition for 'M' (0x4d) from root 38
 [SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-START LOG
-Loading pattern: admin with ID 1
-
-Loading pattern: password with ID 2
-
-Loading pattern: /etc/passwd with ID 3
-
-Loading pattern: eval( with ID 4
-
-Loading pattern: SELECT * with ID 5
-
-Loading pattern: MATCH with ID 6
-
-Loading pattern: A with ID 7
-
-LOADED PATTERNS -- Total Trie States: 7
-DEBUG: Trie loaded with 44 states
-DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
@@ -1447,434 +182,894 @@ Loading pattern: A with ID 7
 LOADED PATTERNS -- Total Trie States: 7
 DEBUG: Trie loaded with 44 states
 DEBUG: Transition for 'M' (0x4d) from root 38
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1800 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+START LOG
+Loading pattern: admin with ID 1
+
+Loading pattern: password with ID 2
+
+Loading pattern: /etc/passwd with ID 3
+
+Loading pattern: eval( with ID 4
+
+Loading pattern: SELECT * with ID 5
+
+Loading pattern: MATCH with ID 6
+
+LOADED PATTERNS -- Total Trie States: 6
+DEBUG: Trie loaded with 43 states
+DEBUG: Transition for 'M' (0x4d) from root 38
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+START LOG
+Loading pattern: admin with ID 1
+
+Loading pattern: password with ID 2
+
+Loading pattern: /etc/passwd with ID 3
+
+Loading pattern: eval( with ID 4
+
+Loading pattern: SELECT * with ID 5
+
+Loading pattern: MATCH with ID 6
+
+LOADED PATTERNS -- Total Trie States: 6
+DEBUG: Trie loaded with 43 states
+DEBUG: Transition for 'M' (0x4d) from root 38
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 1800 | Data[0]: 16 | State: 0
 [SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
 [SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
 [SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
 [SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
 [SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
 [SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 2f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 63 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 53 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 65 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 77 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 45 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 6c | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 6e | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 65 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 6d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 4c | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 53 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
 [SAMPLE] Pkt Len: 0 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 6d | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 76 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 74 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 48 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 72 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 6d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 63 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 70 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 4d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 53 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 65 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 65 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 77 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 2f | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 54 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 74 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 73 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 69 | State: 0
 [SAMPLE] Pkt Len: 0 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 28 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 6d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 6d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 77 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 65 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 72 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 45 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 6e | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 42 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 43 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 6c | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 2f | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 41 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 65 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 44 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 2a | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 64 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 69 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 77 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 0 | Data[0]: 61 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 54 | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 6f | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 0d | State: 0
-[SAMPLE] Pkt Len: 1 | Data[0]: 73 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 69 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 2f | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 73 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 69 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 69 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 69 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 69 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 73 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 73 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 69 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 69 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2f | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+START LOG
+Loading pattern: admin with ID 1
+
+Loading pattern: password with ID 2
+
+Loading pattern: /etc/passwd with ID 3
+
+Loading pattern: eval( with ID 4
+
+Loading pattern: SELECT * with ID 5
+
+Loading pattern: MATCH with ID 6
+
+LOADED PATTERNS -- Total Trie States: 6
+DEBUG: Trie loaded with 43 states
+DEBUG: Transition for 'M' (0x4d) from root 38
+[SAMPLE] Pkt Len: 5 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 64 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 69 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 69 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 73 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 61 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 0a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 2e | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 20 | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 3a | State: 0
+[SAMPLE] Pkt Len: 5 | Data[0]: 74 | State: 0
+START LOG
+Loading pattern: admin with ID 1
+
+Loading pattern: password with ID 2
+
+Loading pattern: /etc/passwd with ID 3
+
+Loading pattern: eval( with ID 4
+
+Loading pattern: SELECT * with ID 5
+
+Loading pattern: MATCH with ID 6
+
+LOADED PATTERNS -- Total Trie States: 6
+DEBUG: Trie loaded with 43 states
+DEBUG: Transition for 'M' (0x4d) from root 38
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+START LOG
+Loading pattern: admin with ID 1
+
+Loading pattern: password with ID 2
+
+Loading pattern: /etc/passwd with ID 3
+
+Loading pattern: eval( with ID 4
+
+Loading pattern: SELECT * with ID 5
+
+Loading pattern: MATCH with ID 6
+
+LOADED PATTERNS -- Total Trie States: 6
+DEBUG: Trie loaded with 43 states
+DEBUG: Transition for 'M' (0x4d) from root 38
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+START LOG
+Loading pattern: admin with ID 1
+
+Loading pattern: password with ID 2
+
+Loading pattern: /etc/passwd with ID 3
+
+Loading pattern: eval( with ID 4
+
+Loading pattern: SELECT * with ID 5
+
+Loading pattern: MATCH with ID 6
+
+LOADED PATTERNS -- Total Trie States: 6
+DEBUG: Trie loaded with 43 states
+DEBUG: Transition for 'M' (0x4d) from root 38
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+START LOG
+Loading pattern: admin with ID 1
+
+Loading pattern: password with ID 2
+
+Loading pattern: /etc/passwd with ID 3
+
+Loading pattern: eval( with ID 4
+
+Loading pattern: SELECT * with ID 5
+
+Loading pattern: MATCH with ID 6
+
+LOADED PATTERNS -- Total Trie States: 6
+DEBUG: Trie loaded with 43 states
+DEBUG: Transition for 'M' (0x4d) from root 38
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 47 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 500 | Data[0]: 16 | State: 0
+[SAMPLE] Pkt Len: 0 | Data[0]: 47 | State: 0
+START LOG
+Loading pattern: admin with ID 1
+
+Loading pattern: password with ID 2
+
+Loading pattern: /etc/passwd with ID 3
+
+Loading pattern: eval( with ID 4
+
+Loading pattern: SELECT * with ID 5
+
+Loading pattern: MATCH with ID 6
+
+LOADED PATTERNS -- Total Trie States: 6
+DEBUG: Trie loaded with 43 states
+DEBUG: Transition for 'M' (0x4d) from root 38

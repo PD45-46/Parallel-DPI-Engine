@@ -13,6 +13,7 @@
 #include "../include/flow_table.h"
 #include "../include/monitor.h"
 #include "../include/ingress.h"
+#include "../include/l7_protocol.h"
 #include <poll.h> 
 #include <string.h>
 #include <stdatomic.h> 
@@ -41,6 +42,9 @@ engine_stats_t engine_metrics = {
 
     .active_flows = ATOMIC_VAR_INIT(0), 
     .max_flow_capacity = MAX_TOTAL_FLOWS, 
+
+    .http_count = ATOMIC_VAR_INIT(0), 
+    .tls_count = ATOMIC_VAR_INIT(0)
 };
 
 alert_t alert_queue[MAX_ALERTS]; 
@@ -202,12 +206,21 @@ void worker_thread(void *arg) {
             goto next_frame; 
         }
 
+        l7_proto_t protocol = identify_l7_protocol(raw_packet, hdr->tp_len); 
+
+        
+        if(protocol == PROTO_HTTP) { 
+            atomic_fetch_add(&engine_metrics.http_count, 1); 
+        } else if(protocol == PROTO_TLS) { 
+            atomic_fetch_add(&engine_metrics.tls_count, 1); 
+        }
 
         int size_ip = IP_HL(ip) * 4; 
         if (ip->ip_p != IPPROTO_TCP) {
             atomic_fetch_add(&engine_metrics.acc_drops, 1); 
             goto next_frame;
         }
+        
 
         const sniff_tcp *tcp = (sniff_tcp*)(raw_packet + link_offset + size_ip);
         int size_tcp = TH_OFF(tcp) * 4;

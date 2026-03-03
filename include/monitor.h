@@ -51,6 +51,10 @@ typedef struct {
     // flow table trackers 
     atomic_long active_flows; 
     const long max_flow_capacity; 
+
+    // protocol nums 
+    atomic_long http_count; 
+    atomic_long tls_count; 
 } engine_stats_t; 
 
 extern engine_stats_t engine_metrics; 
