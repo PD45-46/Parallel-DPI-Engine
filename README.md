@@ -78,10 +78,6 @@ Sometimes the speed at which idle flow entries are 'killed' may take longer than
 
 
 ## Data Plane and Ingress 
-- Driver: AF_PACKET with PACKET_MMAP to allow for Zero-Copy 
-- Kernel User Interface: Circular ring buffer via mmap(), eliminating extra uses of expensive memcpy and recv calls.
-- Load Balancing: PACKET_FANOUT_HASH at the kernel level to ensure low affinity, ie. packets from the same TCP stream always go to the same worker. Notice that this solves only spacial locality issues regarding the same TCP 5-tuple being delivered to the correct worker thread but does't solve temporal locality issues. E.g: say that TCH arrives before MA but the true order is supposed to be MA then TCH, this would not be 
-detected. To solve in the future, create a buffer for each worker that reorganises the 'bundle' of packets taken from the kernel with respect to time sent. Though this does slow the system down, it ensures that nothing is being missed. 
 
 The data plane is the path the packet takes from the Network Interface Card (NIC) to the CPU. This engine uses a zero-copy pipeline to avoid expensive memory copies and context switches. 
 
@@ -100,9 +96,18 @@ As stated before, the use of `FANOUT` ensures tha packets from the same flow are
 
 
 ## L7 Protocol Identification 
-The engine performs protocol fingerprinting by inspecting the first 8-16 bytes of every TCP payload to detect HTTP or TLS or else... 
+The engine ignores the port number but instead looks at the first 8-16 bytes of the TCP payload. By using memory-efficient comparisons like `memcmp`, it identifies protocols based on their immutable handshake signatures. The exact handshake signatures can be found in their respective trigger files in `/text`. 
+- __HTTP:__ Scans for ASCII method verbs such as `GET`, `POST`, or `HTTP` version string at the start of the payload. 
+- __TLS:__ Note that TLS handshake cannot be seen directly using a text file as it uses the hexadecimal sequence `0x16 0x03`, where `0x16` is the handshake type and `0x03` is the version. 
 
-## TUI 
+## Text-Based User Interface (TUI) 
 Talk about how metrics are captures directly in the sniffer and then those metrics are displayed directly in the TUI to see. talk about each subsection of the TUI and what values actually mean, for example a higher than 100% maliciousness may mean that multiple malicious calls have been found in the same packet, take 'A' and 'MATCH', A is in MATCH. 
+
+The engine's custom TUI is built using the `ncurses` library. Because the sniffer operates on multiple threads across the different CPU cores, TUI acts as an 'information hub' for all the metrics collected. 
+
+### General Notes
+- __Information Maliciousness:__ Can go above 100%. Sometimes the `patterns.txt` file may contain two patterns such that one is a substring of another. In this case, for each packet, two (or more) matches may be found. Also note that since L7 handshake headers are in their respective text files, the sniffer also reads those and as a result, maliciousness may not be 100% but slightly under -- given only one match is found per packet.
+- __ALERT LOG:__ Displays information about the matches being found; the type and the location. 
+- __WORKER LATENCY:__ Sometimes you may see that the hash lookup time is taking significantly longer to perform, for a split second -- indicated by a spike in yellow bars. This _may_ indicate a situation when iterating through the linked list for collision hash values as then the system transforms from a constant time search to a linear time search with respect to the number of collisions at that hash value. 
 
 

@@ -23,7 +23,7 @@ l7_proto_t identify_l7_protocol(unsigned char *packet_start, uint32_t len) {
     struct iphdr *ip = (struct iphdr *)(packet_start + sizeof(struct ethhdr)); 
     uint32_t ip_hdr_len = ip->ihl * 4; 
 
-    // process tcp 
+    // process tcp (may implement others in future...)
     if(ip->protocol == IPPROTO_TCP) { 
         struct tcphdr *tcp = (struct tcphdr *)((unsigned char *)ip + ip_hdr_len);
         uint32_t tcp_hdr_len = tcp->doff * 4; 
