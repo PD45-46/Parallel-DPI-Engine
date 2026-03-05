@@ -297,8 +297,8 @@ void search_packet(packet_t *packet_info, flow_entry_t *flow) {
     atomic_fetch_add(&engine_metrics.acc_packets, 1);
 
     if (c % 10000 == 0) {
-        debug_log("[SAMPLE] Pkt Len: %d | Data[0]: %02x | State: %d", 
-                  packet_info->length, packet_info->data[0], flow->last_state);
+        // debug_log("[SAMPLE] Pkt Len: %d | Data[0]: %02x | State: %d", 
+        //           packet_info->length, packet_info->data[0], flow->last_state);
     }
 
     for(u_int32_t i = 0; i < packet_info->length; i++) { 
